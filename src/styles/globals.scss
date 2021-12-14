@@ -1,0 +1,50 @@
+// @use "~inter-ui/default" with (
+//   $inter-font-display: swap,
+//   $inter-font-path: '~inter-ui/Inter (web)'
+// );
+// @use "~inter-ui/variable" with (
+//   $inter-font-display: swap,
+//   $inter-font-path: '~inter-ui/Inter (web)'
+// );
+// @include default.all;
+// @include variable.all;
+
+// html { font-family: "Inter", "system-ui"; }
+
+// @supports (font-variation-settings: normal) {
+//   html { font-family: "Inter var", "system-ui"; }
+// }
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+.footer {
+  display: flex;
+  flex: 1;
+  padding: 2rem 0;
+  border-top: 1px solid #eaeaea;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
