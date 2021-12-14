@@ -82,18 +82,17 @@ const Home = ({ onThemeChange, stars }) =>  {
               and start learning more !
             </>
           }>
-          <Image src="/vercel.svg" draggable={false} />
+          <Image src="/vercel.svg" alt="logo" draggable={false} />
         </Display>
 
         <Link href='/graph'>Graph</Link>
-        <MyComponent></MyComponent>
+        <MyComponent/>
 
         <Spacer />
         <Github />
         <Spacer w={1} inline />
         <Toggle onChange={switchThemes} />
         <Spacer h={.5} />
-
 
       <Select size="small" value={theme.type} onChange={changeHandler}>
         <Select.Option label>System preset</Select.Option>
