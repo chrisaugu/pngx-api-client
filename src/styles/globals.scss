@@ -1,26 +1,32 @@
-// @use "~inter-ui/default" with (
-//   $inter-font-display: swap,
-//   $inter-font-path: '~inter-ui/Inter (web)'
-// );
-// @use "~inter-ui/variable" with (
-//   $inter-font-display: swap,
-//   $inter-font-path: '~inter-ui/Inter (web)'
-// );
-// @include default.all;
-// @include variable.all;
+@use "~inter-ui/default" with (
+   $inter-font-display: swap,
+   $inter-font-path: '~inter-ui/Inter (web)'
+ );
+@use "~inter-ui/variable" with (
+   $inter-font-display: swap,
+   $inter-font-path: '~inter-ui/Inter (web)'
+ );
+@include default.all;
+@include variable.all;
 
-// html { font-family: "Inter", "system-ui"; }
+html { font-family: "Inter", "system-ui"; }
 
-// @supports (font-variation-settings: normal) {
-//   html { font-family: "Inter var", "system-ui"; }
-// }
+@supports (font-variation-settings: normal) {
+  html { font-family: "Inter var", "system-ui"; }
+}
+
+:root {
+  --color-primary: #676767;
+}
+
+@import "nav";
+@import "buttons";
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Inter", "system-ui", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -32,19 +38,208 @@ a {
   box-sizing: border-box;
 }
 
-
-.footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
+footer {
+  display: block;
+  position: relative !important;
+  margin: 40px 0px !important;
+  padding: 2rem 0 !important;
+  //border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
+
+  a {
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
+    //flex-grow: 1;
+  }
+
+  .footnote {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+
+
+    @media (max-width: 600px) {
+      display: block;
+    }
+  }
+
+  .flex {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  p {
+    display: block;
+  }
+
+  .justify-content-space-between {
+    justify-content: space-between;
+  }
+
+  .social {
+    span {
+      display: inline-flex;
+
+      a {
+        margin: 0px 8px !important;
+      }
+    }
+  }
 }
 
-.footer a {
-  display: flex;
-  justify-content: center;
+.input {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-around;
   align-items: center;
-  flex-grow: 1;
+
+}
+
+h4.jsx-2019007676 {
+  display: grid;
+  padding: 6px 18px;
+
+  span {
+    /* display: inline-grid; */
+  }
+}
+
+%headingMP0 {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  @extend %headingMP0;
+
+  @media screen and (min-width: 768px) {
+    font-size: 3em;
+  }
+}
+
+h2 {
+  @extend %headingMP0;
+
+  @media screen and (min-width: 768px) {
+    font-size: 2.75em;
+  }
+}
+
+h3 {
+  @extend %headingMP0;
+
+  @media screen and (min-width: 768px) {
+    font-size: 2.5em;
+  }
+}
+h4 {
+  @extend %headingMP0;
+
+  @media screen and (min-width: 768px) {
+    font-size: 2.25em;
+  }
+}
+
+h5 {
+  @extend %headingMP0;
+
+  @media screen and (min-width: 768px) {
+    font-size: 2em;
+  }
+}
+
+h6 {
+  @extend %headingMP0;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.75em;
+  }
+}
+
+.quotes {
+  .card {
+    border: 1px solid #eceeee !important;
+    background-color: #eceeee;
+    box-shadow:
+            0px 0.3px 1.2px rgba(0, 0, 0, 0.006),
+            0px 0.7px 2.7px rgba(0, 0, 0, 0.009),
+            0px 1.2px 4.6px rgba(0, 0, 0, 0.011),
+            0px 1.8px 6.9px rgba(0, 0, 0, 0.013),
+            0px 2.6px 10px rgba(0, 0, 0, 0.015),
+            0px 3.7px 14.2px rgba(0, 0, 0, 0.017),
+            0px 5.3px 20.1px rgba(0, 0, 0, 0.019),
+            0px 7.7px 29.2px rgba(0, 0, 0, 0.021),
+            0px 11.8px 45px rgba(0, 0, 0, 0.024),
+            0px 21px 80px rgba(0, 0, 0, 0.03);
+    box-shadow: none !important;
+    margin: 10px 0 !important;
+    margin: 4em 0 0 0;
+
+
+    /*
+     * Custom translucent tickertape card
+     */
+    background-color: rgba(236, 238, 238, .85) !important;
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+
+    a {
+      color: #8e8e8e;
+      transition: color .15s ease-in-out;
+
+      &:hover {
+        color: #fff;
+        text-decoration: none;
+      }
+
+    }
+
+    .vertical {
+      h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+      }
+
+      h2.symbol {
+        font-size: 65px;
+        line-height: 65px;
+      }
+      h6.name {
+        font-size: 15px;
+      }
+      h5.high, h5.low {
+        font-size: 25px;
+      }
+    }
+
+    h3 {
+      font-size: 3em;
+    }
+
+    h4 {
+      font-size: 4em;
+    }
+  }
+
+  .green {
+    background-color: #7fffd4 !important;
+    color: #008d8d !important;
+    /* color: #f8f8ff; */
+  }
+  .red {
+    background-color: #ff7f7f !important;
+    color: #8d0000 !important;
+  }
+}
+
+.container {
+  max-width: 960px;
 }

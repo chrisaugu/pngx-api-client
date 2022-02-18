@@ -9,23 +9,23 @@ class MyDocument extends Document {
     return {
       ...initialProps,
       styles: (
-        <>
-          {initialProps.styles}
-          {styles}
-        </>
+          <>
+            {initialProps.styles}
+            {styles}
+          </>
       ),
     }
   }
 
   render() {
     return (
-      <Html lang="en">
-        <Head />
-        <body>
+        <Html lang="en">
+          <Head />
+          <body>
           <Main />
           <NextScript />
-        </body>
-      </Html>
+          </body>
+        </Html>
     )
   }
 }

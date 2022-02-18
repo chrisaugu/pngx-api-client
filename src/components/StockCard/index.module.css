@@ -1,0 +1,6 @@
+
+.stockImage {
+  --img-width: 70px;
+  width: var(--img-width) !important;
+  height: var(--img-width) !important;
+}

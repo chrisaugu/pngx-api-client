@@ -16,7 +16,7 @@ import {
   Title
 } from 'chart.js';
 import { Chart, Line } from 'react-chartjs-2';
-import faker from 'faker'
+import faker from 'faker';
 
 ChartJS.register(
   CategoryScale,
@@ -28,7 +28,8 @@ ChartJS.register(
   Title
 );
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','Novermber','December'];
+// const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September','October','Novermber','December'];
+// const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 const colors = [
   'red',
   'orange',
@@ -63,10 +64,10 @@ const colors = [
 function createGradient(ctx, area) {
   const colorStart = faker.random.arrayElement(colors);
   const colorMid = faker.random.arrayElement(
-    colors.filter(color => color !== colorStart)
+      colors.filter(color => color !== colorStart)
   );
   const colorEnd = faker.random.arrayElement(
-    colors.filter(color => color !== colorStart && color !== colorMid)
+      colors.filter(color => color !== colorStart && color !== colorMid)
   );
 
   const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
@@ -78,27 +79,7 @@ function createGradient(ctx, area) {
   return gradient;
 }
 
-function Graph({ quotes, symbol }) {
-  // const data = {
-  //   labels,
-  //   datasets: [
-  //     {
-  //       label: 'Dataset 1',
-  //       backgroundColor: 'rgb(255, 99, 132)',
-  //       borderColor: 'rgb(255, 99, 132)',
-  //       data: [0, 10, 5, 2, 20, 30, 45],
-  //     },
-  //     {
-  //       label: 'Dataset 2',
-  //       data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-  //     },
-  //     {
-  //       label: 'Dataset 3',
-  //       data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-  //     },
-  //   ],
-  // };
-
+export default function Graph({ quotes, symbol }) {
 
   const options = {
     responsive: true,
@@ -108,10 +89,10 @@ function Graph({ quotes, symbol }) {
       },
       title: {
         display: false,
-        // text: symbol,
+        text: symbol || '',
       }
     },
-    
+
     interaction: {
       mode: 'index',
       intersect: false,
@@ -141,43 +122,86 @@ function Graph({ quotes, symbol }) {
   let bids = _.pluck(quotes, 'bid')
   let dates = _.pluck(quotes, 'date')
   let vols = _.pluck(quotes, 'vol_today')
-  let days = _.map(dates, function(date){ return labels[new Date(date).getDay()] })
+  // let days = _.map(dates, function(date){ return labels[new Date(date).getDay()] })
+  let labels = quotes.map(function (c) {
+    return moment(c.date).format("DD MMM");
+  })
+
+  // var chartJsData = function(resultSet) {
+  //   return {
+  //     datasets: [
+  //       {
+  //         label: "Orders Count",
+  //         data: resultSet.map(function (r) {
+  //           return r["Orders.count"];
+  //         }),
+  //         backgroundColor: "rgb(255, 99, 132)"
+  //       }
+  //     ],
+  //     labels: resultSet.map(function (c) {
+  //       return moment(c.date).format("DD MMM");
+  //     })
+  //   };
+  // };
 
   const data = {
     labels,
     datasets: [
       {
-        label: 'high',
-        data: highs,
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        yAxisID: 'y',
-      },
-      {
-        label: 'low',
-        data: lows,
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        yAxisID: 'y1',
-      },
-      {
         label: 'close',
         data: closes,
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)'
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        // yAxisID: 'y',
       },
+      // {
+      //   label: 'high',
+      //   data: highs,
+      //   borderColor: 'rgb(255, 99, 132)',
+      //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      //   // yAxisID: 'y',
+      // },
+      // {
+      //   label: 'low',
+      //   data: lows,
+      //   borderColor: 'rgb(53, 162, 235)',
+      //   backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      //   // yAxisID: 'y1',
+      // },
+      // {
+      //   label: 'close',
+      //   data: closes,
+      //   borderColor: 'rgb(98, 205, 17)',
+      //   backgroundColor: 'rgba(98, 205, 17, 0.5)'
+      // },
       // {
       //   label: 'volume',
       //   data: vols
       // }
-    ]
-  }
 
-  moment().format()
-  moment().day(0)
+      // {
+      //   label: 'Dataset 1',
+      //   backgroundColor: 'rgb(255, 99, 132)',
+      //   borderColor: 'rgb(255, 99, 132)',
+      //   data: [0, 10, 5, 2, 20, 30, 45],
+      // },
+      // {
+      //   label: 'Dataset 2',
+      //   data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      // },
+      // {
+      //   label: 'Dataset 3',
+      //   data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      // },
+      // {
+      //   label: 'Dataset 4',
+      //   data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      //   borderColor: 'rgb(255, 99, 132)',
+      //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      // }
+    ],
+  };
 
-  console.log(data)
-  
   // const chartRef = useRef(null);
   // const [chartData, setChartData] = useState({
   //   datasets: [],
@@ -210,33 +234,19 @@ function Graph({ quotes, symbol }) {
   // }, []);
 
   return (
-    <Page dotBackdrop padding={0}>
-      {/*<Page.Header>
-        <Text h2>Graph of BSP</Text>
-      </Page.Header>*/}
+      <>
 
-      <Chart options={options} type='line' data={data} />
+        {/*<Chart options={options} type='line' data={data} />*/}
 
-      {/*<Chart
+        {/*<Chart
         datasetIdKey='id'
         ref={chartRef}
         type='line'
         data={chartData}
       />*/}
- 
-    </Page>
+
+        <Line options={options} data={data} />
+
+      </>
   )
 }
-
-Graph.getInitialProps = async () => {
-  // const res = await fetch('https://pngx-api.cleverapps.io/historicals/BSP')
-  const res = await fetch('http://pngx-api.cleverapps.io/stocks')
-  const quotes = await res.json()
-
-  return { 
-    // symbol: quotes.symbol,
-    quotes: quotes.data//quotes.historical 
-  }
-}
-
-export default Graph
