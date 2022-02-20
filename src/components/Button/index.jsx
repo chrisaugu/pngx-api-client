@@ -4,8 +4,10 @@ import Icon, {ArrowUp, ArrowDown} from "@geist-ui/react-icons";
 
 import styled from "styled-components";
 
+import styles from "./Button.module.css"
+
 const SomeButton = styled.a`
-color: red;
+  color: red;
 `;
 
 
@@ -18,6 +20,7 @@ export function ButtonExample() {
         icon={<ArrowUp />}
         size="small"
         type={"success"}
+        className={styles.btn}
         onClick={() => setNumber((number) => number + 1)}
       >
         +

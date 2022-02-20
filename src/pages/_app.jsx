@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import App from 'next/app'
 
-import {GeistProvider, CssBaseline, useTheme} from '@geist-ui/react'
+import { GeistProvider, CssBaseline, useTheme } from '@geist-ui/react'
+
+// import useDarkMode from 'use-dark-mode'
+// import { ThemeProvider } from 'styled-components'
 
 import { greenTheme, redTheme, myTheme } from '../utils/theme'
+// import { lightTheme, darkTheme } from '../lib/theme'
 
 import "inter-ui/inter.css"
 
@@ -15,11 +19,19 @@ import '../styles/globals.scss'
 // }
 
 function MyApp({ Component, pageProps }) {
+//     const [isMounted, setIsMounted] = useState(false)
     const [theme, setTheme] = useState('light')
 
     const changeTheme = () => {
         setTheme((last) => (last === "dark" ? "light" : "dark"));
     };
+
+//     const darkMode = useDarkMode(true)
+//     const theme = darkMode.value ? darkTheme : lightTheme
+//
+//     useEffect(() => {
+//         setIsMounted(true)
+//     }, [])
 
     return (
         <GeistProvider themes={[greenTheme, redTheme, myTheme]} themeType={theme}>
@@ -27,6 +39,14 @@ function MyApp({ Component, pageProps }) {
             <Component onThemeChange={next => setTheme(next)} {...pageProps} />
         </GeistProvider>
     )
+
+//     return (
+//         <ThemeProvider theme={theme}>
+//             <button onClick={darkMode.enable}>DARK MODE</button>
+//             <button onClick={darkMode.disable}>LIGHT MODE</button>
+//             {isMounted && <Component {...pageProps} />}
+//         </ThemeProvider>
+//     )
 
 
     // // Use the layout defined at the page level, if available
@@ -42,29 +62,3 @@ MyApp.getInitialProps = async (appContext) => {
 }
 
 export default MyApp;
-
-
-// import React, { useState, useEffect } from 'react'
-// import useDarkMode from 'use-dark-mode'
-// import { ThemeProvider } from 'styled-components'
-// import { lightTheme, darkTheme } from '../lib/theme'
-//
-// const MyApp = ({ Component, pageProps }) => {
-//     const [isMounted, setIsMounted] = useState(false)
-//     const darkMode = useDarkMode(true)
-//     const theme = darkMode.value ? darkTheme : lightTheme
-//
-//     useEffect(() => {
-//         setIsMounted(true)
-//     }, [])
-//
-//     return (
-//         <ThemeProvider theme={theme}>
-//             <button onClick={darkMode.enable}>DARK MODE</button>
-//             <button onClick={darkMode.disable}>LIGHT MODE</button>
-//             {isMounted && <Component {...pageProps} />}
-//         </ThemeProvider>
-//     )
-// }
-//
-// export default MyApp

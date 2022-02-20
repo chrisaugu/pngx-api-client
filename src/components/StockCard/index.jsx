@@ -1,8 +1,9 @@
 import React from "react";
 import { useRouter } from "next/router";
-import {Card, Grid, Text, Spacer} from "@geist-ui/react";
+import {Card, Grid, Text, Spacer, Image} from "@geist-ui/react";
+import Trend from 'react-trend';
 
-import styles from "./index.module.css";
+import styles from "./StockCard.module.css";
 
 const StockCard = ({quote}) => {
     const router = useRouter();
@@ -66,17 +67,28 @@ const StockCard = ({quote}) => {
                 <Card.Body>
                     <Grid.Container gap={2}>
                         <Grid xs={6} md>
-                            <img src={`./${quote.code.toLowerCase()}.png`} className={styles.stockImage} width="60px" height="60px"/>
+                            <Image src={`./${quote.code.toLowerCase()}.png`} className={styles.stockImage} width="60px" height="60px"/>
                             <Spacer w={1}/>
                             <div className="vertical">
                                 <Text h2 className={"symbol"}>{quote.code}</Text>
                                 <Text h6 className={"name"}>{getStockName(quote.code)}</Text>
                             </div>
                         </Grid>
+                        {/*<Trend
+                            smooth
+                            autoDraw
+                            autoDrawDuration={3000}
+                            autoDrawEasing="ease-out"
+                            data={[0,2,5,9,5,10,3,5,0,0,1,8,2,9,0]}
+                            gradient={['orange']}
+                            radius={5.1}
+                            strokeWidth={0.9}
+                            strokeLinecap={'butt'}
+                        />*/}
                         <Grid xs={6} md>
                             {/*<SmallGraph quotes={quotes}/>*/}
                             <Text h5 className={"last"}>K{quote.last}</Text>
-                            <div className="vertical" justify="left">
+                            <div className="vertical" justify="right">
                                 {/*<Text h5 className={"high"}>K{quote.high}</Text>*/}
                                 {/*<Text h5 className={"low"}>K{quote.bid}</Text>*/}
                                 {/*    <Text h3>{quote.vol_today}<AtSign size={45}/></Text>*/}

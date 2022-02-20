@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import {Grid, Link, Toggle, useTheme} from "@geist-ui/react";
 import {Moon, Sun} from "@geist-ui/react-icons";
@@ -7,8 +7,10 @@ import AnimatedIcon from "../ThemeToggler/AnimatedIcon";
 
 // import { TOKENS_DARK, TOKENS_LIGHT } from '../../../constants/Tokens'
 
+import styles from "./Header.module.css"
+
 export default function Header({onThemeChange}) {
-    // const { theme, setTheme } = useContext(ThemeContext)
+    const { theme, setTheme } = useContext(ThemeContext)
 
     const theme = useTheme()
 

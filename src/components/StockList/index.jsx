@@ -35,7 +35,7 @@ const StockList = ({stocks}) => {
 
 
     return (
-        <Wrapper className="quotes">
+        <Wrapper>
             <Options>
                 <Text span>Stocks</Text>
                 <Select scale={0.5} value={sortOptions}>

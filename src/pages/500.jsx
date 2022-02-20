@@ -6,7 +6,7 @@ export default function Custom500() {
   return (
       <>
         <Head>
-          <title>Page Not Found</title>
+          <title>Server-Side Error</title>
         </Head>
 
         <Page width={"800px"} dotBackdrop>

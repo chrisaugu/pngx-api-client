@@ -1,8 +1,9 @@
 import React from "react";
 import Head from "next/head";
 import {Divider, Grid, Link, Page, Spacer, Text} from "@geist-ui/react";
-import Header from "../Header";
 import {Facebook, Github, Instagram, Linkedin, Twitter} from "@geist-ui/react-icons";
+
+import Header from "../Header";
 
 const Layout = ({onThemeChange, title, children}) => {
     return (
@@ -49,7 +50,7 @@ const Layout = ({onThemeChange, title, children}) => {
 
                     <Text><b>Disclaimer:</b> File</Text>
                     <div className="footnote justify-content-space-between">
-                        <Text>&copy; {new Date().getFullYear()}. <Link color href="https://www.fantastixpng.xyz"
+                        <Text>&copy; {new Date().getFullYear()}. <Link color href="https://www.christianaugustyn.me"
                                                                        target="_blank">Christian Augustyn</Link></Text>
                         <Text>Made with ❤ in <Link color href="https://www.google.com/maps/place/Madang"
                                                    target="_blank">Beautiful Madang</Link>.

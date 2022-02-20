@@ -1,18 +1,31 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import fetch from '../../../lib/fetch';
-import api from '../../../utils/api';
+import api from '../../../lib/api';
 const QUERY = 'javascript';
 const LANG = 'en';
 
-export default function handler(req, res) {
-    fetch("http://localhost:5000/api/stocks")
-    // api.get('/stocks')
-        .then(r => {
-            res.status(200).json(r)
-        })
-        .catch(e => {
-            res.status(500).json({ statusCode: 500, message: e.message })
-        })
+export default async function handler(req, res) {
+    // fetch("http://localhost:5000/api/stocks")
+    // // api.get('/stocks')
+    //     .then(r => {
+    //         res.status(200).json(r)
+    //     })
+    //     .catch(e => {
+    //         res.status(500).json({ statusCode: 500, message: e.message })
+    //     })
+
+  const response = await fetch(`http://localhost:5000/api/stocks`);
+  
+  if (response.ok) {
+    const r = await response.json();
+    res.status(200).json(r);
+  }
+  else {
+    res.status(500).json({ 
+      statusCode: 500,
+      message: `Fetch to the API failed with code: ${response.status}`
+    });
+  }
 }
 
 /*export default*/ async function getTweets(req, res) {

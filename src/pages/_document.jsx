@@ -13,7 +13,7 @@ class MyDocument extends Document {
             {initialProps.styles}
             {styles}
           </>
-      ),
+      )
     }
   }
 
