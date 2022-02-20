@@ -1,6 +1,7 @@
 import React from "react";
+import Image from 'next/image';
 import { useRouter } from "next/router";
-import {Card, Grid, Text, Spacer, Image} from "@geist-ui/react";
+import {Card, Grid, Text, Spacer} from "@geist-ui/react";
 import Trend from 'react-trend';
 
 import styles from "./StockCard.module.css";
