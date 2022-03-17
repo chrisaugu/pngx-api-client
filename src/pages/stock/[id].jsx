@@ -25,7 +25,7 @@ import {
 import Axios from 'axios';
 
 import Header from "../../components/Header";
-import Graph from "../../components/graph";
+import Graph from "../../components/Graph";
 
 // import api from "../../lib/api";
 import Layout from "../../components/Layout";

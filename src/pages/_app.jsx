@@ -82,8 +82,8 @@ function MyApp({ Component, pageProps }) {
             />
 
             <Layout onThemeChange={changeTheme}>
-                    <Component {...pageProps} />
-                    {/*<Component onThemeChange={next => setTheme(next)} {...pageProps} />*/}
+              <Component {...pageProps} />
+              {/*<Component onThemeChange={next => setTheme(next)} {...pageProps} />*/}
             </Layout>
 
             <style global jsx>{`

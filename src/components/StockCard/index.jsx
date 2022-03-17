@@ -134,11 +134,10 @@ const StockCard = ({quote}) => {
                                 <Grid.Container>
                                     <Grid xs={12} gap={1.5} justify="left" alignItems="center">
                                     {/*<GridWall>*/}
-                                        <Image
+                                        {/*blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}*/}
+                                          <Image
                                           src={`/${quote.code.toLowerCase()}.png`} 
                                           className={styles.stockImage} 
-                                          placeholder="blur"
-                                          blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
                                           width={60} 
                                           height={60}
                                           alt=""/>
