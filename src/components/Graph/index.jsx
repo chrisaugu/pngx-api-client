@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import _, { map } from 'underscore'
 import moment from 'moment'
 
-import {Page, Text} from '@geist-ui/react'
+import {Page, Text} from '@geist-ui/core'
 
 import {
   Chart as ChartJS,

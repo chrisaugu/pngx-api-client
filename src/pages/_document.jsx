@@ -1,11 +1,12 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
-import { CssBaseline } from '@geist-ui/react'
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { CssBaseline } from '@geist-ui/core';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx)
+    const initialProps = await Document.getInitialProps(ctx);
     // return { ...initialProps }
-    const styles = CssBaseline.flush()
+    const styles = CssBaseline.flush();
+    
     return {
       ...initialProps,
       styles: (
@@ -22,8 +23,8 @@ class MyDocument extends Document {
         <Html lang="en">
           <Head />
           <body>
-          <Main />
-          <NextScript />
+            <Main />
+            <NextScript />
           </body>
         </Html>
     )

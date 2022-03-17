@@ -1,21 +1,19 @@
 import React from "react";
-import { Button, useToasts } from "@geist-ui/react";
+import { Button, useToasts } from "@geist-ui/core";
 
 export default function ToastExample() {
-  const [toast, setToast] = useToasts();
+  const {toast, setToast} = useToasts();
 
   // const click = () => {
   //   setToast({ text: "Lorem ipsum", type: "success" });
   // };
 
-  // const action = {
-  //   name: 'alert',
-  //   handler: () => alert('alert from toast')
-  // }
   const action = {
+    // name: 'alert',
     name: 'cancel',
-    passive: true,
-    handler: (event, cancel) => cancel()
+    // handler: () => alert('alert from toast'),
+    handler: (event, cancel) => cancel(),
+    passive: true
   }
   const click = () => setToast({
     text: 'HTTP is stateless, but not sessionless.',

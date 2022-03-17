@@ -1,6 +1,7 @@
-import React from "react";
-import Head from "next/head";
-import {Button, Display, Page, Text} from "@geist-ui/react";
+import React from 'react';
+import Head from 'next/head';
+import NextLink from 'next/link';
+import {Button, Display, Page, Text, Link} from "@geist-ui/core";
 
 export default function Custom500() {
   return (
@@ -17,10 +18,10 @@ export default function Custom500() {
             </Display>
 
             <Text>
-              Oopsie! It seems the page you're looking for isn't here. Please return home.
+              Oopsie! It seems the page you&apos;re looking for isn&apos;t here. Please return home.
             </Text>
 
-            <Button><a href="/">Return home</a></Button>
+            <Button><NextLink href="/"><Link>Return home</Link></NextLink></Button>
 
           </Page.Content>
 

@@ -18,21 +18,28 @@ const Card = () => (
         span
         span
     </div>
-    h2.name Morgan Sweeney
-    .title Ant Collector
-    .actions
-      .follow-info
-        h2
-          a(href="#")
-            span 12
-            small Followers
-        h2
-          a(href="#")
-            span 1000
-            small Following
-      .follow-btn
-        button Follow
-    .desc Morgan has collected ants since they were six years old and now has many dozen ants but none in their pants.
+    <h2 className="name">Morgan Sweener</h2>
+    <div className="title">Ant Collector</div>
+    <div className="actions">
+      <div className="follow-info">
+        <h2>
+          <a href="#">
+            <span>12</span>
+            <small>Followers</small>
+          </a>
+        </h2>
+        <h2>
+          <a href="#">
+            <span>1000</span>
+            <small>Following</small>
+          </a>
+        </h2>
+      </div>
+      <div className="follow-btn">
+        <button>Follow</button>
+      </div>
+    </div>
+    <div className="desc">Morgan has collected ants since they were six years old and now has many dozen ants but none in their pants.</div>
   </div>
 )
 

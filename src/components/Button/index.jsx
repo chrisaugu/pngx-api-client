@@ -1,15 +1,12 @@
 import React, { useState } from "react";
-import { Button as GButton, Text } from "@geist-ui/react";
-import Icon, {ArrowUp, ArrowDown} from "@geist-ui/react-icons";
+import { Button as GButton, Text } from "@geist-ui/core";
+import Icon, {ArrowUp, ArrowDown} from "@geist-ui/icons";
 
 import styled from "styled-components";
-
-import styles from "./Button.module.css"
 
 const SomeButton = styled.a`
   color: red;
 `;
-
 
 export function ButtonExample() {
   const [number, setNumber] = useState(0);
@@ -20,7 +17,6 @@ export function ButtonExample() {
         icon={<ArrowUp />}
         size="small"
         type={"success"}
-        className={styles.btn}
         onClick={() => setNumber((number) => number + 1)}
       >
         +
@@ -38,7 +34,7 @@ export function ButtonExample() {
     </SomeButton>
   );
 }
-// import { Text, Spinner } from "@geist-ui/react";
+// import { Text, Spinner } from "@geist-ui/core";
 // import { useEffect, useState } from "react";
 
 // export default function SpinnerExample() {

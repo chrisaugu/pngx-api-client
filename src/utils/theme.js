@@ -1,4 +1,4 @@
-import {Themes} from '@geist-ui/react'
+import {Themes} from '@geist-ui/core'
 
 let breakpoints = {
   xs: "400px",

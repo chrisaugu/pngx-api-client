@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import { sampleUserData } from '../../utils/sample-data'
 import Layout from '../../components/Layout'
-import {Spacer, Button} from "@geist-ui/react";
+import {Spacer, Button} from "@geist-ui/core";
 
 const WithStaticProps = ({ items }) => (
     <Layout title="Users List | Next.js + TypeScript Example">
@@ -17,7 +17,7 @@ const WithStaticProps = ({ items }) => (
         <ul>
             {
                 items.map((item, i) => (
-                    <li>{item.name}</li>
+                    <li key={i}>{item.name}</li>
                 ))
             }
         </ul>

@@ -1,5 +1,6 @@
 import React from "react";
-import Head from 'next/head'
+import Head from 'next/head';
+import NextLink from 'next/link';
 import {
     Page,
     Button,
@@ -8,7 +9,7 @@ import {
     Image,
     Display,
     Divider
-} from '@geist-ui/react'
+} from '@geist-ui/core'
 
 export default function Custom404() {
     return (
@@ -23,10 +24,10 @@ export default function Custom404() {
                     <Text h2>Page Not Found</Text>
 
                     <Text>
-                        Oopsie! It seems the page you're looking for isn't here. Please return home.
+                        Oopsie! It seems the page you&apos;re looking for isn&apos;t here. Please return home.
                     </Text>
 
-                    <Button><a href="/">Return home</a></Button>
+                    <Button><NextLink href="/"><Link>Return home</Link></NextLink></Button>
 
                 </Page.Content>
 
