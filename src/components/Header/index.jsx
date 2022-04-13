@@ -56,7 +56,7 @@ export default function Header({onThemeChange}) {
 
                 <Grid xstyle={{ width: 160 }}>
                   <Grid.Container gap={1} alignItems="center">
-                    <Grid>
+                    {/*<Grid>
                       <Tooltip text={"Glossary"} placement="bottom">
                         <RoundButton
                           aria-label="Glossary"
@@ -66,7 +66,7 @@ export default function Header({onThemeChange}) {
                           }}
                         />
                       </Tooltip>
-                    </Grid>
+                    </Grid>*/}
                     <Grid>
                       <Tooltip text={"Theme"} placement="bottom">
                         <RoundButton
@@ -81,7 +81,7 @@ export default function Header({onThemeChange}) {
                         {/*<AnimatedIcon className={"theme-toggler"} onSwitchTheme={switchTheme} />*/}
                       </Tooltip>
                     </Grid>
-                    <Grid>
+                    {/*<Grid>
                       <Tooltip text={"Settings"} placement="bottom">
                         <RoundButton
                           aria-label="Settings"
@@ -89,7 +89,7 @@ export default function Header({onThemeChange}) {
                           onClick={() => setVisible(true)}
                         />
                       </Tooltip>
-                    </Grid>
+                    </Grid>*/}
                   </Grid.Container>
 
                   {/*<ModalSettings setVisible={setVisible} bindings={bindings} />*/}

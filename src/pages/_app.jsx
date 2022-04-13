@@ -15,7 +15,7 @@ import Layout from "../components/Layout"
 
 import "inter-ui/inter.css"
 
-// import '../styles/globals.scss'
+import '../styles/globals.scss'
 import GlobalStyle from "../styles/globals"
 
 // export function reportWebVitals(metric) {
@@ -43,10 +43,10 @@ function MyApp({ Component, pageProps }) {
             <GlobalStyle/>
 
             <Head>
-              <meta
-                name="viewport"
-                content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
-              />
+                <meta
+                    name="viewport"
+                    content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+                />
                 {/*<title>{title}</title>*/}
                 <meta name="description" content="I got one life and I intend to live an extraordinary life to be remembered." />
                 <meta name="keywords" content="Medina, Developer, Designer, UX, Front-end, Engineer" />
@@ -55,7 +55,7 @@ function MyApp({ Component, pageProps }) {
                 <meta property="og:image" content="/og.png" />
 
                 <link rel="icon" href="./favicon.svg" />
-                
+
             </Head>
 
             <Script id="darkMode" dangerouslySetInnerHTML={{ __html: `
@@ -68,7 +68,7 @@ function MyApp({ Component, pageProps }) {
               })()
             `}} />
             <Script id="gtag" async src="https://www.googletagmanager.com/gtag/js?id=UA-110371817-17" />
-            <Script
+            {/*<Script
               id="dataLayer"
               async
               dangerouslySetInnerHTML={{
@@ -79,11 +79,11 @@ function MyApp({ Component, pageProps }) {
                 gtag('config', 'UA-110371817-17');
                 `
               }}
-            />
+            />*/}
 
             <Layout onThemeChange={changeTheme}>
-              <Component {...pageProps} />
-              {/*<Component onThemeChange={next => setTheme(next)} {...pageProps} />*/}
+                <Component {...pageProps} />
+                {/*<Component onThemeChange={next => setTheme(next)} {...pageProps} />*/}
             </Layout>
 
             <style global jsx>{`
@@ -93,15 +93,13 @@ function MyApp({ Component, pageProps }) {
             `}</style>
 
         </GeistProvider>
-    )
 
-//     return (
 //         <ThemeProvider theme={theme}>
 //             <button onClick={darkMode.enable}>DARK MODE</button>
 //             <button onClick={darkMode.disable}>LIGHT MODE</button>
 //             {isMounted && <Component {...pageProps} />}
 //         </ThemeProvider>
-//     )
+    )
 }
 
 MyApp.getInitialProps = async (appContext) => {

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, Text } from "@geist-ui/core";
 import Icon, {ArrowUp, ArrowDown} from "@geist-ui/icons";
-
 import styled from "styled-components";
 
 const StyledButton = styled(Button)`
