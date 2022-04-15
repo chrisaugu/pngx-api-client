@@ -2,7 +2,9 @@ import {
   FETCH_STOCKS,
   FETCH_COMPANIES,
   ADD_TO_FAVOURITE,
-  REMOVE_FROM_FAVOURITE
+  REMOVE_FROM_FAVOURITE,
+  LAST_UPDATED_DATE,
+  CURRENT_DATE
 } from '../actionTypes';
 
 let nextTodoId = 0
@@ -41,3 +43,13 @@ export function getData() {
       return { type: "DATA_LOADED", payload: json };
     });
 }
+
+export const setLastUpdated = (date) => ({
+  type: LAST_UPDATED_DATE,
+  date
+})
+
+export const setDate = (date) => ({
+  type: CURRENT_DATE,
+  date
+})

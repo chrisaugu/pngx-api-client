@@ -2,9 +2,10 @@ import { combineReducers } from 'redux';
 import * as actions from "../actionTypes";
 
 const initialState = {
+    date: "",
+    last_updated: "",
     stocks: [],
     favourites: /*window.localStorage.getItem('pngx-favourites') ? JSON.parse(window.localStorage.getItem('pngx-favourites')) :*/ [],
-    articles: []
 };
 
 // function rootReducer(state = initialState, action) {
@@ -25,7 +26,7 @@ export const stocksReducer = (state = initialState, action) => {
         case actions.FETCH_STOCKS:
             return {
                 ...state,
-                movies: action.payload,
+                stocks: action.payload,
             };
         
         case actions.ADD_TO_FAVOURITE:
@@ -40,7 +41,7 @@ export const stocksReducer = (state = initialState, action) => {
         
         case actions.REMOVE_FROM_FAVOURITE:
             const originalFav = state.favourites;
-            const filtredFav = originalFav.filter((f) => f.id !== action.payload);
+            const filtredFav = originalFav.filter(item => item._id !== action.payload);
 
             // window.localStorage.removeItem('');
 
@@ -49,7 +50,18 @@ export const stocksReducer = (state = initialState, action) => {
                 favourites: filtredFav,
             };
 
+        case actions.LAST_UPDATED_DATE:
+            return {
+                ...state,
+                last_updated: action.date 
+            }
 
+        case actions.CURRENT_DATE:
+            return {
+                ...state,
+                date: action.date
+            }
+            
         default:
             return state;
     }

@@ -30,74 +30,90 @@ import {
     useToasts
 } from '@geist-ui/core';
 import {AtSign, ArrowUp, Star } from '@geist-ui/icons'
-import Axios from 'axios';
 import _ from 'underscore';
-import { format, startOfDay, endOfDay, subDays } from "date-fns";
+import { format, startOfDay, endOfDay, subDays, formatDistance, formatRelative } from 'date-fns';
 
-import api from "../lib/api";
-import Counter from "../components/Counter";
+import styled from 'styled-components';
+
+import Api from "../lib/api";
+// import { stocks } from "../utils/sample-data";
 import Header from "../components/Header";
 import Layout from "../components/Layout";
 // import {ButtonExample, Button as MyButton} from "../components/Button";
 import ToastMessage from "../components/Toast";
 import StocksList from "../components/StocksList";
 import Graph from "../components/Graph/Large";
+// import Analytics from "../components/Analytics";
 
-import { fetchStocksFromAPI, /*getStocks*/ } from '../redux/stocks/stocks';
 import store from '../redux/configureStore';
+import { fetchStocksFromAPI, /*getStocks*/ } from '../redux/stocks/stocks';
+import { fetchStocks, getData, setLastUpdated, setDate } from "../redux/actions";
+import { getStockList, getFavouritesList, getLastUpdated } from "../redux/selectors";
 
-import { stocks } from "../utils/sample-data";
-import { fetchStocks, getData } from "../redux/actions/index";
+const List = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  // max-width: 100vw;
+  // min-height: 50vh;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr)
+  }
+`;
 
 const Home = () => {
-    // const [stocks, setStocks] = useState('');
-    const [search, setSearch] = useState('');
     const { palette } = useTheme();
-
-    const stocksList = stocks.data;
-    // const stocksList = useSelector((state) => state.stocks);
-    // const { stocks } = useSelector((state) => state.stocks);
     const dispatch = useDispatch();
 
-    const favouritesList = useSelector((state) => state.favourites.favourites);
+    const [stocks, setStocks] = useState([]);
+    
+    // const stocksList = stocks;
+    const stocksList = useSelector(getStockList);
+    console.log(stocksList)
+    const favouritesList = useSelector(getFavouritesList);
+    console.log(favouritesList)
 
-    // const getMovieRequest = async (searchValue) => {
-    //     const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=263d22d8`;
-    //
-    //     const response = await fetch(url);
-    //     const responseJson = await response.json();
-    //
-    //     if (responseJson.Search) {
-    //         setStocks(responseJson.data);
+    const lastUpdated = useSelector(getLastUpdated);
+
+    const getStocks = async () => {
+        const url = 'https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/stocks';
+        fetch(url)
+            .then(response => response.json())
+            .then(responseJson => {
+                dispatch(setDate(responseJson.date));
+                dispatch(setLastUpdated(responseJson.last_updated));
+                setStocks(responseJson.data);
+                dispatch(fetchStocks(responseJson.data));
+
+                favouritesList.find((m) => {
+                    console.log(m._id == stock._id)
+                });
+
+                // const unsubscribe = store.subscribe(() =>
+                //     console.log('State after dispatch: ', store.getState())
+                // );
+                // unsubscribe();
+            })
+            .catch(error => console.error(error));
+    //     try {
+    //         const data = await Api.getMovies();
+    //         dispatch(fetchStocks(data));
+    //     } catch (error) {
+    //         console.log(error.response);
     //     }
-    // };
-
-    // useEffect(() => {
-    //     getMovieRequest(search);
-    // }, [search]);
-
-    const fetchMovies = async () => {
-        try {
-            const data = await MoviesApi.getMovies();
-            dispatch(fetchStocks(data));
-        } catch (error) {
-            console.log(error.response);
-        }
     };
 
     useEffect(() => {
-        fetchMovies();
-    }, []);
-
-    useEffect(() => {
-        // store.dispatch(getStocks());
-
         if (stocksList && stocksList.length === 0) {
-            dispatch(fetchStocksFromAPI());
+            // dispatch(fetchStocksFromAPI());
+            // dispatch(getStocks());
+            getStocks();
         }
-
-        console.log("100: " + stocksList)
-    }, []);
+    // }, [search]);
+    // }, []);
+    });
 
     let isShown = false;
 
@@ -105,18 +121,6 @@ const Home = () => {
         state: 'hasValue' // 'loading'
     }
 
-    const showGraph = () => {
-        return !isShown;
-    }
-
-    const StockOptions = () => {
-        const options = [
-            { label: 'London', value: 'london' },
-            { label: 'Sydney', value: 'sydney' },
-            { label: 'Shanghai', value: 'shanghai' },
-        ]
-        return <AutoComplete placeholder="Enter here" options={options} />
-    }
 
     // const sortData = (data) => {
     //   setStocks(_.sortBy(stocks, 'name'));
@@ -140,6 +144,20 @@ const Home = () => {
     //     setFavourites(movieFavourites);
     // }, []);
 
+
+    const showGraph = () => {
+        return !isShown;
+    }
+
+    const StockOptions = () => {
+        const options = [
+            { label: 'London', value: 'london' },
+            { label: 'Sydney', value: 'sydney' },
+            { label: 'Shanghai', value: 'shanghai' },
+        ]
+        return <AutoComplete placeholder="Enter here" options={options} />
+    }
+
     return (
         <>
             <Head>
@@ -149,61 +167,63 @@ const Home = () => {
             <div>
 
                 {/*<div className="home">
-              <Grid.Container>
-                <Grid xs={24} justify="center" alignItems="center">
-                  <Text p size={22} className="title">
-                    SECRET
-                  </Text>
-                </Grid>
-                <Grid xs={24} justify="center" alignItems="center">
-                  <Grid
-                    xs={24}
-                    md={17}
-                    justify="center"
-                    alignItems="center"
-                    direction="column"
-                    className="desc">
-                    <Text p size={14}>
-                      Secret will protect you when sharing information, you can use it to send
-                      text without worrying about hijacked. For more, refer to{' '}
-                      <Text span i>
-                        <NextLink href="/0x01" passHref>
-                          <Link>Introduction</Link>
-                        </NextLink>
+                  <Grid.Container>
+                    <Grid xs={24} justify="center" alignItems="center">
+                      <Text p size={22} className="title">
+                        SECRET
                       </Text>
-                      .
-                    </Text>
+                    </Grid>
+                    <Grid xs={24} justify="center" alignItems="center">
+                      <Grid
+                        xs={24}
+                        md={17}
+                        justify="center"
+                        alignItems="center"
+                        direction="column"
+                        className="desc">
+                        <Text p size={14}>
+                          Secret will protect you when sharing information, you can use it to send
+                          text without worrying about hijacked. For more, refer to{' '}
+                          <Text span i>
+                            <NextLink href="/0x01" passHref>
+                              <Link>Introduction</Link>
+                            </NextLink>
+                          </Text>
+                          .
+                        </Text>
+                      </Grid>
+                    </Grid>
+                    <IndexLinks />
+                  </Grid.Container>
+                </div>
+                <Grid.Container>
+                  <Grid xs={24} justify="center" alignItems="center">
+                    <NextLink href="/go" passHref>
+                      <Link>
+                        <Button type="secondary-light">Start Now</Button>
+                      </Link>
+                    </NextLink>
                   </Grid>
-                </Grid>
-                <IndexLinks />
-              </Grid.Container>
-            </div>
-            <Grid.Container>
-              <Grid xs={24} justify="center" alignItems="center">
-                <NextLink href="/go" passHref>
-                  <Link>
-                    <Button type="secondary-light">Start Now</Button>
-                  </Link>
-                </NextLink>
-              </Grid>
-            </Grid.Container>
+                </Grid.Container>
 
-            <style jsx>{`
-              .home {
-                text-align: center;
-                height: 450px;
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-                margin-bottom: 40px;
-              }
-              .home :global(.title) {
-                letter-spacing: 1.5px;
-              }
-              .home :global(.desc) {
-                max-width: 470px;
-              }
-            `}</style>*/}
+                <style jsx>{`
+                  .home {
+                    text-align: center;
+                    height: 450px;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    margin-bottom: 40px;
+                  }
+                  .home :global(.title) {
+                    letter-spacing: 1.5px;
+                  }
+                  .home :global(.desc) {
+                    max-width: 470px;
+                  }
+                `}</style>*/}
+
+                {/*<Analytics />*/}
 
                 <Spacer h={3}/>
 
@@ -211,9 +231,7 @@ const Home = () => {
 
                 {/*<MyButton>Hello</MyButton>*/}
 
-                <ToastMessage/>
-
-                <Counter/>
+                {/*<ToastMessage/>*/}
 
                 {/*<Text>*/}
                 {/*    S*/}
@@ -224,20 +242,20 @@ const Home = () => {
                   quotes ? <Loading /> :
                 }*/}
 
-                <div className="favourites">
-                    <ul>
-                        {/*<StocksList data={favouritesList}/>*/}
+                {/*<div className="favourites-list">
+                    <Text h2 className="title">Favourites</Text>
+                    <List>
+                        <StocksList stocks={favouritesList}/>
                         { favouritesList.map((e, i) => (
-                            <li key={i}>{e}</li>
+                            <li key={i}>{e._id}</li>
                         ))}
-                    </ul>
-                </div>
+                    </List>
+                </div>*/}
 
-                <div className="quotes">
-
+                <div className="stocks-list">
                     {loadable.state === "hasValue" && (
                         <>
-                            <StocksList data={stocksList}/>
+                            <StocksList stocks={stocksList}/>
                             <Spacer h={1} />
                         </>
                     )}
@@ -249,21 +267,13 @@ const Home = () => {
                     {/*<Pagination count={stocks.length} initialPage={0} limit={11} onChange={fetchData} />*/}
                 </div>
 
+                <Text>Last updated {lastUpdated && formatDistance(new Date(lastUpdated), new Date(), { addSuffix: true })}</Text>
+                <Text>Last updated on {lastUpdated && formatRelative(new Date(lastUpdated), new Date())}</Text>
+
+
             </div>
         </>
     )
 }
-
-// Home.getInitialProps = async () => {
-//     // const res = await fetch('http://localhost:4000/api/stocks')
-//     const res = await fetch('https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/stocks')
-//     const { data } = await res.json();
-
-//     // const {data} = await Axios.get("http://localhost:4000/api/stocks");
-//     // const {data} = await api.get('/stocks')
-//     return {
-//         quotes: data || []
-//     }
-// }
 
 export default Home;

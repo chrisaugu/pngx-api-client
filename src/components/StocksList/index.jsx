@@ -22,19 +22,19 @@ const Options = styled.div`
     padding: 4px 13px;
 `
 
-const StocksList = ({data}) => {
-    const [stocks, setStocks] = useState([]);
+const StocksList = ({stocks}) => {
+    // const [stocks, setStocks] = useState([]);
     const [sortType, setSortType] = useState('albums');
 
     const sortOptions = {};
 
-    const sortData = (data) => {
-      setStocks(_.sortBy(stocks, 'name'));
-    }
+    // const sortData = (data) => {
+    //   setStocks(_.sortBy(stocks, 'name'));
+    // }
 
-    useEffect(() => {
-        setStocks(data);
-    }, []);
+    // useEffect(() => {
+    //     setStocks(data);
+    // }, []);
 
     // useEffect(() => {
     //     const sortArray = type => {
@@ -73,7 +73,7 @@ const StocksList = ({data}) => {
                 </Select>*/}
                 <Grid.Container>
                   <Grid xs={12} justify="left" alignItems="center">
-                    <Text h4 size={22} className="title">
+                    <Text h2 size={22} className="title">
                         Stocks
                     </Text>
                   </Grid>
@@ -86,12 +86,14 @@ const StocksList = ({data}) => {
                 </Grid.Container>
             </Options>
 
-            { stocks.map((quote, i) => {
-                return (
-                    // {{loadableFeed.state === "hasValue" && <TableReport data={feed} />}}
-                    <StockCard key={i} stock={quote}/>
-                )
-            })}
+            <div className="stock-card-container">
+                { stocks.map((quote, i) => {
+                    return (
+                        // {{loadableFeed.state === "hasValue" && <TableReport data={feed} />}}
+                        <StockCard key={i} stock={quote}/>
+                    )
+                })}
+            </div>
 
             {/*<Pagination count={stocks.length} initialPage={0} limit={11} onChange="" />*/}
         </Wrapper>

@@ -99,10 +99,10 @@ const Layout = ({onThemeChange, children}) => {
                         </div>
 
                         <Text>
-                            This site is built using NextJs, GesitUI. All data are fetched from&nbsp;
+                            This site is built using NextJs, GesitUI.
                             <Link target="_blank" href="https://github.com/geist-ui/react">Built on&nbsp;<Code>@geist-ui/core</Code></Link>
                             <br/>
-                            Data fetched from <Link color block target="_blank" href="https://pngx-api.cleverapps.io/api">pngx-api.cleverapps.io</Link>.
+                            All data are fetched from&nbsp;<Link color block target="_blank" href="https://pngx-api.cleverapps.io/api">pngx-api.cleverapps.io</Link>.
                         </Text>
 
                         <Text><b>Disclaimer:</b> File</Text>

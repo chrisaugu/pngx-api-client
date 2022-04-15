@@ -1,4 +1,6 @@
 module.exports = {
+  distDir: 'build',
+  
   reactStrictMode: true,
 
   pageExtensions: ['jsx', 'js', 'mdx', 'md', 'ts', 'tsx'],

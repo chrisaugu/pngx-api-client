@@ -68,21 +68,6 @@ const Counter = () => {
 			<Grid.Container gap={1.5}>
 				<Grid>
 					<Button 
-						type="warning" 
-						ghost
-						auto 
-						scale={0.7}
-						aria-label="Increment value"
-						onClick={() => dispatch(incrementAction(1))}
-					>
-						+
-					</Button>
-				</Grid>
-				<Grid>
-					<span className={"styles.value"}>{count}</span>
-				</Grid>
-				<Grid>
-					<Button 
 						type="error" 
 						ghost 
 						auto 
@@ -91,6 +76,21 @@ const Counter = () => {
 						onClick={() => dispatch(decrementAction(-1))}
 					>
 						-
+					</Button>
+				</Grid>
+				<Grid>
+					<span className={"styles.value"}>{count}</span>
+				</Grid>
+				<Grid>
+					<Button 
+						type="warning" 
+						ghost
+						auto 
+						scale={0.7}
+						aria-label="Increment value"
+						onClick={() => dispatch(incrementAction(1))}
+					>
+						+
 					</Button>
 				</Grid>
 			</Grid.Container>
