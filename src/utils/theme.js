@@ -995,8 +995,6 @@ const preset_ui = {
   }
 }
 
-
-
 const light = {
   bg: 'white',
   fontColor: 'purple'

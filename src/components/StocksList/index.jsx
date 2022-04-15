@@ -73,7 +73,7 @@ const StocksList = ({stocks}) => {
                 </Select>*/}
                 <Grid.Container>
                   <Grid xs={12} justify="left" alignItems="center">
-                    <Text h4 size={22} className="title">
+                    <Text h2 size={22} className="title">
                         Stocks
                     </Text>
                   </Grid>
@@ -86,12 +86,14 @@ const StocksList = ({stocks}) => {
                 </Grid.Container>
             </Options>
 
-            { stocks.map((quote, i) => {
-                return (
-                    // {{loadableFeed.state === "hasValue" && <TableReport data={feed} />}}
-                    <StockCard key={i} stock={quote}/>
-                )
-            })}
+            <div className="stock-card-container">
+                { stocks.map((quote, i) => {
+                    return (
+                        // {{loadableFeed.state === "hasValue" && <TableReport data={feed} />}}
+                        <StockCard key={i} stock={quote}/>
+                    )
+                })}
+            </div>
 
             {/*<Pagination count={stocks.length} initialPage={0} limit={11} onChange="" />*/}
         </Wrapper>

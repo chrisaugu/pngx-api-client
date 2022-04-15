@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
-
 import { useRouter } from "next/router";
 import {Image, Page, Grid, Link, Toggle, Tooltip, Text, Button, useTheme} from "@geist-ui/core";
-import {Moon, Sun, Book, Settings} from "@geist-ui/icons";
+import {Moon, Sun, Book, Settings, Heart} from "@geist-ui/icons";
 import {format} from 'date-fns';
 
 // import ThemeToggler from "../ThemeToggler";
 import AnimatedIcon from "../ThemeToggler/AnimatedIcon";
 import RoundButton from "../Button/Round";
+
+import { useSelector } from 'react-redux';
+import { getLastUpdated, getDate } from "../../redux/selectors";
 
 // import { TOKENS_DARK, TOKENS_LIGHT } from '../../../constants/Tokens'
 
@@ -15,9 +17,11 @@ import styles from "./Header.module.css";
 
 export default function Header({onThemeChange}) {
     // const { theme, setTheme } = useContext(ThemeContext)
-
     const theme = useTheme();
     const router = useRouter();
+
+    const date = useSelector(getDate);
+    const lastUpdated = useSelector(getLastUpdated);
 
     const switchTheme = () => {
       onThemeChange && onThemeChange(last => (last === 'dark' ? 'light' : 'dark'))
@@ -47,8 +51,8 @@ export default function Header({onThemeChange}) {
                       >
                         PNGX Client
                       </Text>
-                      <Text span type="secondary">
-                        { format(new Date(), "yyyy-MM-dd") }
+                      <Text span type="secondary" title={date}>
+                        { date && format(new Date(date), "'Today is' eeee yyyy-MM-dd") }
                       </Text>
                     </Grid>
                   </Grid.Container>
@@ -67,6 +71,15 @@ export default function Header({onThemeChange}) {
                         />
                       </Tooltip>
                     </Grid>*/}
+                    <Grid>
+                      <Tooltip text={"Watchlists"} placement="bottom">
+                        <RoundButton
+                          aria-label="Watchlists"
+                          icon={<Heart />}
+                          onClick={() => router.push('/watchlist')}
+                        />
+                      </Tooltip>
+                    </Grid>
                     <Grid>
                       <Tooltip text={"Theme"} placement="bottom">
                         <RoundButton

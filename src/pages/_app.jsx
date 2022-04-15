@@ -6,11 +6,9 @@ import Script from 'next/script'
 
 import {GeistProvider, CssBaseline, useTheme } from '@geist-ui/core'
 
-// import useDarkMode from 'use-dark-mode'
-// import { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components';
 
 import { greenTheme, redTheme, myTheme } from '../utils/theme'
-// import { lightTheme, darkTheme } from '../lib/theme'
 import Layout from "../components/Layout"
 
 import "inter-ui/inter.css"
@@ -23,7 +21,7 @@ import GlobalStyle from "../styles/globals"
 // }
 
 function MyApp({ Component, pageProps }) {
-//     const [isMounted, setIsMounted] = useState(false)
+    const [isMounted, setIsMounted] = useState(false)
     const [theme, setTheme] = useState('light')
 
     const changeTheme = () => {
@@ -33,9 +31,9 @@ function MyApp({ Component, pageProps }) {
 //     const darkMode = useDarkMode(true)
 //     const theme = darkMode.value ? darkTheme : lightTheme
 //
-//     useEffect(() => {
-//         setIsMounted(true)
-//     }, [])
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
 
     return (
         <GeistProvider themes={[greenTheme, redTheme, myTheme]} themeType={theme}>
@@ -92,7 +90,7 @@ function MyApp({ Component, pageProps }) {
             />*/}
 
             <Layout onThemeChange={changeTheme}>
-                <Component {...pageProps} />
+                {isMounted && <Component {...pageProps} />}
                 {/*<Component onThemeChange={next => setTheme(next)} {...pageProps} />*/}
             </Layout>
 

@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
+
 import Api from "../../lib/api";
-import {FETCH_COMPANIES, FETCH_STOCKS} from "../actionTypes";
+import { FETCH_COMPANIES, FETCH_STOCKS } from "../actionTypes";
 
 // initial state
 const initialState = {
@@ -12,6 +13,19 @@ const initialState = {
   stocks: [],
   favourites: []
 };
+
+
+// Home.getInitialProps = async () => {
+//     // const res = await fetch('http://localhost:4000/api/stocks')
+//     const res = await fetch('https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/stocks')
+//     const { data } = await res.json();
+
+//     // const {data} = await Axios.get("http://localhost:4000/api/stocks");
+//     // const {data} = await api.get('/stocks')
+//     return {
+//         quotes: data || []
+//     }
+// }
 
 // export const getStocks = createAsyncThunk(
 //   'redux/stocks/stocks.js',

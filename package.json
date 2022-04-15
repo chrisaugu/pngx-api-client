@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/chrisaugu/pngx-api-client#readme",
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@geist-ui/core": "^2.3.6",
     "@geist-ui/icons": "^1.0.1",
     "@reduxjs/toolkit": "^1.8.0",
