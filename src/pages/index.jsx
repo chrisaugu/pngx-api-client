@@ -76,28 +76,28 @@ const Home = () => {
     //     getMovieRequest(search);
     // }, [search]);
 
-    const fetchMovies = async () => {
-        try {
-            const data = await MoviesApi.getMovies();
-            dispatch(fetchStocks(data));
-        } catch (error) {
-            console.log(error.response);
-        }
-    };
+    // const fetchMovies = async () => {
+    //     try {
+    //         const data = await MoviesApi.getMovies();
+    //         dispatch(fetchStocks(data));
+    //     } catch (error) {
+    //         console.log(error.response);
+    //     }
+    // };
 
-    useEffect(() => {
-        fetchMovies();
-    }, []);
+    // useEffect(() => {
+    //     fetchMovies();
+    // }, []);
 
-    useEffect(() => {
-        // store.dispatch(getStocks());
+    // useEffect(() => {
+    //     // store.dispatch(getStocks());
 
-        if (stocksList && stocksList.length === 0) {
-            dispatch(fetchStocksFromAPI());
-        }
+    //     if (stocksList && stocksList.length === 0) {
+    //         dispatch(fetchStocksFromAPI());
+    //     }
 
-        console.log("100: " + stocksList)
-    }, []);
+    //     console.log("100: " + stocksList)
+    // }, []);
 
     let isShown = false;
 
@@ -226,7 +226,7 @@ const Home = () => {
 
                 <div className="favourites">
                     <ul>
-                        {/*<StocksList data={favouritesList}/>*/}
+                        {/*<StocksList stocks={favouritesList}/>*/}
                         { favouritesList.map((e, i) => (
                             <li key={i}>{e}</li>
                         ))}
@@ -237,7 +237,7 @@ const Home = () => {
 
                     {loadable.state === "hasValue" && (
                         <>
-                            <StocksList data={stocksList}/>
+                            <StocksList stocks={stocksList}/>
                             <Spacer h={1} />
                         </>
                     )}

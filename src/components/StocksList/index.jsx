@@ -22,19 +22,19 @@ const Options = styled.div`
     padding: 4px 13px;
 `
 
-const StocksList = ({data}) => {
-    const [stocks, setStocks] = useState([]);
+const StocksList = ({stocks}) => {
+    // const [stocks, setStocks] = useState([]);
     const [sortType, setSortType] = useState('albums');
 
     const sortOptions = {};
 
-    const sortData = (data) => {
-      setStocks(_.sortBy(stocks, 'name'));
-    }
+    // const sortData = (data) => {
+    //   setStocks(_.sortBy(stocks, 'name'));
+    // }
 
-    useEffect(() => {
-        setStocks(data);
-    }, []);
+    // useEffect(() => {
+    //     setStocks(data);
+    // }, []);
 
     // useEffect(() => {
     //     const sortArray = type => {

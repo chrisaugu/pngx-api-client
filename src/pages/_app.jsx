@@ -53,6 +53,16 @@ function MyApp({ Component, pageProps }) {
                 <meta property="og:title" content="Christian Augustyn: Front-end Engineer" />
                 <meta property="og:description" content="I got one life and I intend to live an extraordinary life to be remembered." />
                 <meta property="og:image" content="/og.png" />
+                <meta
+                    name="theme-color"
+                    content="#fff"
+                    media="(prefers-color-scheme: light)"
+                />
+                <meta
+                    name="theme-color"
+                    content="#000"
+                    media="(prefers-color-scheme: dark)"
+                />
 
                 <link rel="icon" href="./favicon.svg" />
 
