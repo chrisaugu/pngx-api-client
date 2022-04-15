@@ -5,7 +5,7 @@ import Head from "next/head";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { Page, Divider, Grid, Link, Button, Breadcrumbs, Spacer, Text, Tooltip, Code, Card, useTheme, useToasts } from "@geist-ui/core";
-import { Facebook, Github, Instagram, Linkedin, Twitter, ArrowLeft } from "@geist-ui/icons";
+import { Facebook, Github, Instagram, Linkedin, Twitter, ArrowLeft, Home } from "@geist-ui/icons";
 
 import store from '../../redux/configureStore';
 
@@ -60,22 +60,28 @@ const Layout = ({onThemeChange, children}) => {
 
                     {router.pathname !== "/" && (
                         <>
-                            <Link href="/" passHref>
-                                <a className={'styles.back'}>
+                            <Spacer h={1}/>
+
+                            <NextLink href="/" >
+                                <Link>
                                     <ArrowLeft /> Back Home
-                                </a>
-                            </Link>
+                                </Link>
+                            </NextLink>
+
+                            <Spacer h={1}/>
 
                             <Breadcrumbs>
                                 <NextLink href="/">
-                                    <Breadcrumbs.Item nextLink>Home</Breadcrumbs.Item>
+                                    <Link>
+                                        <Breadcrumbs.Item nextLink><Home /></Breadcrumbs.Item>
+                                    </Link>
                                 </NextLink>
-                                <Breadcrumbs.Item>Breadcrumbs</Breadcrumbs.Item>
+                                <Breadcrumbs.Item>Watchlist</Breadcrumbs.Item>
                             </Breadcrumbs>
                         </>
                     )}
 
-                    <Button scale={2/3} auto onClick={click}>Show Toast</Button>
+                    {/*<Button scale={2/3} auto onClick={click}>Show Toast</Button>*/}
 
                     <Page.Body className="page">
 

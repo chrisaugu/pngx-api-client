@@ -68,7 +68,7 @@ const Home = () => {
     return (
         <>
             <Head>
-                <title>PNGX Client</title>
+                <title>Watchlist | PNGX Client</title>
             </Head>
 
             <div>
