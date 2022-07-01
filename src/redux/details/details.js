@@ -1,13 +1,13 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import Api from "../../lib/api";
-import {FETCH_STOCKS} from "../actionTypes";
+import { FETCH_STOCKS } from "../actionTypes";
 
 const initialState = []
 
 export const fetchTodos = createAsyncThunk(FETCH_STOCKS, async () => {
     const response = await Api.get('/stocks')
     return response.data
-})
+});
 
 const todosSlice = createSlice({
     name: 'todos',

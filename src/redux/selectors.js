@@ -19,3 +19,5 @@ export const getFavouritesList = (store) => store.stocks ? store.stocks.favourit
 
 export const getLastUpdated = (store) => store.stocks.last_updated;
 export const getDate = (store) => store.stocks.date;
+
+export const getLoadableStatus = (store) => store.loadable;

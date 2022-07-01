@@ -1,6 +1,6 @@
 import {ADD_TO_FAVOURITE, REMOVE_FROM_FAVOURITE} from "../actionTypes";
 
-export default (state = { favourites: [] } , action) => {
+const favouriteReducer = (state = { favourites: [] } , action) => {
   switch (action.type) {
     case ADD_TO_FAVOURITE:
       return {
@@ -19,3 +19,4 @@ export default (state = { favourites: [] } , action) => {
       return state;
   }
 };
+export default favouriteReducer;

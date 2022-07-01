@@ -1,5 +1,4 @@
-import React from 'react';
+import { createContext } from 'react';
 
-const AppContext = React.CreateContext();
-
-export default AppContext;
+export const UserContext = createContext({ user: null, username: null });
+export const AppContext = createContext();

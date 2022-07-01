@@ -39,4 +39,16 @@ export const getStaticProps = async () => {
     return { props: { items } }
 }
 
-export default WithStaticProps
+export default WithStaticProps;
+
+export async function getServerSideProps({ query }) {
+    const { username } = query;
+    const userDoc = await getUserWithUsername(username);
+  
+    // If no user, short circuit to 404 page
+    if (!userDoc) {
+      return {
+        notFound: true,
+      };
+    }
+  }

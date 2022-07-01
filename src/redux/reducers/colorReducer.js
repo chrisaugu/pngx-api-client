@@ -1,4 +1,4 @@
-export default (state = {} , action) => {
+const colorReducer = (state = {} , action) => {
   switch (action.type) {
     case "colorChange":
       return {
@@ -9,3 +9,4 @@ export default (state = {} , action) => {
       return state;
   }
 };
+export default colorReducer;

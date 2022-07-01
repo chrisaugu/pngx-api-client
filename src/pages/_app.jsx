@@ -1,119 +1,177 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react';
+import App from 'next/app';
+import Head from 'next/head';
+import Script from 'next/script';
+import { useRouter } from 'next/router';
 
-import App from 'next/app'
-import Head from 'next/head'
-import Script from 'next/script'
+import { Provider } from 'react-redux';
+import store from "../redux/configureStore";
 
-import {GeistProvider, CssBaseline, useTheme } from '@geist-ui/core'
+import {GeistProvider, CssBaseline, useTheme} from '@geist-ui/core';
 
 import { ThemeProvider } from 'styled-components';
 
-import { greenTheme, redTheme, myTheme } from '../utils/theme'
-import Layout from "../components/Layout"
+import { myDarkTheme, myLightTheme, myTheme, darkTheme, lightTheme } from '../utils/theme';
 
-import "inter-ui/inter.css"
+import Layout from "../components/Layout";
+import { OnlineStatusProvider } from "../hooks/useOnlineStatus";
+import useMyTheme from '../hooks/useMyTheme';
+import { PrefersContext, ThemeType, usePrefers } from '../hooks/usePrefers';
 
-import '../styles/globals.scss'
-import GlobalStyle from "../styles/globals"
+import { GTM_ID, pageview } from '../lib/gtm';
+
+import "inter-ui/inter.css";
+
+import '../styles/styles.scss';
+import GlobalStyle from "../styles/globals";
 
 // export function reportWebVitals(metric) {
-//   console.log(metric)
+//   console.log(metric);
 // }
 
 function MyApp({ Component, pageProps }) {
-    const [isMounted, setIsMounted] = useState(false)
-    const [theme, setTheme] = useState('light')
+  const router = useRouter();
+  // const [theme, setTheme] = useMyTheme();
+  // const [themeType, switchTheme] = usePrefers();
+  const theme = useTheme();
 
-    const changeTheme = () => {
-        setTheme((last) => (last === "dark" ? "light" : "dark"));
-    };
+  // const darkMode = useDarkMode(true);
+  // const theme = darkMode.value ? darkTheme : lightTheme;
+  // const theme = {
+  //   main: "mediumseagreen"
+  // };
+  
+  const [themeType, switchTheme] = useState('light');
+  // const switchThemes = () => {
+  //     setThemeType(last => (last === 'dark' ? 'light' : 'dark'))
+  // }
 
-//     const darkMode = useDarkMode(true)
-//     const theme = darkMode.value ? darkTheme : lightTheme
-//
-    useEffect(() => {
-        setIsMounted(true)
-    }, [])
+  // const [theme, setTheme] = useState(TOKENS_DARK)
+  
+  // useEffect(() => {
+  //     setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches
+  //         ? TOKENS_DARK
+  //         : TOKENS_LIGHT)
+  // }, []);
 
-    return (
-        <GeistProvider themes={[greenTheme, redTheme, myTheme]} themeType={theme}>
-            <CssBaseline />
-            <GlobalStyle/>
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-            <Head>
-                <meta
-                    name="viewport"
-                    content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
-                />
-                {/*<title>{title}</title>*/}
-                <meta name="description" content="I got one life and I intend to live an extraordinary life to be remembered." />
-                <meta name="keywords" content="Medina, Developer, Designer, UX, Front-end, Engineer" />
-                <meta property="og:title" content="Christian Augustyn: Front-end Engineer" />
-                <meta property="og:description" content="I got one life and I intend to live an extraordinary life to be remembered." />
-                <meta property="og:image" content="/og.png" />
-                <meta
-                    name="theme-color"
-                    content="#fff"
-                    media="(prefers-color-scheme: light)"
-                />
-                <meta
-                    name="theme-color"
-                    content="#000"
-                    media="(prefers-color-scheme: dark)"
-                />
+  useEffect(() => {
+    const handdleRouteChange = url => {
+      window.gtag('config', process.env.NEXT_PUBLIC_GA_ID, {
+        page_path: url
+      });
+    }
+    
+    router.events.on('routeChangeComplete', handdleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handdleRouteChange)
+    }
+    // router.events.on('routeChangeComplete', pageview)
+    // return () => {
+    //   router.events.off('routeChangeComplete', pageview)
+    // }
+  }, [router.events]);
 
-                <link rel="icon" href="./favicon.svg" />
+  // const [themeType, setThemeType] = useState('dark');
+  // useEffect(() => {
+  //   document.documentElement.removeAttribute('style');
+  //   document.body.removeAttribute('style');
 
-            </Head>
+  //   const theme = window.localStorage.getItem('theme');
+  //   if (themes.includes(theme)) setThemeType(theme);
+  // }, []);
+  
+  // const switchTheme = useCallback((theme) => {
+  //   setThemeType(theme);
+  //   if (typeof window !== 'undefined' && window.localStorage) window.localStorage.setItem('theme', theme);
+  // }, []);
 
-            <Script id="darkMode" dangerouslySetInnerHTML={{ __html: `
-              (function(){
-                if (!window.localStorage) return;
-                if (window.localStorage.getItem('theme') === 'dark') {
-                  document.documentElement.style.background = '#000';
-                  document.body.style.background = '#000';
-                };
-              })()
-            `}} />
-            <Script id="gtag" async src="https://www.googletagmanager.com/gtag/js?id=UA-110371817-17" />
-            {/*<Script
-              id="dataLayer"
-              async
-              dangerouslySetInnerHTML={{
-                __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'UA-110371817-17');
-                `
-              }}
-            />*/}
+  return (
+    <GeistProvider themes={[myDarkTheme, myLightTheme, myTheme]} themeType={{type: ThemeType}}>
+      
+      <Head>
+        <meta charSet='utf-8' />
+        <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover, user-scalable=no" />
+        <title>Home | Nuku - PNGX-API Client - Stock Price, Quote, News & History</title>
+        <meta name="description" content="At Nuku, you get free stock quotes, up-to-date news, local market data, social interaction about PNGX." />
+        <meta name="keywords" content="At Nuku, you get free stock quotes, up-to-date news, local market data, social interaction about PNGX." />
+        
+        <meta property="og:title" content="Nuku - Stock Market Live, Quotes, &amp; Financial News" />
+        <meta property="og:description" content="At Nuku, you get free stock quotes, up-to-date news, local market data, social interaction about PNGX." />
+        <meta property="og:image" content="/og.png" />
+        
+        <meta name="twitter:title" content={"title"} />
+        <meta name="twitter:description" content={"description"} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@fireship_dev" />
+        <meta name="twitter:image" content={"image"} />
 
-            <Layout onThemeChange={changeTheme}>
-                {isMounted && <Component {...pageProps} />}
-                {/*<Component onThemeChange={next => setTheme(next)} {...pageProps} />*/}
-            </Layout>
+        <link rel="icon" href="./favicon.svg" />
+        <link href='/favicon-16x16.png' rel='icon' type='image/png' sizes='16x16' />
+        <link href='/favicon-32x32.png' rel='icon' type='image/png' sizes='32x32' />
+        <link rel="apple-touch-icon" href="/apple-icon.png"></link>
+        
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="color-scheme" content="light dark" />
+        <meta name="theme-color" content="#fafafa" />
+        <meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#000" media="(prefers-color-scheme: dark)" />
+      </Head>
 
-            <style global jsx>{`
-              body {
-                overflow-x: hidden;
-              }
-            `}</style>
+      {/* Google Tag Manager - Global base code */}
+      {/* <Script
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+            __html: `
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer', '${GTM_ID}');
+              `
+        }}
+      /> */}
+      
+      <CssBaseline />
+      <GlobalStyle />
 
-        </GeistProvider>
+      {/* <Layout onThemeChange={changeTheme}>
+        {isMounted && <Component {...pageProps} />}
+        <Component onThemeChange={next => setTheme(next)} {...pageProps} />
+      </Layout> */}
 
-//         <ThemeProvider theme={theme}>
-//             <button onClick={darkMode.enable}>DARK MODE</button>
-//             <button onClick={darkMode.disable}>LIGHT MODE</button>
-//             {isMounted && <Component {...pageProps} />}
-//         </ThemeProvider>
-    )
+      {/* <ThemeProvider theme={theme}> */}
+        {/* <button onClick={darkMode.enable}>DARK MODE</button> */}
+        {/* <button onClick={darkMode.disable}>LIGHT MODE</button> */}
+        {/* <Component {...pageProps} /> */}
+      {/* </ThemeProvider> */}
+
+      {/*<OnlineStatusProvider>
+        Hello
+      </OnlineStatusProvider>*/}
+
+      <Provider store={store}>
+        {/* {isMounted && <Component {...pageProps} />} */}
+        <PrefersContext.Provider value={{ themeType, switchTheme }}>
+          <Component {...pageProps} />
+        </PrefersContext.Provider>
+      </Provider>
+
+    </GeistProvider>
+  )
 }
 
 MyApp.getInitialProps = async (appContext) => {
-    const appProps = await App.getInitialProps(appContext);
+  const appProps = await App.getInitialProps(appContext);
 
-    return { ...appProps }
-}
-
+  return { ...appProps };
+  
+  // const menuItems = await getPrimaryMenu();
+  // return {menuItems};
+};
 export default MyApp;

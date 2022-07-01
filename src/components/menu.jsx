@@ -7,48 +7,48 @@ import { menu } from "./items";
 // === STYLESHEET USING REACT-JSS ===
 const useStyles = createUseStyles(() => ({
   container: {
-   position: "absolute",
-   right: 10,
-   "& button": {
-     color: "black",
-     border: "1.5px solid #EDEEF1",
-     width: 150,
-     borderRadius: "15px",
+    position: "absolute",
+    right: 10,
+    "& button": {
+      color: "black",
+      border: "1.5px solid #EDEEF1",
+      width: 150,
+      borderRadius: "15px",
   }
  }
 }));
 
 const dropdownCategories = [
- {
-   key: 0,
-   content: "Today",
-   value: "Today",
- },
- {
-   key: 1,
-   content: "Yesterday",
-   value: "Yesterday",
- },
- {
-   key: 2,
-   content: "Last 7 days",
-   value: "Last_7_days",
- },
- {
-   key: 3,
-   content: "Last 14 days",
-   value: "Last_14_days",
- },
- {
-   key: 4,
-   content: "Last 30 days",
-   value: "Last_30_days",
- },
- {
-  key: 5,
-  content: "Last 90 days",
-  value: "Last_90_days",
- }
+  {
+    key: 0,
+    content: "Today",
+    value: "Today",
+  },
+  {
+    key: 1,
+    content: "Yesterday",
+    value: "Yesterday",
+  },
+  {
+    key: 2,
+    content: "Last 7 days",
+    value: "Last_7_days",
+  },
+  {
+    key: 3,
+    content: "Last 14 days",
+    value: "Last_14_days",
+  },
+  {
+    key: 4,
+    content: "Last 30 days",
+    value: "Last_30_days",
+  },
+  {
+    key: 5,
+    content: "Last 90 days",
+    value: "Last_90_days",
+  }
 ];
 
 const DropdownSelector = ({ fetchCustomData }) => {

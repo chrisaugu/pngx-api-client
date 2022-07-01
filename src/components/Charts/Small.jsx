@@ -16,10 +16,10 @@ import { Chart, Line } from 'react-chartjs-2';
 import faker from 'faker'
 
 ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement
 );
 
 // const colors = [

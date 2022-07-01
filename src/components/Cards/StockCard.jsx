@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import {Card as GCard, Grid, Text, Spacer, Button, Modal, useModal, useToasts} from '@geist-ui/core';
@@ -13,10 +14,8 @@ import { getStock } from '../../redux/stocks/stocks';
 import { addToFavourites, removeFromFavourites } from "../../redux/actions";
 import { getStockList, getFavouritesList } from "../../redux/selectors";
 
-import NormalButton from "../Button/Normal";
-import FavButton from "../Button/Favorite";
-
-import StockCardStyle from "./StockCard.module.css";
+import NormalButton from "../Buttons/Normal";
+import FavButton from "../Buttons/Favorite";
 
 const Wrapper = styled.div`
   display: flex;
@@ -25,6 +24,10 @@ const Wrapper = styled.div`
   align-content: center;
   align-items: center;
   justify-content: space-between;
+
+  &:hover {
+    background-color: rgba(37, 37, 37, 1);
+  }
 `;
 
 const GridWall = styled.div`
@@ -38,50 +41,61 @@ const Card = styled(GCard)`
   padding: 1.5rem;
   text-align: left;
   color: inherit;
-  background-color: #fafafa;
+  background-color: #fafafa !important;
+  backdrop-filter: blur(10px);
   text-decoration: none;
-  border: 1px solid #efefef;
-  border-radius: 5px;
-  transition: color 0.15s ease, border-color 0.15s ease,
-  background-color 0.15s ease;
-
+  border: 1px solid rgb(235, 238, 241) !important;
+  border-radius: 24px !important;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  box-shadow: 0 10px 30px 0 rgb(0 0 0 / 10%) !important;
   cursor: pointer;
-  width: 100%;
-  // max-width: 20rem;
   
-  // &:hover,
-  // &:focus,
-  // &:active {
-  //   border-color: #ddd;
-  //   background-color: #f7f7f7;
-  // }
+  
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #f7f7f7;
+    transform: scale(1.01);
+  }
 
-  // & > h2 {
-  //   margin: 0 0 1rem 0;
-  //   font-size: 1.5rem;
-  // }
+  & > h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.5rem;
+  }
 
-  // & > p {
-  //   margin: 0;
-  //   font-size: 1.25rem;
-  //   line-height: 1.5;
-  // }
-
-  // div.buttons {
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  //   margin: 1.5rem auto 0.5rem;
-  // }
-
-  // .disabledButton {
-  //   width: 150px;
-  // }
+  & > p {
+    margin: 0;
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
 `;
+
+const Horizontal = styled.div`
+    display: inline-flex;
+    margin: 0 10px;
+`;
+
+const Vertical = styled.div`
+    margin: 0 10px;
+    align-items: start;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+`;
+
+// .transition {
+//     transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;
+//     transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+//     transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;
+//     transition-timing-function: cubic-bezier(.25,.46,.45,.94);
+//     transition-duration: .33s;
+// }
+
 
 const StockCard = ({stock}) => {
     const router = useRouter();
-    const {toast, setToast} = useToasts();
+    const { toast, setToast } = useToasts();
     const dispatch = useDispatch();
     const { visible, setVisible, bindings } = useModal();
 
@@ -114,7 +128,7 @@ const StockCard = ({stock}) => {
         }
     }
 
-    function getStockName(code) {
+    function getCompanyNamefromStockCode(code) {
         let names = {
             "BSP": "BSP Financial Group Limited",
             "CCP": "Credit Corporation (PNG) Ltd",
@@ -139,8 +153,8 @@ const StockCard = ({stock}) => {
     // action creators are now available in the props
     const add = (stock) => {
         console.log(stock)
-        const newFavouriteList = [...favouritesList, stock];
-        saveToLocalStorage(newFavouriteList);
+        // const newFavouriteList = [...favouritesList, stock];
+        // saveToLocalStorage(newFavouriteList);
     
         dispatch(addToFavourites(stock));
         setToast({ text: `You added ${stock.code} to your Watchlist`, type: "success" });
@@ -162,6 +176,7 @@ const StockCard = ({stock}) => {
     return (
         <>
             <Card key={stock._id}
+                  type={"dark"}
                   hoverable
                   className={`stock-card ${changeBg(stock.chg_today)}`}
                   xonClick={() => router.push('/stock/' + stock.code)}
@@ -175,14 +190,15 @@ const StockCard = ({stock}) => {
                             {/*blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}*/}
                             <Image
                                 src={`/${stock.code.toLowerCase()}.png`}
-                                className={StockCardStyle.stockImage}
                                 width={60}
                                 height={60}
                                 alt=""/>
+                            
                             <Spacer w={1}/>
+                            
                             <div className="vertical">
                                 <Text h2 className={"symbol"}>{stock.code}</Text>
-                                <Text h6 className={"name"}>{getStockName(stock.code)}</Text>
+                                <Text h6 className={"name"}><Link href={`/company/${stock.code}`}>{getCompanyNamefromStockCode(stock.code)}</Link></Text>
                             </div>
                         </Grid>
                         {/*</GridWall>*/}
@@ -203,18 +219,19 @@ const StockCard = ({stock}) => {
                             {/*<GridWall>*/}
                             {/*<SmallGraph stocks={stocks}/>*/}
                             <Text h2 className={"last"}>K{stock.last}</Text>
-                            <div className="vertical" justify="right">
+                            <Horizontal>
                                 {/*<Text h5 className={"high"}>K{stock.high}</Text>*/}
                                 {/*<Text h5 className={"low"}>K{stock.bid}</Text>*/}
                                 {/*    <Text h3>{stock.vol_today}<AtSign size={45}/></Text>*/}
                                 {/*    <Text h4><span>K{stock.bid}</span></Text>*/}
-                                <Text h3 badge>{changeDir(stock.chg_today)}</Text>
                                 <Text h3 badge>({percentChange(stock.chg_today)})</Text>
+                                <Text h3 badge>{changeDir(stock.chg_today)}</Text>
                                 {/*<Text h4>Offer: <span>K{stock.offer}</span></Text>*/}
                                 {/*<Text h4>High: <span>K{stock.high}</span></Text>*/}
                                 {/*<Text h4>Low: <span>K{stock.low}</span></Text>*/}
+                                {/*<Text h4>Close: <span>K{stock.open}</span></Text>*/}
                                 {/*<Text h4>Close: <span>K{stock.close}</span></Text>*/}
-                            </div>
+                            </Horizontal>
 
                             {/*<button*/}
                             {/*    onClick={() =>*/}
@@ -230,10 +247,12 @@ const StockCard = ({stock}) => {
                             {/*</button>*/}
 
                             {
-                                favouritesList.find((m) => m._id == stock._id) ?
+                                favouritesList && favouritesList.find((m) => m._id == stock._id) ?
                                     (<FavButton icon={<HeartFill/>} scale={0.75} onClick={ () => remove(stock._id) }/>) :
                                     (<FavButton icon={<Heart/>} scale={0.75} onClick={ () => add(stock) }/>)
                             }
+
+                            <Spacer w={1}/>
 
                             <NormalButton iconRight={<MoreVertical/>} auto onClick={() => setVisible(true)} px={0.6} scale={0.75} />
 
@@ -252,6 +271,14 @@ const StockCard = ({stock}) => {
                     {/*</Wrapper>*/}
                 </Card.Body>
                 {/*</Link>*/}
+                <style jsx>{`
+                    .stockImage {
+                      --img-width: 70px;
+                      width: var(--img-width) !important;
+                      height: var(--img-width) !important;
+                      margin: 0 !important;
+                    }
+                `}</style>
             </Card>
             {/*<div className={`${StockCardStyle.stockCard} ${stockCard}`}>
                 <h3 className={StockCardStyle.stockSymbol}>{symbol}</h3>

@@ -5,23 +5,16 @@ const initialState = {
     date: "",
     last_updated: "",
     stocks: [],
-    favourites: /*window.localStorage.getItem('pngx-favourites') ? JSON.parse(window.localStorage.getItem('pngx-favourites')) :*/ [],
+    favourites: /*localStorage.getItem('pngx-favourites') ? JSON.parse(window.localStorage.getItem('pngx-favourites')) :*/ [],
 };
 
-// function rootReducer(state = initialState, action) {
-//   if (action.type === ADD_ARTICLE) {
-//     state.articles.push(action.payload);
-//   }
-//   return state;
-// }
-// export rootReducer;
-
-// const rootReducer = combineReducers({
-//     currentUser,
-//     counter
+// export const rootReducer = combineReducers({
+    // currentUser,
+    // counter
 // });
 
 export const stocksReducer = (state = initialState, action) => {
+    console.log(state)
     switch (action.type) {
         case actions.FETCH_STOCKS:
             return {

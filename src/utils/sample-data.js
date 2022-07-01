@@ -612,3 +612,394 @@ export const BSP = {
     }
   ]
 }
+
+export const historicals = {
+  "BSP": {
+    status: 200,
+    last_updated: "2022-01-28T00:00:00.000Z",
+    symbol: "BSP",
+    total_count: 38,
+    historical: [
+      {
+        _id: "61f3c174745c635659a4cb27",
+        date: "2022-01-28T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 107959
+      },
+      {
+        _id: "61f7869a04c5897fc165720b",
+        date: "2022-01-31T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 36040
+      },
+      {
+        _id: "61f9849934f70fc3ef3f0494",
+        date: "2022-02-01T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 47595
+      },
+      {
+        _id: "61fa2dd234f70fc3ef3f12ca",
+        date: "2022-02-02T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 42405
+      },
+      {
+        _id: "61fb7f5234f70fc3ef3f2ef6",
+        date: "2022-02-03T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 0
+      },
+      {
+        _id: "61fcd14a34f70fc3ef3f4b34",
+        date: "2022-02-04T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 1284
+      },
+      {
+        _id: "6200c82234f70fc3ef3f9fc4",
+        date: "2022-02-07T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 0
+      },
+      {
+        _id: "62021a9134f70fc3ef3fbc10",
+        date: "2022-02-08T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 0
+      },
+      {
+        _id: "62036c8a34f70fc3ef3fd84e",
+        date: "2022-02-09T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 0
+      },
+      {
+        _id: "6204bca234f70fc3ef3ff444",
+        date: "2022-02-10T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 25332
+      },
+      {
+        _id: "6206781234f70fc3ef40194c",
+        date: "2022-02-11T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 0
+      },
+      {
+        _id: "620a6f6134f70fc3ef406e0e",
+        date: "2022-02-14T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 0
+      },
+      {
+        _id: "620bc1d234f70fc3ef408a4c",
+        date: "2022-02-15T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 160848
+      },
+      {
+        _id: "620cdde234f70fc3ef40a1fc",
+        date: "2022-02-16T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 173385
+      },
+      {
+        _id: "620e30521f6932d9c6caa071",
+        date: "2022-02-17T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 0
+      },
+      {
+        _id: "620f5a726222efbf50109d1e",
+        date: "2022-02-18T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 115000
+      },
+      {
+        _id: "62148ae24984ea5f6c909644",
+        date: "2022-02-22T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 0
+      },
+      {
+        _id: "6215dc61d4189286c3d3b551",
+        date: "2022-02-23T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 0
+      },
+      {
+        _id: "62173b01d4189286c3d3d855",
+        date: "2022-02-24T00:00:00.000Z",
+        code: "BSP",
+        close: 12.25,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 3980
+      },
+      {
+        _id: "62188669d4189286c3d3f991",
+        date: "2022-02-25T00:00:00.000Z",
+        code: "BSP",
+        close: 12.25,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 4656
+      },
+      {
+        _id: "621e16027b820a348e695623",
+        date: "2022-03-01T00:00:00.000Z",
+        code: "BSP",
+        close: 12.25,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 0
+      },
+      {
+        _id: "621f67fa7b820a348e697805",
+        date: "2022-03-02T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 968316
+      },
+      {
+        _id: "6220b9f27b820a348e6999e9",
+        date: "2022-03-03T00:00:00.000Z",
+        code: "BSP",
+        close: 12.5,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 981
+      },
+      {
+        _id: "6221bcb27b820a348e69b3cd",
+        date: "2022-03-04T00:00:00.000Z",
+        code: "BSP",
+        close: 12.5,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 0
+      },
+      {
+        _id: "6225b38a69c97e943e4d3998",
+        date: "2022-03-07T00:00:00.000Z",
+        code: "BSP",
+        close: 12.5,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 0
+      },
+      {
+        _id: "62293bc109895f6dc976ad64",
+        date: "2022-03-09T00:00:00.000Z",
+        code: "BSP",
+        close: 12.7,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 1451497
+      },
+      {
+        _id: "6229aa6109895f6dc976b893",
+        date: "2022-03-10T00:00:00.000Z",
+        code: "BSP",
+        close: 12.7,
+        high: 13.5,
+        low: 12,
+        open: 12.7,
+        vol_today: 15577
+      },
+      {
+        _id: "622afc5909895f6dc976dae4",
+        date: "2022-03-11T00:00:00.000Z",
+        code: "BSP",
+        close: 12.7,
+        high: 13.5,
+        low: 12,
+        open: 12.7,
+        vol_today: 0
+      },
+      {
+        _id: "622ef24109895f6dc9774042",
+        date: "2022-03-14T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12.7,
+        vol_today: 798
+      },
+      {
+        _id: "6230ae29b791c4d4ffe464ea",
+        date: "2022-03-15T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12.7,
+        vol_today: 0
+      },
+      {
+        _id: "62318e3ab791c4d4ffe47b44",
+        date: "2022-03-16T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12.7,
+        vol_today: 0
+      },
+      {
+        _id: "6232d6d2b791c4d4ffe49c2a",
+        date: "2022-03-17T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12.7,
+        vol_today: 0
+      },
+      {
+        _id: "623428cab791c4d4ffe4be21",
+        date: "2022-03-18T00:00:00.000Z",
+        code: "BSP",
+        close: 12,
+        high: 13.5,
+        low: 12,
+        open: 12.7,
+        vol_today: 0
+      },
+      {
+        _id: "6239737aff936dcd9dca837d",
+        date: "2022-03-22T00:00:00.000Z",
+        code: "BSP",
+        close: 12.05,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 170
+      },
+      {
+        _id: "623ada89ff936dcd9dcaa77d",
+        date: "2022-03-23T00:00:00.000Z",
+        code: "BSP",
+        close: 12.05,
+        high: 13.5,
+        low: 12,
+        open: 12.05,
+        vol_today: 1378
+      },
+      {
+        _id: "623c1e722ad3c67b92752c34",
+        date: "2022-03-24T00:00:00.000Z",
+        code: "BSP",
+        close: 12.05,
+        high: 13.5,
+        low: 12,
+        open: 12.05,
+        vol_today: 1339
+      },
+      {
+        _id: "623d78d92f7e16c40cf0b53d",
+        date: "2022-03-25T00:00:00.000Z",
+        code: "BSP",
+        close: 12.05,
+        high: 13.5,
+        low: 12,
+        open: 12.05,
+        vol_today: 990
+      },
+      {
+        _id: "6229380209895f6dc976acec",
+        date: "2022-09-03T00:00:00.000Z",
+        code: "BSP",
+        close: 12.7,
+        high: 13.5,
+        low: 12,
+        open: 12,
+        vol_today: 1451497
+      }
+    ]
+  }
+}

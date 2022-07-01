@@ -21,19 +21,84 @@ import {
     Spacer,
     useMediaQuery
 } from "@geist-ui/core";
-
 import Axios from 'axios';
+import useSWR from 'swr';
 
 import Header from "../../components/Header";
-import Graph from "../../components/Graph/Large";
+import Graph from "../../components/Charts/Large";
 
 // import api from "../../lib/api";
-import Report from "../../components/Table/Report";
+import Report from "../../components/Tables/Report";
 import { BSP as historical } from "../../utils/sample-data";
+import {firestore} from "../../lib/firebase";
+
+
+export async function getServerSideProps({ params }) {
+    // const res = await fetch('http://pngx-api.cleverapps.io/stocks')
+    // const { data } = await Axios.get(`https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/historicals/${params.id}`);
+    // const { historical, symbol } = await fetch(`https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/historicals/${params.id}?limit=12`).then(res => res.json());
+    // const { historical, symbol } = await fetch(`http://localhost:5000/api/historicals/${params.id}?limit=12`).then(res => res.json());
+
+    return {
+        props: {
+            quotes: historical,
+            // symbol: symbol
+            symbol: "BSP"
+        }
+    }
+}
+
+export async function getServerSideProps(context) {
+    const postsQuery = firestore
+      .collectionGroup('posts')
+      .where('published', '==', true)
+      .orderBy('createdAt', 'desc')
+      .limit(LIMIT);
+  
+    const posts = (await postsQuery.get()).docs.map(postToJSON);
+  
+    return {
+      props: { posts }, // will be passed to the page component as props
+    };
+}
 
 const Details = ({quotes, symbol}) =>  {
     const mqUpSM = useMediaQuery("sm", { match: "up" });
     const theme = useTheme();
+
+    const [posts, setPosts] = useState(props.posts);
+    const [loading, setLoading] = useState(false);
+  
+    const [postsEnd, setPostsEnd] = useState(false);
+  
+    const getMorePosts = async () => {
+      setLoading(true);
+      const last = posts[posts.length - 1];
+  
+      const cursor = typeof last.createdAt === 'number' ? fromMillis(last.createdAt) : last.createdAt;
+  
+      const query = firestore
+        .collectionGroup('posts')
+        .where('published', '==', true)
+        .orderBy('createdAt', 'desc')
+        .startAfter(cursor)
+        .limit(LIMIT);
+  
+      const newPosts = (await query.get()).docs.map((doc) => doc.data());
+  
+      setPosts(posts.concat(newPosts));
+      setLoading(false);
+  
+      if (newPosts.length < LIMIT) {
+        setPostsEnd(true);
+      }
+    };
+
+    const fetcher = (url) => fetch(url).then(res => res.json());
+    const { data, error } = useSWR('/api/stocks', fetcher);
+
+    // if (error) return <div>Failed to load users</div>
+    // if (!data) return <div>Loading...</div>
 
     function getStockName(code) {
         let names = {
@@ -56,9 +121,18 @@ const Details = ({quotes, symbol}) =>  {
     return (
         <>
             <Head>
-                <title>{symbol ? symbol : 'stock'} | PNGX Client</title>
+                <title>{symbol ? symbol : 'stock'} | Nuku - PNGX-API Client</title>
             </Head>
-
+            <main>
+                <PostFeed posts={posts} />
+        
+                {!loading && !postsEnd && <button onClick={getMorePosts}>Load more</button>}
+        
+                <Loader show={loading} />
+        
+                {postsEnd && 'You have reached the end!'}
+            </main>
+        
             <div>
 
                 <Card>
@@ -171,18 +245,3 @@ const Details = ({quotes, symbol}) =>  {
 }
 
 export default Details;
-
-export async function getServerSideProps({ params }) {
-    // const res = await fetch('http://pngx-api.cleverapps.io/stocks')
-    // const { data } = await Axios.get(`https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/historicals/${params.id}`);
-    // const { historical, symbol } = await fetch(`https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/historicals/${params.id}?limit=12`).then(res => res.json());
-    // const { historical, symbol } = await fetch(`http://localhost:5000/api/historicals/${params.id}?limit=12`).then(res => res.json());
-
-    return {
-        props: {
-            quotes: historical,
-            // symbol: symbol
-            symbol: "BSP"
-        }
-    }
-}

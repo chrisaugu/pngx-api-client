@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect, useReducer } from "react"
 import { useSelector, useDispatch } from 'react-redux';
 import Head from 'next/head'
 import NextLink from 'next/link'
@@ -16,7 +16,6 @@ import {
     Card,
     Divider,
     Toggle,
-    useTheme,
     Code,
     Snippet,
     Avatar,
@@ -32,118 +31,148 @@ import {
 import {AtSign, ArrowUp, Star } from '@geist-ui/icons'
 import _ from 'underscore';
 import { format, startOfDay, endOfDay, subDays, formatDistance, formatRelative } from 'date-fns';
-
 import styled from 'styled-components';
+import useSWR from 'swr';
 
-import Api from "../lib/api";
-// import { stocks } from "../utils/sample-data";
-import Header from "../components/Header";
 import Layout from "../components/Layout";
 // import {ButtonExample, Button as MyButton} from "../components/Button";
-import ToastMessage from "../components/Toast";
 import StocksList from "../components/StocksList";
-import Graph from "../components/Graph/Large";
-// import Analytics from "../components/Analytics";
+import FavouritesList from "../components/FavouritesList";
+import Graph from "../components/Charts/Large";
+import Analytics from "../components/Analytics";
 
 import store from '../redux/configureStore';
 import { fetchStocksFromAPI, /*getStocks*/ } from '../redux/stocks/stocks';
-import { fetchStocks, getData, setLastUpdated, setDate } from "../redux/actions";
-import { getStockList, getFavouritesList, getLastUpdated } from "../redux/selectors";
+import { fetchStocks, fetchData, getData, setLastUpdated, setDate, setLoadableStatus } from "../redux/actions";
+import { getStockList, getFavouritesList, getLastUpdated, getLoadableStatus } from "../redux/selectors";
+import StockCard from "../components/Cards/StockCard";
 
-const List = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  // max-width: 100vw;
-  // min-height: 50vh;
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 1fr)
-  }
+const CardContainer = styled.div`
+  width: 70vw;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1f2229;
+  overflow: hidden;
 `;
 
-const Home = () => {
-    const { palette } = useTheme();
-    const dispatch = useDispatch();
+const Separator = styled.span`
+  margin-left: 10px;
+  margin-right: 10px;
+`;
 
+// import img1 from "./Assets/images/img1.jpg";
+// import img2 from "./Assets/images/img2.jpg";
+
+{/*YjFiZDM1NDAtMjgwNi00MTIwLThiMDctM2VkOGQ5NzRkZDVk*/}
+
+const Home = () => {
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
     const [stocks, setStocks] = useState([]);
+    const [data, setData] = useState([]);
     
     // const stocksList = stocks;
     const stocksList = useSelector(getStockList);
     console.log(stocksList)
     const favouritesList = useSelector(getFavouritesList);
-    console.log(favouritesList)
+    console.log(favouritesList);
 
     const lastUpdated = useSelector(getLastUpdated);
 
-    const getStocks = async () => {
-        const url = 'https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/stocks';
-        fetch(url)
-            .then(response => response.json())
-            .then(responseJson => {
-                dispatch(setDate(responseJson.date));
-                dispatch(setLastUpdated(responseJson.last_updated));
-                setStocks(responseJson.data);
-                dispatch(fetchStocks(responseJson.data));
+    const loadable = useSelector(getLoadableStatus);
 
-                favouritesList.find((m) => {
-                    console.log(m._id == stock._id)
-                });
+    const fetcher = (url) => fetch(url).then(res => res.json());
+    // const { data, error } = useSWR('/api/stocks', fetcher);
 
-                // const unsubscribe = store.subscribe(() =>
-                //     console.log('State after dispatch: ', store.getState())
-                // );
-                // unsubscribe();
-            })
-            .catch(error => console.error(error));
-    //     try {
-    //         const data = await Api.getMovies();
-    //         dispatch(fetchStocks(data));
-    //     } catch (error) {
-    //         console.log(error.response);
-    //     }
-    };
+    // if (error) return "An error has occurred.";
+    // if (!data) return "Loading...";
+
+    // // let stocks = data.data;
+    // let stock = data.data[0];
 
     useEffect(() => {
-        if (stocksList && stocksList.length === 0) {
-            // dispatch(fetchStocksFromAPI());
-            // dispatch(getStocks());
-            getStocks();
-        }
-    // }, [search]);
-    // }, []);
-    });
+        const fetchData = async () => {
+            setIsError(false);
+            setIsLoading(true);
 
-    let isShown = false;
+            try {
+                const result = await fetcher("/api/stocks");
 
-    let loadable = {
-        state: 'hasValue' // 'loading'
-    }
+                setData(result.data);
+            } catch (error) {
+                setIsError(true);
+            }
 
+            setIsLoading(false);
+        };
 
-    // const sortData = (data) => {
-    //   setStocks(_.sortBy(stocks, 'name'));
-    // }
+        fetchData();
+    }, []);
 
     // // Format Dates
     // const start = format(subDays(startDate, 0), "yyyy-MM-dd");
     // const end = format(endDate, "yyyy-MM-dd");
 
-    // const response = await fetch(
+    // const response = await fetcher(
     //   `${HOST}/neo/rest/v1/feed?start_date=${start}&end_date=${end}&detailed=false&api_key=${API_KEY}`
     // );
-
-    // return response.json();
 
     // useEffect(() => {
     //     const movieFavourites = JSON.parse(
     //         localStorage.getItem('pngx-favourites')
     //     );
-
     //     setFavourites(movieFavourites);
     // }, []);
 
+    // useEffect(() => {
+    //     const getStocks = async (limit=0) => {    
+    //         const url = limit 
+    //                     ? `https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/stocks?limit=${limit}`  
+    //                     : 'https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/stocks';
+    //         setIsLoading(true);
+    //         setIsError(false);
+
+    //         // const data = await Api.getMovies();
+
+    //         fetcher("/api/stocks")
+    //             .then(responseJson => {
+    //                 dispatch(setDate(responseJson.date));
+    //                 dispatch(setLastUpdated(responseJson.last_updated));
+    //                 setStocks(responseJson.data);
+    //                 dispatch(fetchStocks(responseJson.data));
+
+    //                 dispatch(setLoadableStatus('hasValue'));
+
+    //                 favouritesList.find((m) => {
+    //                     console.log(m._id == stock._id)
+    //                 });
+
+    //                 // const unsubscribe = store.subscribe(() =>
+    //                 //     console.log('State after dispatch: ', store.getState())
+    //                 // );
+    //                 // unsubscribe();
+    //             })
+    //             .catch(error => {
+    //                 setIsError(true);
+    //                 console.error(error);
+    //             });
+
+    //         setIsLoading(false);
+    //     };
+
+    //     if (stocksList && stocksList.length === 0) {
+    //         // dispatch(fetchStocksFromAPI());
+    //         getStocks();
+    //     }
+    // }, []);
+    // // });
+
+    const sortData = (data) => {
+      setStocks(_.sortBy(stocks, 'name'));
+    }
 
     const showGraph = () => {
         return !isShown;
@@ -159,120 +188,57 @@ const Home = () => {
     }
 
     return (
-        <>
-            <Head>
-                <title>PNGX Client</title>
-            </Head>
+        <Layout title={"Home"}>
+            {/*<div>
+                <CardContainer>
+                <Card title={"hello world"} date={1} imgUrl={"img1"} />
+                <Separator />
+                <Card title={"My Card"} date={2} imgUrl={"img2"} />
+                </CardContainer>
+            </div>*/}
 
-            <div>
+            {/*<Analytics />*/}
 
-                {/*<div className="home">
-                  <Grid.Container>
-                    <Grid xs={24} justify="center" alignItems="center">
-                      <Text p size={22} className="title">
-                        SECRET
-                      </Text>
-                    </Grid>
-                    <Grid xs={24} justify="center" alignItems="center">
-                      <Grid
-                        xs={24}
-                        md={17}
-                        justify="center"
-                        alignItems="center"
-                        direction="column"
-                        className="desc">
-                        <Text p size={14}>
-                          Secret will protect you when sharing information, you can use it to send
-                          text without worrying about hijacked. For more, refer to{' '}
-                          <Text span i>
-                            <NextLink href="/0x01" passHref>
-                              <Link>Introduction</Link>
-                            </NextLink>
-                          </Text>
-                          .
-                        </Text>
-                      </Grid>
-                    </Grid>
-                    <IndexLinks />
-                  </Grid.Container>
-                </div>
-                <Grid.Container>
-                  <Grid xs={24} justify="center" alignItems="center">
-                    <NextLink href="/go" passHref>
-                      <Link>
-                        <Button type="secondary-light">Start Now</Button>
-                      </Link>
-                    </NextLink>
-                  </Grid>
-                </Grid.Container>
+            {/*<Text>
+            {/*    S*/}
+            {/*    <Toggle onChange={showGraph} />*/}
+            {/*</Text>*/}
 
-                <style jsx>{`
-                  .home {
-                    text-align: center;
-                    height: 450px;
-                    display: flex;
-                    justify-content: center;
-                    flex-direction: column;
-                    margin-bottom: 40px;
-                  }
-                  .home :global(.title) {
-                    letter-spacing: 1.5px;
-                  }
-                  .home :global(.desc) {
-                    max-width: 470px;
-                  }
-                `}</style>*/}
+            {favouritesList && favouritesList.length > 0 && (
+                <>
+                    <FavouritesList list={favouritesList}/>
+                    <Spacer h={2} />
+                </>
+            )}
 
-                {/*<Analytics />*/}
+            {/*{isLoading ? (<Loading>Loading</Loading>) : (<div>hello...</div>)}*/}
 
-                <Spacer h={3}/>
+            {/*{loadable.state === "hasValue" && <TableReport data={feed} />}*/}
 
-                {/*<ButtonExample/>*/}
+            {loadable.state !== "hasValue" && (
+                <>
+                    <StocksList stocks={data}/>
 
-                {/*<MyButton>Hello</MyButton>*/}
+                    <Spacer h={1} />
 
-                {/*<ToastMessage/>*/}
+                    <div style={{
+                        display: 'flex',
+                        flexWrap: 'nowrap',
+                        justifyContent: 'center'
+                    }}>
+                        {/*<Pagination count={stocksList.length} initialPage={0} limit={11} onChange={(e) => console.log(e)} />*/}
+                    </div>
+                </>
+            )}
 
-                {/*<Text>*/}
-                {/*    S*/}
-                {/*    <Toggle onChange={showGraph} />*/}
-                {/*</Text>*/}
+            {loadable.state !== "loading" && <Loading>Loading</Loading>}
 
-                {/*{
-                  quotes ? <Loading /> :
-                }*/}
+            <Spacer h={2} />
+            
+            <Text>Last updated {lastUpdated && formatDistance(new Date(lastUpdated), new Date(), { addSuffix: true })}</Text>
+            <Text>Last updated on {lastUpdated && formatRelative(new Date(lastUpdated), new Date())}</Text>
 
-                {/*<div className="favourites-list">
-                    <Text h2 className="title">Favourites</Text>
-                    <List>
-                        <StocksList stocks={favouritesList}/>
-                        { favouritesList.map((e, i) => (
-                            <li key={i}>{e._id}</li>
-                        ))}
-                    </List>
-                </div>*/}
-
-                <div className="stocks-list">
-                    {loadable.state === "hasValue" && (
-                        <>
-                            <StocksList stocks={stocksList}/>
-                            <Spacer h={1} />
-                        </>
-                    )}
-
-                    {/*{movieList.length ? movieList : 'Nothing found.'}*/}
-
-                    {loadable.state === "loading" && <Loading>Loading</Loading>}
-
-                    {/*<Pagination count={stocks.length} initialPage={0} limit={11} onChange={fetchData} />*/}
-                </div>
-
-                <Text>Last updated {lastUpdated && formatDistance(new Date(lastUpdated), new Date(), { addSuffix: true })}</Text>
-                <Text>Last updated on {lastUpdated && formatRelative(new Date(lastUpdated), new Date())}</Text>
-
-
-            </div>
-        </>
+        </Layout>
     )
 }
 

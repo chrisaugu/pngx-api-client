@@ -1,7 +1,7 @@
-# PNGX Client
+# Nuku - PNGX Client
 
 > Stock metrics is a web(mobile-focused) app for checking the companies listed on the stoc exchange and see their live metrics. Its data is consumed from the Financial modelling API. It is built using React, Redux, and Styled Components, Framer Motion.
-> 
+
 
 ## Introduction
 
@@ -17,7 +17,7 @@ There are a couple of ways in which you can contribute to the website, for examp
 	- Review the [website](https://pngx-api-client.netlify.io) and make pull requests for anything from typos to new content suggestion.
 
 
-![](https://img.shields.io/badge/stock_metrics-green)
+![nn](https://img.shields.io/badge/stock_metrics-green)
 
 <br/>
 
@@ -39,7 +39,7 @@ Additional description about the project and its features.
 - Major languages (JavaScript)
 - Framework/Libraries (React, Styled-Components, Framer Motion, React Testing Library)
 - Technologies/tools used 
-  
+
   ``` bash
   - create-react-app tool
   - Webpack(Code Bundlng et al)
@@ -95,7 +95,7 @@ Your app is ready to be deployed!
 
 ## Authors
 
-👤 **Anselem Odimegwu**
+👤 **Christian Augustyn**
 
 - GitHub: [github](https://github.com/AnselemOdims)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/anselem-odimegwu/)

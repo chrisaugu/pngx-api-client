@@ -1,33 +1,21 @@
-import {Themes} from '@geist-ui/core'
+import { Themes } from '@geist-ui/core'
 
 let breakpoints = {
-  xs: "400px",
-  sm: "600px",
-  md: "768px",
-  lg: "992px",
-  xl: "1200px"
+  // xs: "400px",
+  // sm: "600px",
+  // md: "768px",
+  // lg: "992px",
+  // xl: "1200px"
+  xs: { min: '0', max: '650px' },
+  sm: { min: '650px', max: '900px' },
+  md: { min: '900px', max: '1280px' },
+  lg: { min: '1280px', max: '1920px' },
+  xl: { min: '1920px', max: '10000px' }
 }
 
-export const greenTheme = Themes.createFromLight({
-  type: 'green',
-  palette: {
-    success: 'green',
-    warning: 'green',
-    error: 'green',
-  },
-});
-
-export const redTheme = Themes.createFromLight({
-  type: 'red',
-  palette: {
-    success: 'red',
-    warning: 'red',
-    error: 'red',
-  },
-});
-
+// export const myLightTheme = Themes.create({
 export const myLightTheme = Themes.createFromLight({
-  type: 'myLightTheme',
+  type: 'custom_light',
   palette: {
     success: '#242f3e',
     warning: '#36a8f1',
@@ -35,8 +23,9 @@ export const myLightTheme = Themes.createFromLight({
   }
 });
 
-export const myDarkTheme = Themes.createFromLight({
-  type: 'myDarkTheme',
+export const myDarkTheme = Themes.createFromDark({
+// export const myDarkTheme = Themes.create({
+  type: 'custom_dark',
   palette: {
     success: '#242f3e',
     warning: '#36a8f1',
@@ -59,7 +48,7 @@ export const myTheme = Themes.create({
     foreground: "",
     selection: "",
     secondary: "",
-    code: "",
+    code: {},
     border: "",
     success: '#242f3e',
     successLighter: "#00ffad",
@@ -995,15 +984,15 @@ const preset_ui = {
   }
 }
 
-const light = {
+const lightx = {
   bg: 'white',
   fontColor: 'purple'
 }
 
-const dark = {
+const darkx = {
   bg: 'black',
   fontColor: 'white'
 }
 
-export const darkTheme = { ...dark }
-export const lightTheme = { ...light }
+export const darkTheme = { ...darkx }
+export const lightTheme = { ...lightx }

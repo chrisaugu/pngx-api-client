@@ -39,7 +39,7 @@ import Header from "../components/Header";
 import Layout from "../components/Layout";
 import StocksList from "../components/StocksList";
 
-import { getFavouritesList } from "../redux/selectors";
+import { getFavouritesList, getLoadableStatus } from "../redux/selectors";
 
 const List = styled.ul`
   list-style: none;
@@ -61,16 +61,14 @@ const Home = () => {
     const favouritesList = useSelector(getFavouritesList);
     console.log(favouritesList)
 
-    let loadable = {
-        state: 'hasValue' // 'loading'
+    const loadable = useSelector(getLoadableStatus);
+
+    const fetchData = (e) => {
+        console.log(e)
     }
 
     return (
-        <>
-            <Head>
-                <title>Watchlist | PNGX Client</title>
-            </Head>
-
+        <Layout title="Watchlist">
             <div>
                 <Spacer h={3}/>
 
@@ -88,19 +86,24 @@ const Home = () => {
                     {loadable.state === "hasValue" && (
                         <>
                             <StocksList stocks={favouritesList}/>
+
                             <Spacer h={1} />
+
+                            <div style={{
+                                display: 'flex',
+                                flexWrap: 'nowrap',
+                                justifyContent: 'center'
+                            }}>
+                                <Pagination count={favouritesList.length} initialPage={0} limit={11} onChange={(e) => fetchData(e)} />
+                            </div>
                         </>
                     )}
 
-                    {/*{movieList.length ? movieList : 'Nothing found.'}*/}
-
                     {loadable.state === "loading" && <Loading>Loading</Loading>}
-
-                    {/*<Pagination count={stocks.length} initialPage={0} limit={11} onChange={fetchData} />*/}
                 </div>
 
             </div>
-        </>
+        </Layout>
     )
 }
 

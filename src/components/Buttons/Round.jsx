@@ -8,8 +8,9 @@ const StyledButton = styled(Button)`
   padding: 0 !important;
   width: 2.5rem !important;
   min-width: auto !important;
-  border-radius: 50% !important;
+  border-radius: 18px !important;
   border-width: 2px !important;
+  border-color: #4b4c53;
 `;
 
 const RoundButton = ({icon, ...props}) => (

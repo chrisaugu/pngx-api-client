@@ -4,7 +4,8 @@ import {
   ADD_TO_FAVOURITE,
   REMOVE_FROM_FAVOURITE,
   LAST_UPDATED_DATE,
-  CURRENT_DATE
+  CURRENT_DATE,
+  STATUS_LOADABLE_CHANGED
 } from '../actionTypes';
 
 let nextTodoId = 0
@@ -21,10 +22,10 @@ export const fetchCompanies = (payload) => ({
   payload,
 });
 
-export const fetchStocks = (payload) => ({
+export const fetchStocks = (stocks) => ({
   type: FETCH_STOCKS,
-  payload
-});
+  payload: stocks
+})
 
 export const addToFavourites = stock => ({
   type: ADD_TO_FAVOURITE, // mandatory key
@@ -52,4 +53,9 @@ export const setLastUpdated = (date) => ({
 export const setDate = (date) => ({
   type: CURRENT_DATE,
   date
+})
+
+export const setLoadableStatus = (status) => ({
+  type: STATUS_LOADABLE_CHANGED,
+  payload: status
 })

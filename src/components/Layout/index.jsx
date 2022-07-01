@@ -1,70 +1,75 @@
 import React, { useState, useEffect } from "react";
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import Head from "next/head";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { Page, Divider, Grid, Link, Button, Breadcrumbs, Spacer, Text, Tooltip, Code, Card, useTheme, useToasts } from "@geist-ui/core";
+import { Page, Divider, Grid, Link, Button, Breadcrumbs, Spacer, Text, Tooltip, Code, Card, useToasts } from "@geist-ui/core";
 import { Facebook, Github, Instagram, Linkedin, Twitter, ArrowLeft, Home } from "@geist-ui/icons";
 
-import store from '../../redux/configureStore';
+import useNetwork from "../../hooks/useNetwork";
 
 import Header from "../Header";
+import Footer from "../Footer";
 
-const Layout = ({onThemeChange, children}) => {
-    const theme = useTheme();
+export default function Layout({title, children}) {
     const router = useRouter();
     const { toast, setToast } = useToasts();
 
-    function useNetwork(){
-        const [isOnline, setNetwork] = useState(window.navigator.onLine);
-
-        const updateNetwork = () => {
-            setNetwork(window.navigator.onLine);
-            // setToast({ text: 'Connection is offline.', delay: 2000, type: 'error' })
-        }
-
-        useEffect(() => {
-            window.addEventListener("offline", updateNetwork);
-            window.addEventListener("online", updateNetwork);
-
-            return () => {
-                window.removeEventListener("offline", updateNetwork);
-                window.removeEventListener("online", updateNetwork);
-            };
-        });
-
-        return isOnline;
-    }
+    const [isMounted, setIsMounted] = useState(false);
+    useEffect(() => {
+      setIsMounted(true);
+    }, []);
+  
+    const networkState = useNetwork();
+    // const {
+    //     online,
+    //     since,
+    //     downLink,
+    //     downLinkMax,
+    //     effectiveType,
+    //     rtt,
+    //     saveData,
+    //     type,
+    // } = networkState;
 
     const click = () => {
-        useNetwork ? setToast({ text: 'Connection is online.', delay: 2000, type: 'success' })
-            : setToast({ text: 'Connection is offline.', delay: 2000, type: 'error' });
+      const action = {
+        name: 'Refresh',
+        handler: () => window.location.reload(),
+        passive: true
+      }
+
+      networkState
+        ? setToast({ text: 'Your internet connection is restored.', delay: 3000, type: 'success', placement: 'bottomLeft' })
+        : setToast({ text: 'You are currently offline.', delay: 0, type: 'error', placement: 'bottomLeft', actions: [action] });
     }
 
     return (
-        <Provider store={store}>
-            <div className="layout">
-
-                <Page size="small" className="main"
-                      dotBackdrop
-                      style={{
-                          width: "100%",
-                          height: "100%",
-                          maxWidth: "1000px",
-                          paddingTop: "1rem",
-                      }}
+        <>
+            {isMounted &&
+                <Page
+                    size="mini"
+                    dotBackdrop
+                    style={{
+                        width: 995,
+                        display: 'flex',
+                        flexWrap: 'nowrap',
+                        flexDirection: 'column'
+                    }}
                 >
 
-                    <Header onThemeChange={onThemeChange} themeType={theme.type} />
+                    <Page.Header>
+                        <Header />
+                    </Page.Header>
+
+                    <Spacer h={6} />
 
                     {router.pathname !== "/" && (
                         <>
                             <Spacer h={1}/>
 
-                            <NextLink href="/" >
+                            <NextLink href="/">
                                 <Link>
-                                    <ArrowLeft /> Back Home
+                                    <span className="h"><ArrowLeft/></span>
+                                    <span className="i">&nbsp;Back Home</span>
                                 </Link>
                             </NextLink>
 
@@ -81,71 +86,17 @@ const Layout = ({onThemeChange, children}) => {
                         </>
                     )}
 
-                    {/*<Button scale={2/3} auto onClick={click}>Show Toast</Button>*/}
-
-                    <Page.Body className="page">
-
-                        {/*<Card type="lite" className="inner">*/}
+                    <Page.Body>
                         {children}
-                        {/*</Card>*/}
-
                     </Page.Body>
 
                     <Divider />
 
                     <Page.Footer>
-
-                        <div className="social">
-                        <span>
-                            Follow me on:
-                            <Link target="_blank" href="https://github.com/chrisaugu"><Github/></Link>
-                            <Link target="_blank" href="https://www.linkedin.com/in/christianaugustyn"><Linkedin/></Link>
-                            <Link target="_blank" href="https://www.instagram.com/christianaugustyn"><Instagram/></Link>
-                        </span>
-                        </div>
-
-                        <Text>
-                            This site is built using NextJs, GesitUI.
-                            <Link target="_blank" href="https://github.com/geist-ui/react">Built on&nbsp;<Code>@geist-ui/core</Code></Link>
-                            <br/>
-                            All data are fetched from&nbsp;<Link color block target="_blank" href="https://pngx-api.cleverapps.io/api">pngx-api.cleverapps.io</Link>.
-                        </Text>
-
-                        <Text><b>Disclaimer:</b> File</Text>
-                        <div className="footnote justify-content-space-between">
-                            <Text>&copy; {new Date().getFullYear()}. <Link color block href="https://www.christianaugustyn.me"
-                                                                           target="_blank">Christian Augustyn</Link>.</Text>
-                            <Text>Made with ❤ in <Link color block href="https://www.google.com/maps/place/Madang"
-                                                       target="_blank">Beautiful Madang</Link>.
-                            </Text>
-                        </div>
-                    </Page.Footer>
+                        <Footer/>
+                    </Page.Footer> 
                 </Page>
-
-                <style jsx>{`
-                  .layout {
-                    min-height: 100%;
-                    width: 100%;
-                  }
-                  .layout :global(.inner) {
-                    max-width: 750px;
-                    margin: 0 auto;
-                    padding-bottom: 0;
-                  }
-                  .layout :global(.inner > .content) {
-                    padding-bottom: 0;
-                  }
-                  .layout :global(.main) {
-                    min-height: 100%;
-                  }
-                  .layout :global(.page) {
-                    padding-top: 0;
-                    padding-bottom: 0;
-                  }
-                `}</style>
-            </div>
-        </Provider>
+            }
+        </>
     )
 }
-
-export default Layout;
