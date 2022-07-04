@@ -26,6 +26,12 @@ const FooterWrapper = styled.div`
     padding: 80px 40px;
   }
 
+  a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
   .footnote {
     display: flex;
     flex: 1;

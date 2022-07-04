@@ -15,6 +15,17 @@ html { font-family: "Inter", "system-ui"; }
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  /*--navbg: rgba(0, 0, 0, 0.15);*/
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1f2023 !important;
+  }
+}
+
+
 html, body {
   padding: 0;
   margin: 0;
@@ -22,89 +33,6 @@ html, body {
   font-size: 62.5%;
   background-color: #ecf0f1 !important;
   background-color: #fcfcfc !important;
-}
-
-/*@media (prefers-color-scheme: dark) {
-  body {
-    background: #1f2023 !important;
-  }
-}*/
-
-main {
-  padding: 0 !important;
-  /*padding: 1rem 0 120px !important;*/
-  width: auto !important;
-  height: auto !important;
-  display: flex;
-  flex-direction: column;
-}
-
-h4.jsx-2019007676 {
-  display: grid;
-  padding: 6px 18px;
-}
-h4 span {
-  /* display: inline-grid; */
-}
-
-h1 {
-  margin: 0;
-  padding: 0;
-}
-@media screen and (min-width: 768px) {
-  h4 {
-    font-size: 3em;
-  }
-}
-
-h2 {
-  margin: 0;
-  padding: 0;
-}
-@media screen and (min-width: 768px) {
-  h2 {
-    font-size: 2.75em;
-  }
-}
-
-h3 {
-  margin: 0;
-  padding: 0;
-}
-@media screen and (min-width: 768px) {
-  h3 {
-    font-size: 2.5em;
-  }
-}
-
-h4 {
-  margin: 0;
-  padding: 0;
-}
-@media screen and (min-width: 768px) {
-  h4 {
-    font-size: 2.25em;
-  }
-}
-
-h5 {
-  margin: 0;
-  padding: 0;
-}
-@media screen and (min-width: 768px) {
-  h5 {
-    font-size: 2em;
-  }
-}
-
-h6 {
-  margin: 0;
-  padding: 0;
-}
-@media screen and (min-width: 768px) {
-  h6 {
-    font-size: 1.75em;
-  }
 }
 
 @keyframes panning {
@@ -146,4 +74,263 @@ h6 {
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+h6, h5, h4, h3, h2, h1 {
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 768px) {
+  h1 {
+    font-size: 3em;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  h2 {
+    font-size: 2.75em;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  h3 {
+    font-size: 2.5em;
+  }
+}
+
+h4.jsx-2019007676 {
+  display: grid;
+  padding: 6px 18px;
+}
+
+@media screen and (min-width: 768px) {
+  h4 {
+    font-size: 2.25em;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  h5 {
+    font-size: 2em;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  h6 {
+    font-size: 1.75em;
+  }
+}
+
+.stocks-list .card:hover .card--hover a, .favourites-list .card:hover .card--hover a, .stocks-list .card:hover, .favourites-list .card:hover {
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.stocks-list, .favourites-list {
+  margin-top: 5px;
+}
+.stocks-list .card, .favourites-list .card {
+  position: relative;
+  border-radius: 24px;
+  background-color: #eceeee;
+  background-image: linear-gradient(45deg, #0072ff, #00d2e8 17%, #04fd8f 34%, #70fd6c 51%, #dae11e 68%, #ff9346 85%, #ff62c6);
+  background-color: #1f2023 !important;
+  box-shadow: 0px 0.3px 1.2px rgba(0, 0, 0, 0.006), 0px 0.7px 2.7px rgba(0, 0, 0, 0.009), 0px 1.2px 4.6px rgba(0, 0, 0, 0.011), 0px 1.8px 6.9px rgba(0, 0, 0, 0.013), 0px 2.6px 10px rgba(0, 0, 0, 0.015), 0px 3.7px 14.2px rgba(0, 0, 0, 0.017), 0px 5.3px 20.1px rgba(0, 0, 0, 0.019), 0px 7.7px 29.2px rgba(0, 0, 0, 0.021), 0px 11.8px 45px rgba(0, 0, 0, 0.024), 0px 21px 80px rgba(0, 0, 0, 0.03);
+  box-shadow: none !important;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  margin: 10px 0 !important;
+  margin: 4em 0 0 0;
+  top: 0;
+  width: 330px;
+  height: 430px;
+  overflow: hidden;
+  text-align: center;
+  transition: all 0.25s;
+  /*
+   * Custom translucent tickertape card
+   */
+  background-color: rgba(236, 238, 238, 0.85) !important;
+  backdrop-filter: saturate(180%) blur(20px);
+}
+.stocks-list .card:nth-child(2), .favourites-list .card:nth-child(2) {
+  margin: 0 50px;
+}
+.stocks-list .card:hover, .favourites-list .card:hover {
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+}
+.stocks-list .card a, .favourites-list .card a {
+  color: #8e8e8e;
+  transition: color 0.15s ease-in-out;
+}
+.stocks-list .card a:hover, .favourites-list .card a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.stocks-list .card .vertical, .favourites-list .card .vertical {
+  margin: 0 10px;
+  align-items: start;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+}
+.stocks-list .card .vertical h1, .stocks-list .card .vertical h2, .stocks-list .card .vertical h3, .stocks-list .card .vertical h4, .stocks-list .card .vertical h5, .stocks-list .card .vertical h6, .favourites-list .card .vertical h1, .favourites-list .card .vertical h2, .favourites-list .card .vertical h3, .favourites-list .card .vertical h4, .favourites-list .card .vertical h5, .favourites-list .card .vertical h6 {
+  margin: 0;
+}
+.stocks-list .card .vertical h2.symbol, .favourites-list .card .vertical h2.symbol {
+  font-size: 65px;
+  line-height: 65px;
+}
+.stocks-list .card .vertical h6.name, .favourites-list .card .vertical h6.name {
+  font-size: 15px;
+}
+.stocks-list .card .vertical h5.high, .stocks-list .card .vertical h5.low, .favourites-list .card .vertical h5.high, .favourites-list .card .vertical h5.low {
+  font-size: 25px;
+}
+.stocks-list .card h3, .favourites-list .card h3 {
+  font-size: 2em;
+}
+.stocks-list .card h4, .favourites-list .card h4 {
+  font-size: 3em;
+}
+.stocks-list .card, .favourites-list .card {
+  -webkit-box-flex: 300px;
+  -ms-flex: 300px;
+  flex: 300px;
+  margin: 20px;
+  border-radius: 24px;
+  cursor: pointer;
+  position: relative;
+  transition: 0.5s ease;
+}
+.stocks-list .card:hover, .favourites-list .card:hover {
+  border-color: #008bf8;
+}
+.stocks-list .card:hover .card--hover, .favourites-list .card:hover .card--hover {
+  opacity: 1;
+}
+.stocks-list .card:hover .card--hover a, .favourites-list .card:hover .card--hover a {
+  -webkit-transform: translate(-50%, 50%);
+  -ms-transform: translate(-50%, 50%);
+  transform: translate(-50%, 50%);
+  opacity: 1;
+}
+.stocks-list .card--hover, .favourites-list .card--hover {
+  padding: 60px 0;
+  text-align: center;
+  opacity: 0.6;
+  transition: 0.25s ease;
+}
+.stocks-list .card--hover h3, .favourites-list .card--hover h3 {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+}
+.stocks-list .card--hover p, .favourites-list .card--hover p {
+  margin: 10px 0 0;
+}
+.stocks-list .card--hover a, .favourites-list .card--hover a {
+  -webkit-transform: translate(-50%, 125%);
+  -ms-transform: translate(-50%, 125%);
+  transform: translate(-50%, 125%);
+  border-radius: 20px;
+  background-color: #008bf8;
+  color: #fff;
+  padding: 8px 16px;
+  display: inline-block;
+  text-decoration: none;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  opacity: 0;
+  transition: 0.25s ease;
+}
+.stocks-list .card.card--dark, .favourites-list .card.card--dark {
+  background-color: #1a1a1a;
+  border-color: #1a1a1a;
+}
+.stocks-list .card.card--dark .card--hover, .favourites-list .card.card--dark .card--hover {
+  color: #fff;
+}
+.stocks-list .card.card--dark a, .favourites-list .card.card--dark a {
+  background-color: #7FEFBD;
+  color: #1a1a1a;
+}
+.stocks-list .green, .favourites-list .green {
+  background-color: #7fffd4 !important;
+  color: #008d8d !important;
+  /* color: #f8f8ff; */
+}
+.stocks-list .red, .favourites-list .red {
+  background-color: #ff7f7f !important;
+  color: #8d0000 !important;
+}
+
+header a {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  z-index: 8;
+  overflow: hidden;
+  border-radius: 10px;
+  line-height: 0;
+}
+header a img {
+  position: absolute;
+  top: 0;
+  right: auto;
+  bottom: auto;
+  left: 0;
+  width: 210%;
+  z-index: 3;
+  line-height: 0;
+  animation: panning 50s infinite;
+}
+header a:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  background-color: rgba(44, 62, 80, 0.5);
+  transition: background-color 1s;
+}
+header h1, header h2 {
+  position: absolute;
+  top: 40%;
+  right: 0;
+  bottom: auto;
+  left: 0;
+  z-index: 10;
+  color: white;
+  font-family: Oswald;
+  line-height: 1em;
+  text-transform: uppercase;
+  text-align: center;
+  transition: transform 1s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+header h1 {
+  font-size: 2em;
+  line-height: 1em;
+  letter-spacing: 0.04em;
+}
+header h1:after {
+  content: "";
+  display: block;
+  width: 50%;
+  height: 1px;
+  margin: 2px auto;
+  background-color: white;
+}
+header h2 {
+  top: 50%;
+  font-weight: 300;
+  line-height: 1em;
+  letter-spacing: 0.22em;
+  animation: slideFadeDown 0.5s;
 }

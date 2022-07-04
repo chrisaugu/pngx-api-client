@@ -7,14 +7,12 @@ import { parseISO, format } from 'date-fns';
 import styled from 'styled-components';
 
 // import ThemeToggler from "../ThemeToggler";
-import AnimatedIcon from "../ThemeToggler/AnimatedIcon";
-import RoundButton from "../Buttons/Round";
-import { usePrefers } from '../../hooks/usePrefers';
+import AnimatedIcon from "./ThemeToggler/AnimatedIcon";
+import RoundButton from "./Buttons/Round";
+import { usePrefers } from '../hooks/usePrefers';
 
 import { useSelector } from 'react-redux';
-import { getLastUpdated, getDate } from "../../redux/selectors";
-
-import styles from "./Header.module.css";
+import { getLastUpdated, getDate } from "../redux/selectors";
 
 const HeaderWrapper = styled.div`
   position: relative;
@@ -43,7 +41,7 @@ const HeaderWrapper = styled.div`
   transform: translateY(12px);
   transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
   opacity: 1;
-  z-index: 999;
+  z-index: 9999;
 
   transition-duration: 500ms;
   transition-timing-function: cubic-bezier(0.17, 0.85, 0.32, 1.4);
@@ -52,6 +50,13 @@ const HeaderWrapper = styled.div`
   transition-duration: 150ms;
   transition: background 100ms ease 0s, -webkit-transform 100ms ease 0s, -webkit-backdrop-filter 1ms ease 0s;
   // box-shadow: inset 0 0 0 1px #eaeef1,0 4px 30px 0 rgba(0,0,0,.05);
+
+  // animation: nav-in ease .7s;
+  // background-color: $navbg;
+  // -webkit-backdrop-filter: saturate(180%) blur(20px);
+  // backdrop-filter: saturate(180%) blur(20px);
+  // border-radius: 25px;
+
 
   @media screen and (max-width: 991px) {
     margin-right: auto;
@@ -216,7 +221,7 @@ export default function Header() {
       <>
       <HeaderWrapper>
         
-        <Grid.Container gap={1} justify="space-between" align="center">
+        <Grid.Container gap={1} justify="space-between"  alignItems="center">
           <Grid md={6}>
             <Grid.Container gap={1}>
               {/*<Grid>

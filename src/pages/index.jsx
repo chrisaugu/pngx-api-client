@@ -32,7 +32,6 @@ import {
 import {AtSign, ArrowUp, Star } from '@geist-ui/icons'
 import _ from 'underscore';
 import { format, startOfDay, endOfDay, subDays, formatDistance, formatRelative } from 'date-fns';
-import styled from 'styled-components';
 import useSWR from 'swr';
 
 import Layout from "../components/Layout";
@@ -48,28 +47,8 @@ import { fetchStocks, fetchData, getData, setLastUpdated, setDate, setLoadableSt
 import { getStockList, getFavouritesList, getLastUpdated, getLoadableStatus } from "../redux/selectors";
 import StockCard from "../components/Cards/StockCard";
 import SweetCard from "../components/Cards/SweetCard";
-import LoggedIn from "../components/logged_in";
-
-const CardWrapper = styled.div`
-  width: 100%;
-  height: 50vh;
-  margin-top: 60px;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: #1f2229;
-  // background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(226, 229, 236), rgba(0, 0, 0, 0));
-  overflow: hidden;
-  border-radius: 24px;
-
-  @media (prefers-color-scheme: dark) {
-    color: #8a8a8e;
-    background-color: #1f2229;
-    // background-color: #1d1d1f;
-  }
-
-`;
+import { CardWrapper } from "../components/Cards";
+// import LoggedIn from "../components/logged_in";
 
 // import img1 from "./Assets/images/img1.jpg";
 // import img2 from "./Assets/images/img2.jpg";
@@ -199,7 +178,7 @@ const Home = () => {
 
     return (
         <Layout title={"Home"}>
-            <LoggedIn />
+            {/*<LoggedIn />*/}
 
             <CardWrapper>
                 <Text h1 style={{color: 'white'}}>Welcome to <span style={{color: 'aquamarine'}}><b><i>Nuku</i></b>.</span></Text>

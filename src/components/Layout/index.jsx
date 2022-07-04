@@ -32,6 +32,15 @@ const FooterWrapper = styled(Page.Footer)`
   align-items: center;
 `;
 
+const BodyWrapper = styled(Page.Body)`
+  padding: 0 !important;
+  /*padding: 1rem 0 120px !important;*/
+  width: auto !important;
+  height: auto !important;
+  display: flex;
+  flex-direction: column;
+`;
+
 export default function Layout({title, children}) {
     const router = useRouter();
     const { toast, setToast } = useToasts();
@@ -111,9 +120,9 @@ export default function Layout({title, children}) {
                         </>
                     )}
 
-                    <Page.Body>
+                    <BodyWrapper>
                         {children}
-                    </Page.Body>
+                    </BodyWrapper>
 
                     <Divider />
 
