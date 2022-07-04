@@ -13,7 +13,7 @@ const Card = () => (
       </svg>
     </div>
     <div className="menu">
-      <div classname="opener">
+      <div className="opener">
         <span/>
         <span/>
         <span/>
