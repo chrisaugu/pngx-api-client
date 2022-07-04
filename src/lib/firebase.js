@@ -1,8 +1,11 @@
-import firebase from 'firebase/app'
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/storage';
-import 'firebase/analytics';
+import {initializeApp} from 'firebase/app';
+import {getAuth} from 'firebase/auth';
+import {getFirestore, collection, getDocs} from 'firebase/firestore';
+import {getStorage} from 'firebase/storage';
+import {getAnalytics} from 'firebase/analytics';
+import {getDatabase} from 'firebase/database';
+
+import {v4 as uuidv4 } from "uuid";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -15,28 +18,41 @@ const firebaseConfig = {
   appId: "1:159171091539:web:a8f0900abf2aa1de067aa6",
   measurementId: "G-Q0475CRF0J"
 };
+// const firebaseConfig = {
+//   apiKey: `${process.env.NEXT_PUBLIC_FIREBASE_API_KEY}`,
+//   authDomain: `${process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN}`,
+//   databaseURL: `${process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL}`,
+//   projectId: `${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}`,
+//   storageBucket: `${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}`,
+//   messagingSenderId: `${process.env.NEXT_PUBLIC_FIREABSE_MESSAGING_SENDER_ID}`,
+//   appId: `${process.env.NEXT_PUBLIC_FIREBASE_APP_ID}`,
+// };
 
 // Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig)
-}
+const app = initializeApp(firebaseConfig);
+
+// allow emulator
+// db.connectFirestoreEmulator('localhost', 8080);
 
 // Auth exports
-export const auth = firebase.auth();
-export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+export const auth = getAuth(app);
+// export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
 // Firestore exports
-export const firestore = firebase.firestore();
-export const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
-export const fromMillis = firebase.firestore.Timestamp.fromMillis;
-export const increment = firebase.firestore.FieldValue.increment;
+export const firestore = getFirestore(app);
+// export const serverTimestamp = firebase.firestore.FieldValue.serverTimestamp;
+// export const fromMillis = firebase.firestore.Timestamp.fromMillis;
+// export const increment = firebase.firestore.FieldValue.increment;
 
 // Storage exports
-export const storage = firebase.storage();
-export const STATE_CHANGED = firebase.storage.TaskEvent.STATE_CHANGED;
+export const storage = getStorage(app);
+// export const STATE_CHANGED = firebase.storage.TaskEvent.STATE_CHANGED;
 
-export const analytics = firebase.analytics();
+// Analytics exports
+export const analytics = getAnalytics(app);
 
+// Analytics exports
+export const realTimeDb = getDatabase(app);
 
 // Helper functions
 
@@ -75,4 +91,55 @@ export const analytics = firebase.analytics();
 //   createdAt: TimeStamp,
 //   updatedAt: TimeStamp,
 //   heartCount: 0,
+// }
+
+// import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
+// // const auth = getAuth();
+// createUserWithEmailAndPassword(auth, email, password)
+//   .then((userCredential) => {
+//     // Signed in 
+//     const user = userCredential.user;
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     // ..
+//   });
+
+// signInWithEmailAndPassword(auth, email, password)
+//   .then((userCredential) => {
+//     // Signed in 
+//     const user = userCredential.user;
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//   });
+// import { collection, addDoc } from "firebase/firestore"; 
+
+// try {
+//   const docRef = await addDoc(collection(db, "users"), {
+//     first: "Ada",
+//     last: "Lovelace",
+//     born: 1815
+//   });
+//   console.log("Document written with ID: ", docRef.id);
+// } catch (e) {
+//   console.error("Error adding document: ", e);
+// }
+
+// try {
+//   const docRef = await addDoc(collection(db, "users"), {
+//     first: "Alan",
+//     middle: "Mathison",
+//     last: "Turing",
+//     born: 1912
+//   });
+
+//   console.log("Document written with ID: ", docRef.id);
+// } catch (e) {
+//   console.error("Error adding document: ", e);
 // }

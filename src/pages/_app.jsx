@@ -16,13 +16,13 @@ import { myDarkTheme, myLightTheme, myTheme, darkTheme, lightTheme } from '../ut
 import Layout from "../components/Layout";
 import { OnlineStatusProvider } from "../hooks/useOnlineStatus";
 import useMyTheme from '../hooks/useMyTheme';
-import { PrefersContext, ThemeType, usePrefers } from '../hooks/usePrefers';
+import { PrefersContext, usePrefers } from '../hooks/usePrefers';
 
-import { GTM_ID, pageview } from '../lib/gtm';
+import { pageview, GA_TRACKING_ID } from '../lib/gtag';
 
 import "inter-ui/inter.css";
 
-import '../styles/styles.scss';
+import '../styles/globals.css';
 import GlobalStyle from "../styles/globals";
 
 // export function reportWebVitals(metric) {
@@ -60,20 +60,16 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   useEffect(() => {
-    const handdleRouteChange = url => {
-      window.gtag('config', process.env.NEXT_PUBLIC_GA_ID, {
-        page_path: url
-      });
+    const handleRouteChange = (url) => {
+      pageview(url);
     }
     
-    router.events.on('routeChangeComplete', handdleRouteChange)
+    router.events.on('routeChangeComplete', handleRouteChange);
+    router.events.on('hashChangeComplete', handleRouteChange);
     return () => {
-      router.events.off('routeChangeComplete', handdleRouteChange)
+      router.events.off('routeChangeComplete', handleRouteChange);
+      router.events.off('hashChangeComplete', handleRouteChange);
     }
-    // router.events.on('routeChangeComplete', pageview)
-    // return () => {
-    //   router.events.off('routeChangeComplete', pageview)
-    // }
   }, [router.events]);
 
   // const [themeType, setThemeType] = useState('dark');
@@ -91,7 +87,7 @@ function MyApp({ Component, pageProps }) {
   // }, []);
 
   return (
-    <GeistProvider themes={[myDarkTheme, myLightTheme, myTheme]} themeType={{type: ThemeType}}>
+    <GeistProvider themes={[myDarkTheme, myLightTheme, myTheme]} themeType={{type: themeType}}>
       
       <Head>
         <meta charSet='utf-8' />
@@ -108,7 +104,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="twitter:title" content={"title"} />
         <meta name="twitter:description" content={"description"} />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@fireship_dev" />
+        <meta name="twitter:site" content="@nuku" />
         <meta name="twitter:image" content={"image"} />
 
         <link rel="icon" href="./favicon.svg" />
@@ -123,19 +119,41 @@ function MyApp({ Component, pageProps }) {
         <meta name="theme-color" content="#000" media="(prefers-color-scheme: dark)" />
       </Head>
 
-      {/* Google Tag Manager - Global base code */}
-      {/* <Script
+      {/* Global Site Tag (gtag.js) - Google Analytics */}
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+      />
+      <Script
+        id="gtag-init"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
-            __html: `
-                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer', '${GTM_ID}');
-              `
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
         }}
-      /> */}
+      />
+      
+      <Script id="darkMode" 
+        dangerouslySetInnerHTML={{ 
+          __html: `
+          (function(){
+            if (!window.localStorage) return;
+            if (window.localStorage.getItem('theme') === 'dark') {
+              document.documentElement.style.background = '#000';
+              document.body.style.background = '#000';
+            } else {
+              document.documentElement.style.background = '#fff';
+              document.body.style.background = '#fff';
+            }
+          })()`
+        }}
+      />
       
       <CssBaseline />
       <GlobalStyle />

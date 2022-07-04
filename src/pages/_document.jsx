@@ -1,5 +1,4 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import Script from 'next/script';
 import { CssBaseline } from '@geist-ui/core';
 import { ServerStyleSheet } from 'styled-components'
 
@@ -33,39 +32,12 @@ export default class MyDocument extends Document {
   }
 
   render() {
-    const gtag = `https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`;
-
     return (
       <Html lang="en">
         <Head>
-          <script async src={gtag} />
-          <script 
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
-                  page_path: window.location.pathname,
-                });
-              `
-            }}
-          />
-          <Script id="darkMode" 
-            dangerouslySetInnerHTML={{ 
-              __html: `
-            (function(){
-              if (!window.localStorage) return;
-              if (window.localStorage.getItem('theme') === 'dark') {
-                document.documentElement.style.background = '#000';
-                document.body.style.background = '#000';
-              } else {
-                document.documentElement.style.background = '#fff';
-                document.body.style.background = '#fff';
-              }
-            })()`
-            }}
-          />
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="apple-touch-icon" href="/icon.png"></link>
+          <meta name="theme-color" content="#fff" />
         </Head>
         <body>
           <Main />

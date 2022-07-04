@@ -97,6 +97,11 @@ const GlobalStyle = createGlobalStyle`
     color: #e07628;
     text-decoration: none;
   }
+
+  table {
+    min-width: 650px;
+  }
+
 `;
 
 export default GlobalStyle;

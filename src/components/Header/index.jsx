@@ -9,31 +9,35 @@ import styled from 'styled-components';
 // import ThemeToggler from "../ThemeToggler";
 import AnimatedIcon from "../ThemeToggler/AnimatedIcon";
 import RoundButton from "../Buttons/Round";
+import { usePrefers } from '../../hooks/usePrefers';
 
 import { useSelector } from 'react-redux';
 import { getLastUpdated, getDate } from "../../redux/selectors";
 
 import styles from "./Header.module.css";
-import { usePrefers } from '../../hooks/usePrefers';
 
-const HeaderContainer = styled.div`
-  display: block;
-  position: fixed;
-  border: 1px solid rgb(235, 238, 241);
-  border-radius: 72px;
-  // border-radius: 24px;
-  background-color: rgba(255, 255, 255, 0.4);
-  background-color: rgba(255, 255, 255, 0.5);
-  // background-color: rgba(25, 25, 25, 0.3);
-  backdrop-filter: blur(20px);
-  backdrop-filter: blur(30px);
-  backdrop-filter: blur(10px);
-  width: 70vw;
-  // height: 60px;
+const HeaderWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 70px;
+  margin-right: auto;
+  margin-left: auto;
   padding: 12px 30px;
-  inset: 16px auto auto 14.7%;
-  flex: 0 0 auto;
-  flex-shrink: 0;
+  border: 1px solid rgb(235, 238, 241);
+  border-radius: 24px;
+  background-color: rgba(255, 255, 255, 0.5);
+  // background-color: rgba(255, 255, 255, 0.4);
+  // background-color: rgba(25, 25, 25, 0.3);
+  backdrop-filter: blur(30px);
+  backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
+  
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  
   aspect-ratio: unset;
   transform: none;
   transform: translateY(12px);
@@ -44,12 +48,33 @@ const HeaderContainer = styled.div`
   transition-duration: 500ms;
   transition-timing-function: cubic-bezier(0.17, 0.85, 0.32, 1.4);
   transition-property: all;
-  // transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  // transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
   transition: background 100ms ease 0s, -webkit-transform 100ms ease 0s, -webkit-backdrop-filter 1ms ease 0s;
+  // box-shadow: inset 0 0 0 1px #eaeef1,0 4px 30px 0 rgba(0,0,0,.05);
+
+  @media screen and (max-width: 991px) {
+    margin-right: auto;
+    margin-left: auto;
+    flex: 1;
+    align-items: center;
+  }
+  @media (max-width: 374px) {
+    margin-right: auto;
+    margin-left: auto;
+  }
+  @media (max-width: 700px) {
+    margin-right: auto;
+    margin-left: auto;
+  }
+  @media (max-width: 1200px) {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
   
   &:hover {
-    background-color: rgba(14, 14, 14, 0.85);
+    // background-color: rgba(14, 14, 14, 0.85);
   }
 `;
 
@@ -189,9 +214,9 @@ export default function Header() {
 
     return (
       <>
-      <HeaderContainer>
+      <HeaderWrapper>
         
-        <Grid.Container gap={1} justify="space-between">
+        <Grid.Container gap={1} justify="space-between" align="center">
           <Grid md={6}>
             <Grid.Container gap={1}>
               {/*<Grid>
@@ -265,7 +290,8 @@ export default function Header() {
             {/*<ModalSettings setVisible={setVisible} bindings={bindings} />*/}
           </Grid>
         </Grid.Container>
-      </HeaderContainer>
+
+      </HeaderWrapper>
 
       <Drawer visible={state} onClose={() => setState(false)} placement="left">
         <Drawer.Title>Drawer</Drawer.Title>
