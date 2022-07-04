@@ -31,24 +31,14 @@ import Graph from "../../components/Charts/Large";
 import Report from "../../components/Tables/Report";
 import { BSP as historical } from "../../utils/sample-data";
 import {firestore} from "../../lib/firebase";
-
+import Layout from '../../components/Layout';
+import { Loader } from '@geist-ui/icons';
 
 export async function getServerSideProps({ params }) {
     // const res = await fetch('http://pngx-api.cleverapps.io/stocks')
     // const { data } = await Axios.get(`https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/historicals/${params.id}`);
     // const { historical, symbol } = await fetch(`https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/historicals/${params.id}?limit=12`).then(res => res.json());
     // const { historical, symbol } = await fetch(`http://localhost:5000/api/historicals/${params.id}?limit=12`).then(res => res.json());
-
-    return {
-        props: {
-            quotes: historical,
-            // symbol: symbol
-            symbol: "BSP"
-        }
-    }
-}
-
-export async function getServerSideProps(context) {
     const postsQuery = firestore
       .collectionGroup('posts')
       .where('published', '==', true)
@@ -56,9 +46,14 @@ export async function getServerSideProps(context) {
       .limit(LIMIT);
   
     const posts = (await postsQuery.get()).docs.map(postToJSON);
-  
+
     return {
-      props: { posts }, // will be passed to the page component as props
+        props: {
+            quotes: historical,
+            // symbol: symbol
+            symbol: "BSP",
+            posts
+        }
     };
 }
 
@@ -119,20 +114,17 @@ const Details = ({quotes, symbol}) =>  {
     }
 
     return (
-        <>
-            <Head>
-                <title>{symbol ? symbol : 'stock'} | Nuku - PNGX-API Client</title>
-            </Head>
+        <Layout title={symbol ? symbol : 'stock | Nuku - PNGX-API Client'}>
             <main>
-                <PostFeed posts={posts} />
-        
+                {/* <PostFeed posts={posts} /> */}
+                
                 {!loading && !postsEnd && <button onClick={getMorePosts}>Load more</button>}
-        
+
                 <Loader show={loading} />
-        
+
                 {postsEnd && 'You have reached the end!'}
             </main>
-        
+
             <div>
 
                 <Card>
@@ -240,7 +232,7 @@ const Details = ({quotes, symbol}) =>  {
 
 
             </div>
-        </>
+        </Layout>
     )
 }
 

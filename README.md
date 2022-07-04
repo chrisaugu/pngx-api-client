@@ -121,3 +121,22 @@ Give a ⭐️ if you like this project!
 ## 📝 License
 
 This project is [MIT](./LICENSE) licensed.
+
+
+
+
+
+On September of last year I lauched a API service called PNGX-API for PNGX.com which extracts stocks data for individual companies from PNGX.com website. And today I am thrilled to say that for the past few months I've worked on another project of mine called Nuku(PNGX-API-Client) which is a webapp that consumes those data published by the API service and displays them. The 
+
+==> https://nuku.netlify.com/
+
+
+## Features
+[x] - News Feed page
+[] - Company profile page
+[] - Stock Detials page
+[x] - Watchlist page
+[x] - Add to watchlist
+[] - Graph to interact
+[x] - PWA
+[] - Push notification - https://blog.logrocket.com/push-notifications-react-firebase/

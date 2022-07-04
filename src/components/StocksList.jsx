@@ -21,6 +21,10 @@ const Options = styled.div`
     padding: 4px 13px;
 `;
 
+const StockCardWrapper = styled.div`
+  
+`;
+
 const StocksList = ({stocks}) => {
     const [sortType, setSortType] = useState('albums');
 
@@ -124,7 +128,7 @@ const StocksList = ({stocks}) => {
                         </Grid.Container>
                     </Options>
 
-                    <div className="stock-card-container">
+                    <div>
                         { stocks.map((quote, i) => {
                             return (
                                 <StockCard key={i} stock={quote}/>

@@ -85,6 +85,9 @@ export const LinkText = styled.a`
   text-decoration: none;
 `;
 
+export const Tilt = styled.div`
+`;
+
 export const StockCard2 = ({ title, date, imgUrl }) => {
   return (
     <Tilt>

@@ -2,12 +2,13 @@ const withPWA = require('next-pwa')
 
 module.exports = withPWA({
   pwa: {
-    dest: 'public'
-  }
-});
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+  },
+  // swcMinify: true,
 
-module.exports = {
-  distDir: 'build',
+  // distDir: 'build',
   
   reactStrictMode: true,
 
@@ -23,4 +24,4 @@ module.exports = {
     importLoaders: 1,
     localIdentName: '[local]___[hash:base64:5]',
   },
-}
+})

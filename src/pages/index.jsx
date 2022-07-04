@@ -26,12 +26,12 @@ import {
     Pagination,
     AutoComplete,
     Loading,
-    useToasts
+    useToasts,
+    useTheme
 } from '@geist-ui/core';
 import {AtSign, ArrowUp, Star } from '@geist-ui/icons'
 import _ from 'underscore';
 import { format, startOfDay, endOfDay, subDays, formatDistance, formatRelative } from 'date-fns';
-import styled from 'styled-components';
 import useSWR from 'swr';
 
 import Layout from "../components/Layout";
@@ -46,21 +46,9 @@ import { fetchStocksFromAPI, /*getStocks*/ } from '../redux/stocks/stocks';
 import { fetchStocks, fetchData, getData, setLastUpdated, setDate, setLoadableStatus } from "../redux/actions";
 import { getStockList, getFavouritesList, getLastUpdated, getLoadableStatus } from "../redux/selectors";
 import StockCard from "../components/Cards/StockCard";
-
-const CardContainer = styled.div`
-  width: 70vw;
-  height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #1f2229;
-  overflow: hidden;
-`;
-
-const Separator = styled.span`
-  margin-left: 10px;
-  margin-right: 10px;
-`;
+import SweetCard from "../components/Cards/SweetCard";
+import { CardWrapper } from "../components/Cards";
+// import LoggedIn from "../components/logged_in";
 
 // import img1 from "./Assets/images/img1.jpg";
 // import img2 from "./Assets/images/img2.jpg";
@@ -68,6 +56,7 @@ const Separator = styled.span`
 {/*YjFiZDM1NDAtMjgwNi00MTIwLThiMDctM2VkOGQ5NzRkZDVk*/}
 
 const Home = () => {
+    const {pallete} = useTheme();
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -189,14 +178,13 @@ const Home = () => {
 
     return (
         <Layout title={"Home"}>
-            {/*<div>
-                <CardContainer>
-                <Card title={"hello world"} date={1} imgUrl={"img1"} />
-                <Separator />
-                <Card title={"My Card"} date={2} imgUrl={"img2"} />
-                </CardContainer>
-            </div>*/}
+            {/*<LoggedIn />*/}
 
+            <CardWrapper>
+                <Text h1 style={{color: 'white'}}>Welcome to <span style={{color: 'aquamarine'}}><b><i>Nuku</i></b>.</span></Text>
+            </CardWrapper>
+            <SweetCard/>
+            
             {/*<Analytics />*/}
 
             {/*<Text>
