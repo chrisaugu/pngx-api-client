@@ -4,8 +4,7 @@ import axios from 'axios';
 // export default vercelFetch();
 
 // const API_URL = "http://localhost:5000/api";
-// const STOCKS_API_URL = `https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api`;
-const STOCKS_API_URL = "https://pngx-api.cleverapps.io/api";
+const STOCKS_API_URL = "https://pngx-api.onrender.com/api";
 
 export default axios.create({
   "baseUrl": STOCKS_API_URL,

@@ -87,7 +87,7 @@ Your app is ready to be deployed!
 ## Acknowledgement
 
 Original design idea by [Nelson Sakwa on Behance.](https://www.behance.net/gallery/31579789/Ballhead-App-%28Free-PSDs%29). Under the [Creative Commons License](https://creativecommons.org/licenses/by-nc/4.0/)
-
+https://www.freecodecamp.org/news/how-to-create-a-nextjs-pwa/
 <br>
 
 ## Deployment
