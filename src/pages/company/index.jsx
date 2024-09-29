@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next'
 import Link from 'next/link'
 
 import {Spacer, Button} from "@geist-ui/core";
-import { sampleUserData } from '../../utils/sample-data'
+import { sampleUserData } from '../../lib/sample-data'
 import Layout from '../../components/Layout'
 
 const WithStaticProps = ({ items }) => (

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { Button, Grid } from '@geist-ui/core';
 
-import {incrementAction, decrementAction} from "../redux/actions/counterAction";
+import {incrementAction, decrementAction} from "../store/actions/counterAction";
 
 // const Counter = (props) => {
 // 	// let selectCount = "";

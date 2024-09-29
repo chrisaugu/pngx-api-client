@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import PropTypes from "prop-types";
 import _ from 'underscore';
 import {Select, Text, Pagination, Grid, ButtonGroup, Button} from "@geist-ui/core";
-import { AlignJustify, Grid as GridIcon } from '@geist-ui/icons';
+import { GridIcon, AlignJustify } from "@geist-ui/icons";
 
 import NormalButton from "./Buttons/Normal";
 import StockCard from "./Cards/StockCard";
@@ -120,16 +120,16 @@ const StocksList = ({stocks}) => {
                             </Text>
                           </Grid>
                           <Grid xs={12} justify="right" alignItems="center">
-                            {/*<ButtonGroup>
-                                <NormalButton icon={<GridIcon/>}/>
-                                <NormalButton icon={<AlignJustify/>}/>
-                            </ButtonGroup>*/}
+                            <ButtonGroup>
+                                {/* <NormalButton icon={<GridIcon/>}/> */}
+                                {/* <NormalButton icon={<AlignJustify/>}/> */}
+                            </ButtonGroup>
                           </Grid>
                         </Grid.Container>
                     </Options>
 
                     <div>
-                        { stocks.map((quote, i) => {
+                        { stocks && stocks.map((quote, i) => {
                             return (
                                 <StockCard key={i} stock={quote}/>
                             )

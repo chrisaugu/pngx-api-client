@@ -1,3 +1,5 @@
+import { getStocksSymbols } from "./utils"
+
 /** Dummy user data. */
 export const sampleUserData = [
   { id: 101, name: 'Alice' },
@@ -8,20 +10,7 @@ export const sampleUserData = [
 
 export const companies = {
   status: 200,
-  symbols: [
-    "BSP",
-    "CCP",
-    "CGA",
-    "COY",
-    "CPL",
-    "KAM",
-    "KSL",
-    "NCM",
-    "NGP",
-    "NIU",
-    "SST",
-    "STO"
-  ]
+  symbols: getStocksSymbols
 }
 
 export const stocks = {

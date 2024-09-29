@@ -1,5 +1,5 @@
 
 
-export default ({children}) => {
+export default function Offline({children}) {
 	return children;
 }

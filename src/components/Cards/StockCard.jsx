@@ -9,13 +9,14 @@ import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { connect, useDispatch, useSelector} from "react-redux";
 
-import store from '../../redux/configureStore';
-import { getStock } from '../../redux/stocks/stocks';
-import { addToFavourites, removeFromFavourites } from "../../redux/actions";
-import { getStockList, getFavouritesList } from "../../redux/selectors";
+import store from '../../store/configureStore';
+import { getStock } from '../../store/stocks/stocks';
+import { addToFavourites, removeFromFavourites } from "../../store/actions";
+import { getStockList, getFavouritesList } from "../../store/selectors";
 
 import NormalButton from "../Buttons/Normal";
 import FavButton from "../Buttons/Favorite";
+import { getStockName } from '@/lib/utils';
 
 
 const Card = styled(GCard)`
@@ -272,6 +273,15 @@ const Vertical = styled.div`
 //     transition-duration: .33s;
 // }
 
+const StockImage = styled.div`
+  color: #666666c7;
+  .stockImage {
+    --img-width: 70px;
+    width: var(--img-width) !important;
+    height: var(--img-width) !important;
+    margin: 0 !important;
+  }
+`
 
 const StockCard = ({stock}) => {
     const router = useRouter();
@@ -308,24 +318,6 @@ const StockCard = ({stock}) => {
         }
     }
 
-    function getCompanyNamefromStockCode(code) {
-        let names = {
-            "BSP": "BSP Financial Group Limited",
-            "CCP": "Credit Corporation (PNG) Ltd",
-            "CGA": "PNG Air Limited",
-            "COY": "Coppermoly Limited",
-            "CPL": "CPL Group",
-            "KAM": "Kina Asset Management Limited",
-            "KSL": "Kina Securities Limited",
-            "NCM": "Newcrest Mining Limited",
-            "NGP": "NGIP Agmark Limited",
-            "NIU": "Niuminco Group Limited",
-            "SST": "Steamships Trading Company Limited",
-            "STO": "Santos Limited"
-        }
-        return names[code];
-    }
-
     const saveToLocalStorage = (items) => {
         localStorage.setItem('pngx-favourites', JSON.stringify(items));
     };
@@ -359,8 +351,8 @@ const StockCard = ({stock}) => {
                   type={"dark"}
                   hoverable
                   className={`stock-card ${changeBg(stock.chg_today)}`}
-                  xonClick={() => router.push('/stock/' + stock.code)}
             >
+                  {/* xonClick={() => router.push('/stock/' + stock.code)} */}
                 {/*<Link href={`/stock/${stock.code}`}>*/}
                 <Card.Body>
                     <CardWrapper>
@@ -378,7 +370,11 @@ const StockCard = ({stock}) => {
                                 
                                 <div className="vertical">
                                     <Text h2 className={"symbol"}>{stock.code}</Text>
-                                    <Text h6 className={"name"}><Link href={`/company/${stock.code}`}>{getCompanyNamefromStockCode(stock.code)}</Link></Text>
+                                    <Text h6 className={"name"}>
+                                      {/* <Link href={`/company/${stock.code}`}> */}
+                                      {getStockName(stock.code)}
+                                      {/* </Link> */}
+                                    </Text>
                                 </div>
                             </Grid>
                             {/*</GridWall>*/}
@@ -398,14 +394,16 @@ const StockCard = ({stock}) => {
                             <Grid xs={12} gap={1.5} justify="right" alignItems="center">
                                 {/*<GridWall>*/}
                                 {/*<SmallGraph stocks={stocks}/>*/}
+
                                 <Text h2 className={"last"}>K{stock.last}</Text>
+
                                 <Horizontal>
                                     {/*<Text h5 className={"high"}>K{stock.high}</Text>*/}
                                     {/*<Text h5 className={"low"}>K{stock.bid}</Text>*/}
                                     {/*    <Text h3>{stock.vol_today}<AtSign size={45}/></Text>*/}
                                     {/*    <Text h4><span>K{stock.bid}</span></Text>*/}
-                                    <Text h3 badge>({percentChange(stock.chg_today)})</Text>
-                                    <Text h3 badge>{changeDir(stock.chg_today)}</Text>
+                                    <Text h3 badge="true">({percentChange(stock.chg_today)})</Text>
+                                    <Text h3 badge="true">{changeDir(stock.chg_today)}</Text>
                                     {/*<Text h4>Offer: <span>K{stock.offer}</span></Text>*/}
                                     {/*<Text h4>High: <span>K{stock.high}</span></Text>*/}
                                     {/*<Text h4>Low: <span>K{stock.low}</span></Text>*/}
@@ -426,15 +424,15 @@ const StockCard = ({stock}) => {
                                 {/*    {favourite.find((m) => m.id == movie.id) ? `Remove From Favourite` : `Add To Favourite`}*/}
                                 {/*</button>*/}
 
-                                {
+                                {/* {
                                     favouritesList && favouritesList.find((m) => m._id == stock._id) ?
                                         (<FavButton icon={<HeartFill/>} scale={0.75} onClick={ () => remove(stock._id) }/>) :
                                         (<FavButton icon={<Heart/>} scale={0.75} onClick={ () => add(stock) }/>)
-                                }
+                                } */}
 
-                                <Spacer w={1}/>
+                                {/* <Spacer w={1}/> */}
 
-                                <NormalButton iconRight={<MoreVertical/>} auto onClick={() => setVisible(true)} px={0.6} scale={0.75} />
+                                {/* <NormalButton iconRight={<MoreVertical/>} auto onClick={() => setVisible(true)} px={0.6} scale={0.75} />
 
                                 <Modal {...bindings}>
                                     <Modal.Title>Modal</Modal.Title>
@@ -444,21 +442,13 @@ const StockCard = ({stock}) => {
                                     </Modal.Content>
                                     <Modal.Action passive onClick={() => setVisible(false)}>Cancel</Modal.Action>
                                     <Modal.Action>Submit</Modal.Action>
-                                </Modal>
+                                </Modal> */}
                                 {/*</GridWall>*/}
                             </Grid>
                         </Grid.Container>
                     </CardWrapper>
                 </Card.Body>
                 {/*</Link>*/}
-                <style jsx>{`
-                    .stockImage {
-                      --img-width: 70px;
-                      width: var(--img-width) !important;
-                      height: var(--img-width) !important;
-                      margin: 0 !important;
-                    }
-                `}</style>
             </Card>
             {/*<div className={`${StockCardStyle.stockCard} ${stockCard}`}>
                 <h3 className={StockCardStyle.stockSymbol}>{symbol}</h3>

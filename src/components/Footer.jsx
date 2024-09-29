@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
-import NextLink from 'next/link';
-import {Image, Page, Grid, Link, Toggle, Tooltip, Text, Button, Code} from "@geist-ui/core";
-import {Moon, Sun, Book, Settings, Github, Linkedin, Instagram} from "@geist-ui/icons";
+import React from 'react';
+import {Link, Text} from "@geist-ui/core";
+import {Github, Linkedin, Instagram} from "@geist-ui/icons";
 import styled from 'styled-components';
 
 const FooterWrapper = styled.div`
@@ -22,14 +21,10 @@ const FooterWrapper = styled.div`
     background-color: #1d1d1f;
   }
 
-  @media (prefers-color-scheme: d) {
-    padding: 80px 40px;
-  }
-
   a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .footnote {
@@ -72,8 +67,7 @@ export default function Footer() {
 
             <Text>
                 This site is built using NextJs, GeistUI.&nbsp;
-                <Link target="_blank" href="https://github.com/geist-org/geist-ui">Built on&nbsp;<Code>@geist-ui/core</Code></Link>.&nbsp;
-                All data are fetched from&nbsp;<Link color block target="_blank" href="https://pngx-api.cleverapps.io/api">pngx-api.cleverapps.io</Link>.
+                All data are fetched from&nbsp;<Link color block target="_blank" href="https://www.pngx.com.pg">https://www.pngx.com.pg</Link> in realtime.
             </Text>
 
             <Text><b>Disclaimer:</b> Nuku is mainly for information purposes only. Information on this website are not intended to be a substitute for professional advice. Never disregard professional financial advice nor place your bids based on the information you have read on this website.</Text>
@@ -81,9 +75,8 @@ export default function Footer() {
             <div className="footnote">
                 <Text>&copy; {new Date().getFullYear()}. <Link color block href="https://www.christianaugustyn.me"
                                                                 target="_blank">Christian Augustyn</Link>.</Text>
-                <Text>Made with ❤ in <Link color block href="https://www.google.com/maps/place/Madang" target="_blank">Beautiful Madang</Link>.</Text>
+                <Text>Made with ❤️ in <Link color block href="https://www.google.com/maps/place/Madang" target="_blank">Beautiful Madang</Link>.</Text>
             </div>
-            
         </FooterWrapper>
     )
 }

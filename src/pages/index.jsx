@@ -41,19 +41,36 @@ import FavouritesList from "../components/FavouritesList";
 import Graph from "../components/Charts/Large";
 import Analytics from "../components/Analytics";
 
-import store from '../redux/configureStore';
-import { fetchStocksFromAPI, /*getStocks*/ } from '../redux/stocks/stocks';
-import { fetchStocks, fetchData, getData, setLastUpdated, setDate, setLoadableStatus } from "../redux/actions";
-import { getStockList, getFavouritesList, getLastUpdated, getLoadableStatus } from "../redux/selectors";
+import store from '../store/configureStore';
+import { fetchStocksFromAPI, /*getStocks*/ } from '../store/stocks/stocks';
+import { fetchStocks, fetchData, getData, setLastUpdated, setDate, setLoadableStatus } from "../store/actions";
+import { getStockList, getFavouritesList, getLastUpdated, getLoadableStatus } from "../store/selectors";
 import StockCard from "../components/Cards/StockCard";
 import SweetCard from "../components/Cards/SweetCard";
 import { CardWrapper } from "../components/Cards";
+import { StockTickerCard, StockTickerCard2, StockTickerCard3 } from "@/components/Cards/StockTickerCard";
+import client from "@/lib/mongodb";
 // import LoggedIn from "../components/logged_in";
 
 // import img1 from "./Assets/images/img1.jpg";
 // import img2 from "./Assets/images/img2.jpg";
 
 {/*YjFiZDM1NDAtMjgwNi00MTIwLThiMDctM2VkOGQ5NzRkZDVk*/}
+
+
+export const getServerSideProps = async () => {
+  try {
+    await client.connect(); // `await client.connect()` will use the default database passed in the MONGODB_URI
+    return {
+      props: { isConnected: true },
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      props: { isConnected: false },
+    };
+  }
+};
 
 const Home = () => {
     const {pallete} = useTheme();
@@ -62,6 +79,7 @@ const Home = () => {
     const [isError, setIsError] = useState(false);
     const [stocks, setStocks] = useState([]);
     const [data, setData] = useState([]);
+    const [isFirstTime, setIsFirstTime] = useState(false);
     
     // const stocksList = stocks;
     const stocksList = useSelector(getStockList);
@@ -175,15 +193,68 @@ const Home = () => {
         ]
         return <AutoComplete placeholder="Enter here" options={options} />
     }
+    
+    const stockData = {
+        stockName: "Apple Inc.",
+        tickerSymbol: "AAPL",
+        price: 150.25,
+        priceChange: 2.75, // positive for gains, negative for losses
+        logoUrl: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg", // Example Apple logo
+      };
+    
+    const stock = {
+        symbol: 'AAPL',
+        name: 'Apple Inc.',
+        price: 145.23,
+        currency: 'USD',
+        change: 1.23,
+    };
 
     return (
         <Layout title={"Home"}>
-            {/*<LoggedIn />*/}
-
-            <CardWrapper>
+            {isFirstTime && (<CardWrapper>
                 <Text h1 style={{color: 'white'}}>Welcome to <span style={{color: 'aquamarine'}}><b><i>Nuku</i></b>.</span></Text>
-            </CardWrapper>
-            <SweetCard/>
+            </CardWrapper>)}
+            
+            {/* <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
+                <StockTickerCard
+                    stockName={stockData.stockName}
+                    tickerSymbol={stockData.tickerSymbol}
+                    price={stockData.price}
+                    priceChange={stockData.priceChange}
+                    logoUrl={stockData.logoUrl}
+                />
+                
+                <StockTickerCard2 stock={stock} />
+
+                <StockTickerCard3
+                    stockName="Cisco Systems, Inc."
+                    tickerSymbol="CSCO"
+                    price={45.80}
+                    priceChange={0.54}
+                    percentageChange={1.19}
+                    graphColor="green"
+                />
+
+                <StockTickerCard3
+                    stockName="Amazon.com, Inc."
+                    tickerSymbol="AMZN"
+                    price={3193.00}
+                    priceChange={-133.13}
+                    percentageChange={-4.00}
+                    graphColor="red"
+                />
+                <StockTickerCard3
+                    stockName="Arista Networks"
+                    tickerSymbol="ANET"
+                    price={308.00}
+                    priceChange={0.31}
+                    percentageChange={0.10}
+                    graphColor="green"
+                />
+            </div> */}
+
+            {/* <SweetCard/> */}
             
             {/*<Analytics />*/}
 
@@ -192,12 +263,12 @@ const Home = () => {
             {/*    <Toggle onChange={showGraph} />*/}
             {/*</Text>*/}
 
-            {favouritesList && favouritesList.length > 0 && (
+            {/* {favouritesList && favouritesList.length > 0 && (
                 <>
                     <FavouritesList list={favouritesList}/>
                     <Spacer h={2} />
                 </>
-            )}
+            )} */}
 
             {/*{isLoading ? (<Loading>Loading</Loading>) : (<div>hello...</div>)}*/}
 
@@ -219,15 +290,15 @@ const Home = () => {
                 </>
             )}
 
-            {loadable.state !== "loading" && <Loading>Loading</Loading>}
+            {/* {loadable.state !== "loading" && <Loading>Loading</Loading>} */}
 
-            <Spacer h={2} />
-            
-            <Text>Last updated {lastUpdated && formatDistance(new Date(lastUpdated), new Date(), { addSuffix: true })}</Text>
-            <Text>Last updated on {lastUpdated && formatRelative(new Date(lastUpdated), new Date())}</Text>
+            {/* <Spacer h={2} /> */}
+            {/* <Text>Last updated {lastUpdated && formatDistance(new Date(lastUpdated), new Date(), { addSuffix: true })}</Text> */}
+            {/* <Text>Last updated on {lastUpdated && formatRelative(new Date(lastUpdated), new Date())}</Text> */}
 
         </Layout>
     )
 }
+
 
 export default Home;
