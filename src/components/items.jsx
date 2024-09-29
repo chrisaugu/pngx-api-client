@@ -1,5 +1,5 @@
 
-import { Menu } from "antd";
+// import { Menu } from "antd";
 
 export const menu = (
   handleDataFetching,
@@ -7,18 +7,20 @@ export const menu = (
   selectedItem
 ) => {
  return (
-   <Menu>
-     {dropdownCategories.map((item) => {
-      return ( selectedItem.key != item.key && (
-         <Menu.Item
-          onClick={(e) => handleDataFetching(e.key,item.value)}
-          key={item.key}
-         >
-          {item.content}
-         </Menu.Item>
-        )
-      );
-    })}
-   </Menu>
+  <>
+  {/* <Menu>
+    {dropdownCategories.map((item) => {
+     return ( selectedItem.key != item.key && (
+        <Menu.Item
+         onClick={(e) => handleDataFetching(e.key,item.value)}
+         key={item.key}
+        >
+         {item.content}
+        </Menu.Item>
+       )
+     );
+   })}
+  </Menu> */}
+  </>
   );
 };

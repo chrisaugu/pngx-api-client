@@ -29,7 +29,7 @@ import Layout from "../../components/Layout";
 import Graph from "../../components/Charts/Large";
 
 import Report from "../../components/Tables/Report";
-import { BSP, stocks } from "../../utils/sample-data";
+import { BSP, stocks } from "../../lib/sample-data";
 
 // export async function getServerSideProps({ params }) {
 //     // const res = await fetch('http://pngx-api.cleverapps.io/stocks')

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { Page, Divider, Grid, Link, Button, Breadcrumbs, Spacer, Text, Tooltip, Code, Card, useToasts } from "@geist-ui/core";
-import { Facebook, Github, Instagram, Linkedin, Twitter, ArrowLeft, Home } from "@geist-ui/icons";
+import { Page, Divider, Link, Breadcrumbs, Spacer, useToasts } from "@geist-ui/core";
+import { ArrowLeft, Home } from "@geist-ui/icons";
 import styled from 'styled-components';
 
 import useNetwork from "../../hooks/useNetwork";
@@ -26,13 +26,12 @@ const FooterWrapper = styled(Page.Footer)`
   display: block!important;
   position: relative !important;
   margin-top: 40px !important;
-  padding: 2rem 0 !important;
   //border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
 `;
 
-const BodyWrapper = styled(Page.Body)`
+const BodyWrapper = styled(Page.Content)`
   padding: 0 !important;
   /*padding: 1rem 0 120px !important;*/
   width: auto !important;
@@ -40,6 +39,10 @@ const BodyWrapper = styled(Page.Body)`
   display: flex;
   flex-direction: column;
 `;
+
+// const ContentWrapper = styled(PageContent)`
+
+// `;
 
 export default function Layout({title, children}) {
     const router = useRouter();
@@ -49,6 +52,7 @@ export default function Layout({title, children}) {
     useEffect(() => {
       setIsMounted(true);
     }, []);
+    
   
     const networkState = useNetwork();
     // const {
@@ -92,7 +96,7 @@ export default function Layout({title, children}) {
                         <Header />
                     </HeaderWrapper>
 
-                    <Spacer h={6} />
+                    <Spacer h={4} />
 
                     {router.pathname !== "/" && (
                         <>

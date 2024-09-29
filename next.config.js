@@ -1,27 +1,36 @@
-const withPWA = require('next-pwa')
+// import withPWA from 'next-pwa'
 
-module.exports = withPWA({
-  pwa: {
-    dest: "public",
-    register: true,
-    skipWaiting: true,
-  },
-  // swcMinify: true,
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    /* config options here */
+}
 
-  // distDir: 'build',
+// const pwaConfig = withPWA({
+//   pwa: {
+//     dest: "public",
+//     register: true,
+//     skipWaiting: true,
+//   },
+//   // swcMinify: true,
+
+//   // distDir: 'build',
   
-  reactStrictMode: true,
+//   reactStrictMode: true,
 
-  images: {
-    domains: ["randomuser.me"],
-  },
+//   images: {
+//     domains: ["randomuser.me"],
+//   },
 
-  pageExtensions: ['jsx', 'js', 'mdx', 'md', 'ts', 'tsx'],
+//   pageExtensions: ['jsx', 'js', 'mdx', 'md', 'ts', 'tsx'],
   
-  cssModules: true,
+//   cssModules: true,
   
-  cssLoaderOptions: {
-    importLoaders: 1,
-    localIdentName: '[local]___[hash:base64:5]',
-  },
-})
+//   cssLoaderOptions: {
+//     importLoaders: 1,
+//     localIdentName: '[local]___[hash:base64:5]',
+//   },
+// })
+   
+// export default nextConfig;
+
+module.exports = nextConfig;

@@ -24,14 +24,13 @@ import {
 import Axios from 'axios';
 import useSWR from 'swr';
 
-import Header from "../../components/Header";
-import Graph from "../../components/Charts/Large";
+import Header from "@/components/Header";
+import Graph from "@/components/Charts/Large";
 
-// import api from "../../lib/api";
-import Report from "../../components/Tables/Report";
-import { BSP as historical } from "../../utils/sample-data";
-import {firestore} from "../../lib/firebase";
-import Layout from '../../components/Layout';
+// import api from "@/lib/api";
+import Report from "@/components/Tables/Report";
+import { BSP as historical } from "@/lib/sample-data";
+import Layout from '@/components/Layout';
 import { Loader } from '@geist-ui/icons';
 
 export async function getServerSideProps({ params }) {
@@ -39,20 +38,15 @@ export async function getServerSideProps({ params }) {
     // const { data } = await Axios.get(`https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/historicals/${params.id}`);
     // const { historical, symbol } = await fetch(`https://app-6a8549f8-c753-46a7-a88d-e54678c74dd9.cleverapps.io/api/historicals/${params.id}?limit=12`).then(res => res.json());
     // const { historical, symbol } = await fetch(`http://localhost:5000/api/historicals/${params.id}?limit=12`).then(res => res.json());
-    const postsQuery = firestore
-      .collectionGroup('posts')
-      .where('published', '==', true)
-      .orderBy('createdAt', 'desc')
-      .limit(LIMIT);
-  
-    const posts = (await postsQuery.get()).docs.map(postToJSON);
+    
+    // const posts = (await postsQuery.get()).docs.map(postToJSON);
 
     return {
         props: {
-            quotes: historical,
+            quotes: 'historical',
             // symbol: symbol
             symbol: "BSP",
-            posts
+            'posts': ''
         }
     };
 }
@@ -72,21 +66,21 @@ const Details = ({quotes, symbol}) =>  {
   
       const cursor = typeof last.createdAt === 'number' ? fromMillis(last.createdAt) : last.createdAt;
   
-      const query = firestore
-        .collectionGroup('posts')
-        .where('published', '==', true)
-        .orderBy('createdAt', 'desc')
-        .startAfter(cursor)
-        .limit(LIMIT);
+    //   const query = firestore
+    //     .collectionGroup('posts')
+    //     .where('published', '==', true)
+    //     .orderBy('createdAt', 'desc')
+    //     .startAfter(cursor)
+    //     .limit(LIMIT);
   
-      const newPosts = (await query.get()).docs.map((doc) => doc.data());
+    //   const newPosts = (await query.get()).docs.map((doc) => doc.data());
   
-      setPosts(posts.concat(newPosts));
+    //   setPosts(posts.concat(newPosts));
       setLoading(false);
   
-      if (newPosts.length < LIMIT) {
-        setPostsEnd(true);
-      }
+    //   if (newPosts.length < LIMIT) {
+    //     setPostsEnd(true);
+    //   }
     };
 
     const fetcher = (url) => fetch(url).then(res => res.json());
@@ -94,24 +88,6 @@ const Details = ({quotes, symbol}) =>  {
 
     // if (error) return <div>Failed to load users</div>
     // if (!data) return <div>Loading...</div>
-
-    function getStockName(code) {
-        let names = {
-            "BSP": "BSP Financial Group Limited",
-            "CCP": "Credit Corporation (PNG) Ltd",
-            "CGA": "PNG Air Limited",
-            "COY": "Coppermoly Limited",
-            "CPL": "CPL Group",
-            "KAM": "Kina Asset Management Limited",
-            "KSL": "Kina Securities Limited",
-            "NCM": "Newcrest Mining Limited",
-            "NGP": "NGIP Agmark Limited",
-            "NIU": "Niuminco Group Limited",
-            "SST": "Steamships Trading Company Limited",
-            "STO": "Santos Limited"
-        }
-        return names[code];
-    }
 
     return (
         <Layout title={symbol ? symbol : 'stock | Nuku - PNGX-API Client'}>

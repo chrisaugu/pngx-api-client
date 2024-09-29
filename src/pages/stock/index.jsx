@@ -1,10 +1,10 @@
 import React from "react";
-import { GetStaticProps } from 'next'
+import { GetStaticProps } from 'next';
 import Link from 'next/link'
 import {Spacer, Button} from "@geist-ui/core";
 
-import { sampleUserData } from '../../utils/sample-data'
-import Layout from '../../components/Layout'
+import { sampleUserData } from '@/lib/sample-data';
+import Layout from '@/components/Layout';
 
 const WithStaticProps = ({ items }) => (
     <Layout title="Users List | Next.js + TypeScript Example">

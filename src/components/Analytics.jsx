@@ -1,9 +1,9 @@
 import { useState } from "react";
 import {createUseStyles} from "react-jss";
-import "antd/dist/antd.css";
+// import "antd/dist/antd.css";
 import MyGraph from "./graph";
 import DropdownSelector from "./menu";
-import dataSet from "../utils/data";
+import dataSet from "../lib/data";
 
 const useStyles = createUseStyles(() => ({
   container: {

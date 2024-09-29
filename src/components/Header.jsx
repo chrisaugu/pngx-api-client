@@ -9,10 +9,11 @@ import styled from 'styled-components';
 // import ThemeToggler from "../ThemeToggler";
 import AnimatedIcon from "./ThemeToggler/AnimatedIcon";
 import RoundButton from "./Buttons/Round";
-import { usePrefers } from '../hooks/usePrefers';
 
 import { useSelector } from 'react-redux';
-import { getLastUpdated, getDate } from "../redux/selectors";
+import { getLastUpdated, getDate } from "../store/selectors";
+import ThemeToggler from './ThemeToggler';
+import useMyTheme from '@/hooks/useTheme';
 
 const HeaderWrapper = styled.div`
   position: relative;
@@ -198,9 +199,8 @@ const Burger = () => {
 }
 
 export default function Header() {
-    // const [themeType, switchTheme] = usePrefers();
-    const [themeType, switchTheme] = useState('light');
-    const theme = useTheme();
+    const {themeType, switchTheme} = useMyTheme();
+    // const theme = useTheme();
 
     const router = useRouter();
 
@@ -208,10 +208,6 @@ export default function Header() {
     const lastUpdated = useSelector(getLastUpdated);
 
     const dateStr = parseISO(date);
-
-    const changeTheme = () => {
-      switchTheme((last) => (last === "dark" ? "light" : "dark"));
-    };
 
     const { visible, setVisible, bindings } = useModal();
 
@@ -262,14 +258,14 @@ export default function Header() {
                 <Tooltip text={"Theme"} placement="bottom">
                   <RoundButton
                       aria-label="Theme"
-                      // title={ theme === TOKENS_DARK ? 'Trocar para modo claro' : 'Trocar para modo escuro' }
-                      icon={theme.type === "dark" ? <Moon /> : <Sun />}
+                      title={ themeType === "dark" ? 'Dark Mode' : 'Light Mode' }
+                      icon={themeType === "dark" ? <Moon /> : <Sun />}
                       onClick={()=> switchTheme()}>
                       {/*<svg focusable="false" data-prefix="fas" data-icon="adjust" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184 0 101.705-82.311 184-184 184z"></path></svg>*/}
                   </RoundButton>
 
-                  {/*<ThemeToggler className={"theme-toggler"} onSwitchTheme={switchTheme} />*/}
-                  {/*<AnimatedIcon className={"theme-toggler"} onSwitchTheme={switchTheme} />*/}
+                  {/* <ThemeToggler className={"theme-toggler"} onSwitchTheme={switchTheme} /> */}
+                  {/* <AnimatedIcon className={"theme-toggler"} onSwitchTheme={switchTheme} /> */}
                 </Tooltip>
               </Grid>
               <Grid>

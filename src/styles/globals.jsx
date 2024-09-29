@@ -74,8 +74,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-image: radial-gradient(#333 1px, transparent 0),
-      radial-gradient(#222 1px, transparent 0);
+    // background-image: radial-gradient(#333 1px, transparent 0), radial-gradient(#222 1px, transparent 0);
     background-position: 0 0, 25px 25px;
     background-attachment: fixed;
     background-size: 50px 50px;
@@ -88,7 +87,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     -ms-overflow-style: scrollbar;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    background-color: #161719;
+    // background-color: #161719;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

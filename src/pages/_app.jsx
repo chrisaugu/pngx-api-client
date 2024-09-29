@@ -1,29 +1,19 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import App from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
 
-import { Provider } from 'react-redux';
-import store from "../redux/configureStore";
-
 import {GeistProvider, CssBaseline, useTheme} from '@geist-ui/core';
 
-import { ThemeProvider } from 'styled-components';
-
-import { myDarkTheme, myLightTheme, myTheme, darkTheme, lightTheme } from '../utils/theme';
-
-import Layout from "../components/Layout";
-import { OnlineStatusProvider } from "../hooks/useOnlineStatus";
-import useMyTheme from '../hooks/useMyTheme';
-import { PrefersContext, usePrefers } from '../hooks/usePrefers';
-
-import { pageview, GA_TRACKING_ID } from '../lib/gtag';
+import { pageview, GA_TRACKING_ID } from '@/lib/gtag';
+import { AppProvider } from '@/contexts/AppContext';
+import { myDarkTheme, myLightTheme, myTheme } from '@/lib/theme';
 
 import "inter-ui/inter.css";
-
-import '../styles/globals.css';
-import GlobalStyle from "../styles/globals";
+import '@/styles/globals.css';
+import GlobalStyle from "@/styles/globals";
+import useMyTheme from '@/hooks/useTheme';
 
 // export function reportWebVitals(metric) {
 //   console.log(metric);
@@ -31,39 +21,12 @@ import GlobalStyle from "../styles/globals";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  // const [theme, setTheme] = useMyTheme();
-  // const [themeType, switchTheme] = usePrefers();
+  // const {themeType, switchTheme} = useMyTheme();
   const theme = useTheme();
 
-  // const darkMode = useDarkMode(true);
-  // const theme = darkMode.value ? darkTheme : lightTheme;
-  // const theme = {
-  //   main: "mediumseagreen"
-  // };
-  
-  const [themeType, switchTheme] = useState('light');
-  // const switchThemes = () => {
-  //     setThemeType(last => (last === 'dark' ? 'light' : 'dark'))
-  // }
-
-  // const [theme, setTheme] = useState(TOKENS_DARK)
-  
-  // useEffect(() => {
-  //     setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches
-  //         ? TOKENS_DARK
-  //         : TOKENS_LIGHT)
-  // }, []);
-
-  const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    const handleRouteChange = (url) => pageview(url);
 
-  useEffect(() => {
-    const handleRouteChange = (url) => {
-      pageview(url);
-    }
-    
     router.events.on('routeChangeComplete', handleRouteChange);
     router.events.on('hashChangeComplete', handleRouteChange);
     return () => {
@@ -72,22 +35,8 @@ function MyApp({ Component, pageProps }) {
     }
   }, [router.events]);
 
-  // const [themeType, setThemeType] = useState('dark');
-  // useEffect(() => {
-  //   document.documentElement.removeAttribute('style');
-  //   document.body.removeAttribute('style');
-
-  //   const theme = window.localStorage.getItem('theme');
-  //   if (themes.includes(theme)) setThemeType(theme);
-  // }, []);
-  
-  // const switchTheme = useCallback((theme) => {
-  //   setThemeType(theme);
-  //   if (typeof window !== 'undefined' && window.localStorage) window.localStorage.setItem('theme', theme);
-  // }, []);
-
   return (
-    <GeistProvider themes={[myDarkTheme, myLightTheme, myTheme]} themeType={{type: themeType}}>
+    <GeistProvider themes={[myDarkTheme, myLightTheme, myTheme]} themeType={{type: 'light'}}>
       
       <Head>
         <meta charSet='utf-8' />
@@ -139,7 +88,7 @@ function MyApp({ Component, pageProps }) {
         }}
       />
       
-      <Script id="darkMode" 
+      {/* <Script id="darkMode" 
         dangerouslySetInnerHTML={{ 
           __html: `
           (function(){
@@ -153,32 +102,14 @@ function MyApp({ Component, pageProps }) {
             }
           })()`
         }}
-      />
+      /> */}
       
       <CssBaseline />
       <GlobalStyle />
 
-      {/* <Layout onThemeChange={changeTheme}>
-        {isMounted && <Component {...pageProps} />}
-        <Component onThemeChange={next => setTheme(next)} {...pageProps} />
-      </Layout> */}
-
-      {/* <ThemeProvider theme={theme}> */}
-        {/* <button onClick={darkMode.enable}>DARK MODE</button> */}
-        {/* <button onClick={darkMode.disable}>LIGHT MODE</button> */}
-        {/* <Component {...pageProps} /> */}
-      {/* </ThemeProvider> */}
-
-      {/*<OnlineStatusProvider>
-        Hello
-      </OnlineStatusProvider>*/}
-
-      <Provider store={store}>
-        {/* {isMounted && <Component {...pageProps} />} */}
-        <PrefersContext.Provider value={{ themeType, switchTheme }}>
-          <Component {...pageProps} />
-        </PrefersContext.Provider>
-      </Provider>
+      <AppProvider>
+        <Component {...pageProps} />
+      </AppProvider>
 
     </GeistProvider>
   )

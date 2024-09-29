@@ -2,19 +2,24 @@
 
 > Stock metrics is a web(mobile-focused) app for checking the companies listed on the stoc exchange and see their live metrics. Its data is consumed from the Financial modelling API. It is built using React, Redux, and Styled Components, Framer Motion.
 
+On September of last year I lauched a API service called PNGX-API for PNGX.com which extracts stocks data for individual companies from PNGX.com website. And today I am thrilled to say that for the past few months I've worked on another project of mine called Nuku(PNGX-API-Client) which is a webapp that consumes those data published by the API service and displays them. The 
+
+==> https://nuku.netlify.com/
+==> https://pngx-client.netlify.com/
+
+## Features
+[x] - News Feed page
+[] - Company profile page
+[] - Stock Detials page
+[x] - Watchlist page
+[x] - Add to watchlist
+[] - Graph to interact
+[x] - PWA
+[] - Push notification - https://blog.logrocket.com/push-notifications-react-firebase/
 
 ## Introduction
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-
-## Deployment
-The code is automatically deployed to Vercel.
-
-## Contributing
-There are a couple of ways in which you can contribute to the website, for example:
-	- [Submit bugs and feature requests](https://github.com/chrisaugus/pngx-api-client/issues).
-	- Review the [website](https://pngx-api-client.netlify.io) and make pull requests for anything from typos to new content suggestion.
 
 
 ![nn](https://img.shields.io/badge/stock_metrics-green)
@@ -51,27 +56,6 @@ Additional description about the project and its features.
 
   ```
 
-
-## Getting Started
-
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
- - A text editor(preferably Visual Studio Code)
-### Install
-  -  [Git](https://git-scm.com/downloads)
-  -  [Node](https://nodejs.org/en/download/)
-### Usage
-#### Clone this repository
-
-```bash
-$ git clone git@github.com:chrisaugu/pngx-api-client.git
-$ cd pngx-api-client
-```
-## Available Scripts
-
-In the project directory, you can run:
-
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -106,7 +90,13 @@ Original design idea by [Nelson Sakwa on Behance.](https://www.behance.net/galle
 
 <br>
 
+## Deployment
+The code is automatically deployed to Vercel.
+
 ## 🤝 Contributing
+There are a couple of ways in which you can contribute to the website, for example:
+	- [Submit bugs and feature requests](https://github.com/chrisaugus/pngx-api-client/issues).
+	- Review the [website](https://pngx-api-client.netlify.io) and make pull requests for anything from typos to new content suggestion.
 
 Contributions, issues, and feature requests are welcome!
 
@@ -121,22 +111,3 @@ Give a ⭐️ if you like this project!
 ## 📝 License
 
 This project is [MIT](./LICENSE) licensed.
-
-
-
-
-
-On September of last year I lauched a API service called PNGX-API for PNGX.com which extracts stocks data for individual companies from PNGX.com website. And today I am thrilled to say that for the past few months I've worked on another project of mine called Nuku(PNGX-API-Client) which is a webapp that consumes those data published by the API service and displays them. The 
-
-==> https://nuku.netlify.com/
-
-
-## Features
-[x] - News Feed page
-[] - Company profile page
-[] - Stock Detials page
-[x] - Watchlist page
-[x] - Add to watchlist
-[] - Graph to interact
-[x] - PWA
-[] - Push notification - https://blog.logrocket.com/push-notifications-react-firebase/

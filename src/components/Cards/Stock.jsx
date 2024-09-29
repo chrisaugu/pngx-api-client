@@ -7,13 +7,13 @@ import FavButton from "../Button/Favorite";
 
 import styles from "./Card.module.css";
 
-const Stock = () => (
+const Stock = ({stock}) => (
     <Grid.Container gap={1.5} justify="center">
         <Grid xs={24}>
             <Card key={stock._id}
                   className={`stock-card ${changeBg(stock.chg_today)}`}
                   style={{cursor: "pointer", width: "100%"}}
-                  xonClick={() => router.push('/stock/' + stock.code)}
+                  onClick={() => router.push('/stock/' + stock.code)}
             >
                 {/*<Link href={`/stock/${stock.code}`}>*/}
                 <Card.Body>
@@ -52,7 +52,7 @@ const Stock = () => (
                             {/*<GridWall>*/}
                             {/*<SmallGraph stocks={stocks}/>*/}
                             <Text h2 className={"last"}>K{stock.last}</Text>
-                            <div className="vertical" justify="right">
+                            <div className="vertical">
                                 {/*<Text h5 className={"high"}>K{stock.high}</Text>*/}
                                 {/*<Text h5 className={"low"}>K{stock.bid}</Text>*/}
                                 {/*    <Text h3>{stock.vol_today}<AtSign size={45}/></Text>*/}

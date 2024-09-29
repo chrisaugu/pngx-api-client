@@ -1,5 +1,3 @@
-// redux/selectors.js
-
 export const getStockState = (store) => store.stocks;
 
 // export const getStockList = (store) => getStockState(store) ? getStockState(store).allIds : [];

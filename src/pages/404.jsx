@@ -5,10 +5,7 @@ import {
     Page,
     Button,
     Text,
-    Link,
-    Image,
-    Display,
-    Divider
+    Link
 } from '@geist-ui/core'
 
 export default function Custom404() {

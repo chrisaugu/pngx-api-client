@@ -1,45 +1,17 @@
-import React, { useState, useEffect } from "react"
+import React, {  } from "react"
 import { useSelector, useDispatch } from 'react-redux';
-import Head from 'next/head'
-import NextLink from 'next/link'
 import {
-    Button,
-    Input,
     Spacer,
-    Text,
-    Link,
-    Image,
-    Display,
-    Grid,
-    Tag,
-    Select,
-    Card,
-    Divider,
-    Toggle,
     useTheme,
-    Code,
-    Snippet,
-    Avatar,
-    ButtonGroup,
-    Description,
-    Popover,
-    Tabs,
     Pagination,
-    AutoComplete,
-    Loading,
-    useToasts
-} from '@geist-ui/core';
-import {AtSign, ArrowUp, Star } from '@geist-ui/icons'
+    Loading} from '@geist-ui/core';
 import _ from 'underscore';
-import { format, startOfDay, endOfDay, subDays } from "date-fns";
 import styled from 'styled-components';
 
-import Api from "../lib/api";
-import Header from "../components/Header";
 import Layout from "../components/Layout";
 import StocksList from "../components/StocksList";
 
-import { getFavouritesList, getLoadableStatus } from "../redux/selectors";
+import { getFavouritesList, getLoadableStatus } from "../store/selectors";
 
 const List = styled.ul`
   list-style: none;
