@@ -13,13 +13,13 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  /*--navbg: rgba(0, 0, 0, 0.15);*/
+/* @media (prefers-color-scheme: dark) {
+  --navbg: rgba(0, 0, 0, 0.15);
   body {
     background: #1f2023 !important;
   }
 
-}
+} */
 
 html { 
   font-family: "Inter", "system-ui"; 

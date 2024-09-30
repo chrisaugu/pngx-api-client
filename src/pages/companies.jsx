@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function Profile() {
+export default function Companies() {
   const [data, setData] = useState(null)
   const [isLoading, setLoading] = useState(false)
 
@@ -19,8 +19,8 @@ export default function Profile() {
 
   return (
     <div>
-      <h1>{data.name}</h1>
-      <p>{data.bio}</p>
+      <h1>{data.code}</h1>
+      <p>{data.bid}</p>
     </div>
   );
 }
