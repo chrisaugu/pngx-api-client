@@ -1,27 +1,28 @@
-import { useState } from 'react';
-import { Button, Card, Drawer, Stack, Text } from '@geist-ui/core';
+import { Card, Text } from '@geist-ui/core';
 import Layout from '@/components/Layout';
+import useMyTheme from '@/hooks/useTheme';
 
 export default function UsesPage() {
-  const [open, setOpen] = useState(false);
+  // const [theme, setTheme] = useMyTheme();
 
   return (
     <Layout title={"Uses"}>
 
         <Text>This web application is built using:</Text>
 
-        <Card>
+        <Card >
             <Card.Content>
-                Nextjs
-                Geist UI
-                Shared Components
-                PNGX-API
-                PNGX data
-                Redux
-                Axios
-                Fetch
+              <ul>
+                <li>Nextjs</li>
+                <li>Geist UI</li>
+                <li>Styled-Components</li>
+                <li>PNGX-API</li>
+                <li>PNGX data</li>
+                <li>Redux</li>
+                <li>Axios</li>
+                <li>Fetch</li>
+              </ul>
             </Card.Content>
-            <Card.Footer>Hello</Card.Footer>
         </Card>
 
     </Layout>

@@ -8,6 +8,7 @@
   "background_color": "#FFFFFF",
   "display": "standalone",
   "orientation": "portrait",
+  "splash_pages": null,
   "icons": [
     {
       "src": "/icon.png",
@@ -50,11 +51,30 @@
       "sizes": "512x512"
     },
     {
-      "src": "/icons/maskable.png",
+      "src": "/icons/maskable-192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable"
+    },
+    {
+      "src": "/icons/maskable-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "icon512_rounded.png",
+      "type": "image/png"
     }
   ],
-  "splash_pages": null
+  "screenshots": [
+    {
+      "src": "screenshot1.png",
+      "type": "image/png",
+      "sizes": "1080x1920",
+      "form_factor": "narrow"
+    }
+  ]
 }

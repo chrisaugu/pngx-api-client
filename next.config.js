@@ -1,8 +1,9 @@
-// import withPWA from 'next-pwa'
+const withPWA = require('next-pwa');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     /* config options here */
+    // distDir
 }
 
 // const pwaConfig = withPWA({
@@ -30,7 +31,7 @@ const nextConfig = {
 //     localIdentName: '[local]___[hash:base64:5]',
 //   },
 // })
-   
-// export default nextConfig;
+
+// export default pwaConfig;
 
 module.exports = nextConfig;
