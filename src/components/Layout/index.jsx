@@ -100,27 +100,13 @@ export default function Layout({title, children}) {
 
                     {router.pathname !== "/" && (
                         <>
-                            <Spacer h={1}/>
-
                             <div className={styles.wrapper}>
-                                <NextLink href="/">
-                                    <Link>
-                                        <span className="h"><ArrowLeft/></span>
-                                        <span className="i">&nbsp;Back Home</span>
-                                    </Link>
-                                </NextLink>
+                                <Link as={NextLink} href="/">
+                                    <span className="h"><ArrowLeft/></span>
+                                    <span className="i">&nbsp;Back Home</span>
+                                </Link>
                             </div>
 
-                            <Spacer h={1}/>
-
-                            <Breadcrumbs>
-                                <NextLink href="/">
-                                    <Link>
-                                        <Breadcrumbs.Item nextLink><Home /></Breadcrumbs.Item>
-                                    </Link>
-                                </NextLink>
-                                <Breadcrumbs.Item>Watchlist</Breadcrumbs.Item>
-                            </Breadcrumbs>
                         </>
                     )}
 

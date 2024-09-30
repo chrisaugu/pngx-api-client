@@ -1,76 +1,45 @@
 import axios from 'axios';
-// import vercelFetch from '@vercel/fetch';
-
-// export default vercelFetch();
 
 // const API_URL = "http://localhost:5000/api";
-const STOCKS_API_URL = "https://pngx-api.onrender.com/api";
+const API_URL = "https://pngx-api.onrender.com/api";
 
 export default axios.create({
-  "baseUrl": STOCKS_API_URL,
+  "baseUrl": API_URL,
   "headers": {
     'Content-Type': 'application/json',
   },
-  "withCredentials": true, // to send cookie
+  "withCredentials": true
 });
 
-async function fetchAPI(url) {
-  const headers = { 'Content-Type': 'application/json' }
-
-  const res = await fetch(API_URL+url, {
-    "method": 'GET',
-    headers
-  });
-
-  const json = await res.json();
-  if (json.errors) {
-    console.error(json.errors);
-    throw new Error('Failed to fetch API');
-  }
-  return json;
-}
-
-// async function fetch2(query, { variables } = {}) {
-//   const headers = { 'Content-Type': 'application/json' }
-
-//   if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
-//     headers[
-//       'Authorization'
-//     ] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
+// async function fetchAPI(url, options = { method: 'GET' }) {
+//   const headers = { 
+//     'Content-Type': 'application/json'
 //   }
 
-//   const res = await fetch(API_URL, {
+//   if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
+//     headers['Authorization'] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
+//   }
+  
+//   const res = await fetch(API_URL + url, options);
+
+//   const json = await res.json();
+
+//   if (json.errors) {
+//     console.error(json.errors);
+//     throw new Error('Failed to fetch API');
+//   }
+//   return json;
+// }
+
+// async function fetch2(query, { variables } = {}) {
+//   fetchAPI("/stocks", {
 //     method: 'POST',
-//     headers,
 //     body: JSON.stringify({
 //       query,
 //       variables,
-//     }),
+//     })
 //   })
-
-//   const json = await res.json()
-//   if (json.errors) {
-//     console.error(json.errors)
-//     throw new Error('Failed to fetch API')
-//   }
-//   return json.data
 // }
-
-// export async function getAllPostsWithSlug() {
-//   const data = await fetch2(`
-//     {
-//       posts(first: 10000) {
-//         edges {
-//           node {
-//             slug
-//           }
-//         }
-//       }
-//     }
-//   `)
-//   return data?.posts
-// }
-
 
 let todos = [];
 const delay = () => new Promise((res) => setTimeout(() => res(), 800));

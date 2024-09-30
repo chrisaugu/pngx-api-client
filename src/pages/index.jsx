@@ -27,7 +27,8 @@ import {
     AutoComplete,
     Loading,
     useToasts,
-    useTheme
+    useTheme,
+    Spinner
 } from '@geist-ui/core';
 import {AtSign, ArrowUp, Star } from '@geist-ui/icons'
 import _ from 'underscore';
@@ -49,8 +50,7 @@ import StockCard from "../components/Cards/StockCard";
 import SweetCard from "../components/Cards/SweetCard";
 import { CardWrapper } from "../components/Cards";
 import { StockTickerCard, StockTickerCard2, StockTickerCard3 } from "@/components/Cards/StockTickerCard";
-import client from "@/lib/mongodb";
-// import LoggedIn from "../components/logged_in";
+// import client from "@/lib/mongodb";
 
 // import img1 from "./Assets/images/img1.jpg";
 // import img2 from "./Assets/images/img2.jpg";
@@ -58,19 +58,19 @@ import client from "@/lib/mongodb";
 {/*YjFiZDM1NDAtMjgwNi00MTIwLThiMDctM2VkOGQ5NzRkZDVk*/}
 
 
-export const getServerSideProps = async () => {
-  try {
-    await client.connect(); // `await client.connect()` will use the default database passed in the MONGODB_URI
-    return {
-      props: { isConnected: true },
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      props: { isConnected: false },
-    };
-  }
-};
+// export const getServerSideProps = async () => {
+//   try {
+//     await client.connect(); // `await client.connect()` will use the default database passed in the MONGODB_URI
+//     return {
+//       props: { isConnected: true },
+//     };
+//   } catch (e) {
+//     console.error(e);
+//     return {
+//       props: { isConnected: false },
+//     };
+//   }
+// };
 
 const Home = () => {
     const {pallete} = useTheme();
@@ -273,6 +273,9 @@ const Home = () => {
             {/*{isLoading ? (<Loading>Loading</Loading>) : (<div>hello...</div>)}*/}
 
             {/*{loadable.state === "hasValue" && <TableReport data={feed} />}*/}
+            {/* {loadable.state !== "loading" && <Loading>Loading</Loading>} */}
+
+            {isLoading && <Spinner/>}
 
             {loadable.state !== "hasValue" && (
                 <>
@@ -289,8 +292,6 @@ const Home = () => {
                     </div>
                 </>
             )}
-
-            {/* {loadable.state !== "loading" && <Loading>Loading</Loading>} */}
 
             {/* <Spacer h={2} /> */}
             {/* <Text>Last updated {lastUpdated && formatDistance(new Date(lastUpdated), new Date(), { addSuffix: true })}</Text> */}
