@@ -47,13 +47,13 @@ export const AppProvider = ({children}) => {
     return (
         <AppContext.Provider value={value}>
             <StoreProvider store={store}>
-                {/* <ThemeProvider theme={theme}> */}
+                <ThemeProvider theme={theme}>
                     {/* <button onClick={darkMode.enable}>DARK MODE</button> */}
                     {/* <button onClick={darkMode.disable}>LIGHT MODE</button> */}
 
                     {/* {isMounted && children} */}
                     {children}
-                {/* </ThemeProvider> */}
+                </ThemeProvider>
                 {/* <OnlineStatusProvider>Online</OnlineStatusProvider> */}
             </StoreProvider>
         </AppContext.Provider>

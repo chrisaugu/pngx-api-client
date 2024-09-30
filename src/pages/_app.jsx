@@ -47,9 +47,9 @@ function MyApp({ Component, pageProps }) {
   //       });
   //   }
   // }, []);
-
+  // themes={[myDarkTheme, myLightTheme, myTheme]} themeType={{type: 'light'}}
   return (
-    <GeistProvider themes={[myDarkTheme, myLightTheme, myTheme]} themeType={{type: 'light'}}>
+    <GeistProvider >
       
       <Head>
         <meta charSet='utf-8' />
@@ -79,6 +79,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="theme-color" content="#fafafa" />
         <meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#000" media="(prefers-color-scheme: dark)" />
+        
       </Head>
 
       {/* Global Site Tag (gtag.js) - Google Analytics */}

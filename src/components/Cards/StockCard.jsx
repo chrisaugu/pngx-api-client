@@ -361,7 +361,7 @@ const StockCard = ({stock}) => {
                                 {/*<GridWall>*/}
                                 {/*blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}*/}
                                 <Image
-                                    src={`/${stock.code.toLowerCase()}.png`}
+                                    src={`/logos/${stock.code.toLowerCase()}.png`}
                                     width={60}
                                     height={60}
                                     alt=""/>
