@@ -1,3 +1,5 @@
+import NextLink from 'next/link';
+import { Link, Spacer, Breadcrumbs as GBreadcrumbs } from '@geist-ui/core';
 import { Home } from "@geist-ui/icons"
 
 export const Breadcrumbs = () => {
@@ -5,14 +7,14 @@ export const Breadcrumbs = () => {
     return (
         <>
             <Spacer h={1}/>
-            <Breadcrumbs>
+            <GBreadcrumbs>
                 <NextLink href="/">
                     <Link>
-                        <Breadcrumbs.Item nextLink><Home /></Breadcrumbs.Item>
+                        <GBreadcrumbs.Item nextLink><Home /></GBreadcrumbs.Item>
                     </Link>
                 </NextLink>
-                <Breadcrumbs.Item>Watchlist</Breadcrumbs.Item>
-            </Breadcrumbs>
+                <GBreadcrumbs.Item>Watchlist</GBreadcrumbs.Item>
+            </GBreadcrumbs>
         </>
     )
 }
