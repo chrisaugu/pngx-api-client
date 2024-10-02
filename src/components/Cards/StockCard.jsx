@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import {Card as GCard, Grid, Text, Spacer, Button, Modal, useModal, useToasts} from '@geist-ui/core';
+import {Card as GCard, Grid, Text, Spacer, Button, Modal, useModal, useToasts, useClasses, useMediaQuery} from '@geist-ui/core';
 import {Heart, HeartFill, MoreVertical, Star} from '@geist-ui/icons';
 import Trend from 'react-trend';
 import styled from 'styled-components';
@@ -16,7 +16,7 @@ import { getStockList, getFavouritesList } from "../../store/selectors";
 
 import NormalButton from "../Buttons/Normal";
 import FavButton from "../Buttons/Favorite";
-import { getStockName } from '@/lib/utils';
+import { device, getStockName } from '@/lib/utils';
 
 
 const Card = styled(GCard)`
@@ -252,8 +252,17 @@ const GridWall = styled.div`
 `;
 
 const Horizontal = styled.div`
-    display: inline-flex;
-    margin: 0 10px;
+  display: inline-flex;
+  margin: 0 10px;
+  
+  @media ${device.laptop} { 
+    max-width: 800px;
+  }
+
+  @media ${device.desktop} {
+    max-width: 1400px;
+  }
+
 `;
 
 const Vertical = styled.div`
@@ -281,7 +290,7 @@ const StockImage = styled.div`
     height: var(--img-width) !important;
     margin: 0 !important;
   }
-`
+`;
 
 const StockCard = ({stock}) => {
     const router = useRouter();
@@ -291,6 +300,7 @@ const StockCard = ({stock}) => {
 
     const favouritesList = useSelector(getFavouritesList);
     const stocksList = useSelector(getStockList);
+    let isSM = useMediaQuery('sm')
 
     let changeBg = (change) => {
         if (change > 0) {
@@ -301,11 +311,11 @@ const StockCard = ({stock}) => {
     }
 
     let percentChange = (change) => {
-        if (change > 0) {
-            return `+${change}%`;
-        } else {
-            return `${change}%`;
-        }
+      if (change > 0) {
+          return `+${change}%`;
+      } else {
+          return `${change}%`;
+      }
     }
 
     function changeDir(change) {
@@ -345,12 +355,12 @@ const StockCard = ({stock}) => {
         setToast({ text: `You removed ${stock.code} from your Watchlist`, type: "success" });
     };
 
-    return (
+    let e = (
         <>
             <Card key={stock._id}
                   type={"dark"}
                   hoverable
-                  className={`stock-card ${changeBg(stock.chg_today)}`}
+                  className={useClasses('stock-card', changeBg(stock.chg_today))}
             >
                   {/* xonClick={() => router.push('/stock/' + stock.code)} */}
                 {/*<Link href={`/stock/${stock.code}`}>*/}
@@ -370,7 +380,7 @@ const StockCard = ({stock}) => {
                                 
                                 <div className="vertical">
                                     <Text h2 className={"symbol"}>{stock.code}</Text>
-                                    <Text h6 className={"name"}>
+                                    <Text h6 className={useClasses("name", {'hide': isSM})}>
                                       {/* <Link href={`/company/${stock.code}`}> */}
                                       {getStockName(stock.code)}
                                       {/* </Link> */}
@@ -465,6 +475,33 @@ const StockCard = ({stock}) => {
             </div>*/}
         </>
     );
+
+    return (
+      <div className={useClasses('stock-card', changeBg(stock.chg_today))}>
+        <Image
+          src={`/logos/${stock.code.toLowerCase()}.png`}
+          width={60}
+          height={60}
+          className='stock-image'
+          alt=""/>
+
+        <div className="vertical">
+          <div className='top'>
+            <h2 className={"symbol"}>{stock.code}</h2>
+            
+            <div className='price'>
+              <h2 className={"last"}>K{stock.last}</h2>
+              <Horizontal>
+                <h3>({percentChange(stock.chg_today)})</h3>
+                <h3>{changeDir(stock.chg_today)}</h3>
+              </Horizontal>
+            </div>
+          </div>
+
+          <h6 className={useClasses("name bottom", {'hide': isSM})}>{getStockName(stock.code)}</h6>
+        </div>
+      </div>
+    )
 };
 
 StockCard.propTypes = {
