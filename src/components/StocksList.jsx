@@ -128,7 +128,7 @@ const StocksList = ({stocks}) => {
                         </Grid.Container>
                     </Options>
 
-                    <div>
+                    <div className=''>
                         { stocks && stocks.map((quote, i) => {
                             return (
                                 <StockCard key={i} stock={quote}/>

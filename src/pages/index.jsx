@@ -83,9 +83,9 @@ const Home = () => {
     
     // const stocksList = stocks;
     const stocksList = useSelector(getStockList);
-    console.log(stocksList)
+    // console.log(stocksList)
     const favouritesList = useSelector(getFavouritesList);
-    console.log(favouritesList);
+    // console.log(favouritesList);
 
     const lastUpdated = useSelector(getLastUpdated);
 
@@ -200,7 +200,7 @@ const Home = () => {
         price: 150.25,
         priceChange: 2.75, // positive for gains, negative for losses
         logoUrl: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg", // Example Apple logo
-      };
+    };
     
     const stock = {
         symbol: 'AAPL',

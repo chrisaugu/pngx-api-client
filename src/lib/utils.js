@@ -27,40 +27,28 @@ export function parse_csv_to_json(body) {
     return i;
 }
 
-export function getStocksSymbols() {
-    return [  
-        "BSP",
-        "CCP",
-        "CGA",
-        "COY",
-        "CPL",
-        "KAM",
-        "KSL",
-        "NCM",
-        "NGP",
-        "NIU",
-        "SST",
-        "STO"
-    ]
+let SYMBOLS = {
+    "BSP": "BSP Financial Group Limited",
+    "CCP": "Credit Corporation (PNG) Ltd",
+    "CGA": "PNG Air Limited",
+    "COY": "Coppermoly Limited",
+    "CPL": "CPL Group",
+    "KAM": "Kina Asset Management Limited",
+    "KSL": "Kina Securities Limited",
+    "NEM": "Newmont Mining Limited",
+    "NCM": "Newcrest Mining Limited",
+    "NGP": "NGIP Agmark Limited",
+    "NIU": "Niuminco Group Limited",
+    "SST": "Steamships Trading Company Limited",
+    "STO": "Santos Limited"
 }
 
 export function getStockName(code) {
-    let names = {
-        "BSP": "BSP Financial Group Limited",
-        "CCP": "Credit Corporation (PNG) Ltd",
-        "CGA": "PNG Air Limited",
-        "COY": "Coppermoly Limited",
-        "CPL": "CPL Group",
-        "KAM": "Kina Asset Management Limited",
-        "KSL": "Kina Securities Limited",
-        "NCM": "Newcrest Mining Limited",
-        "NGP": "NGIP Agmark Limited",
-        "NIU": "Niuminco Group Limited",
-        "SST": "Steamships Trading Company Limited",
-        "STO": "Santos Limited"
-    }
-    
-    return names[code];
+    return SYMBOLS[code];
+}
+
+export function getStocksSymbols() {
+    return Object.keys(SYMBOLS)
 }
 
 export function prepareStockInfo(data) {
@@ -82,3 +70,24 @@ export function prepareStockInfo(data) {
 
     return quote;
 }
+
+const size = {
+    mobileS: '320px',
+    mobileM: '375px',
+    mobileL: '425px',
+    tablet: '768px',
+    laptop: '1024px',
+    laptopL: '1440px',
+    desktop: '2560px'
+}
+
+export const device = {
+    mobileS: `(min-width: ${size.mobileS})`,
+    mobileM: `(min-width: ${size.mobileM})`,
+    mobileL: `(min-width: ${size.mobileL})`,
+    tablet: `(min-width: ${size.tablet})`,
+    laptop: `(min-width: ${size.laptop})`,
+    laptopL: `(min-width: ${size.laptopL})`,
+    desktop: `(min-width: ${size.desktop})`,
+    desktopL: `(min-width: ${size.desktop})`
+};

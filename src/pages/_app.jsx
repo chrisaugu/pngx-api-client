@@ -11,7 +11,7 @@ import { AppProvider } from '@/contexts/AppContext';
 import { myDarkTheme, myLightTheme, myTheme } from '@/lib/theme';
 
 import "inter-ui/inter.css";
-import '@/styles/globals.css';
+import '@/styles/globals.scss';
 import GlobalStyle from "@/styles/globals";
 import useMyTheme from '@/hooks/useTheme';
 
