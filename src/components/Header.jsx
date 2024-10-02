@@ -243,7 +243,7 @@ export default function Header() {
 
           <Grid md={6}></Grid>
 
-          <Grid md={6}>
+          {/* <Grid md={6}>
             <Grid.Container gap={1} justify="flex-end">
               <Grid>
                 <Tooltip text={"Watchlists"} placement="bottom">
@@ -261,15 +261,15 @@ export default function Header() {
                       title={ themeType === "dark" ? 'Dark Mode' : 'Light Mode' }
                       icon={themeType === "dark" ? <Moon /> : <Sun />}
                       onClick={()=> switchTheme()}>
-                      {/*<svg focusable="false" data-prefix="fas" data-icon="adjust" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184 0 101.705-82.311 184-184 184z"></path></svg>*/}
+                      <svg focusable="false" data-prefix="fas" data-icon="adjust" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184 0 101.705-82.311 184-184 184z"></path></svg>
                   </RoundButton>
 
-                  {/* <ThemeToggler className={"theme-toggler"} onSwitchTheme={switchTheme} /> */}
-                  {/* <AnimatedIcon className={"theme-toggler"} onSwitchTheme={switchTheme} /> */}
+                  <ThemeToggler className={"theme-toggler"} onSwitchTheme={switchTheme} />
+                  <AnimatedIcon className={"theme-toggler"} onSwitchTheme={switchTheme} />
                 </Tooltip>
               </Grid>
               <Grid>
-                {/* <Navbar/> */}
+                <Navbar/>
                 <Tooltip text={"Info"} placement="bottom">
                   <RoundButton
                     aria-label="Info"
@@ -288,8 +288,8 @@ export default function Header() {
               </Grid>
             </Grid.Container>
 
-            {/*<ModalSettings setVisible={setVisible} bindings={bindings} />*/}
-          </Grid>
+            <ModalSettings setVisible={setVisible} bindings={bindings} />
+          </Grid>*/}
         </Grid.Container>
 
       </HeaderWrapper>
