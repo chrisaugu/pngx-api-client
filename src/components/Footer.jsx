@@ -1,7 +1,9 @@
 import React from 'react';
-import {Link, Text} from "@geist-ui/core";
+import {Link, Text, Note} from "@geist-ui/core";
 import {Github, Linkedin, Instagram} from "@geist-ui/icons";
 import styled from 'styled-components';
+import NextLink from 'next/link';
+import ServerStatus from "@/components/ServerStatus";
 
 const FooterWrapper = styled.div`
   position: relative;
@@ -21,11 +23,11 @@ const FooterWrapper = styled.div`
     background-color: #1d1d1f;
   }
 
-  a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  // a {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  // }
 
   .footnote {
     display: flex;
@@ -66,15 +68,16 @@ export default function Footer() {
             </div>
 
             <Text>
-                This site is built using NextJs, GeistUI.&nbsp;
-                All data are fetched from&nbsp;<Link color block target="_blank" href="https://www.pngx.com.pg">https://www.pngx.com.pg</Link> in realtime.
+                Checkout what was used to build this app here <NextLink as={Link} href={"/uses"} color>/uses</NextLink>.&nbsp;
+                All data are fetched from&nbsp;<Link color block target="_blank" href="https://pngx-api.onrender.com/api/stocks">https://pngx-api.onrender.com/api/stocks</Link> in realtime.
             </Text>
 
             <Text><b>Disclaimer:</b> Nuku is mainly for information purposes only. Information on this website are not intended to be a substitute for professional advice. Never disregard professional financial advice nor place your bids based on the information you have read on this website.</Text>
 
             <div className="footnote">
-                <Text>&copy; {new Date().getFullYear()}. <Link color block href="https://www.christianaugustyn.me"
+                <Text>&copy; {new Date().getFullYear()}. <Link color block href="https://github.com/chrisaugu"
                                                                 target="_blank">Christian Augustyn</Link>.</Text>
+                <ServerStatus/>
                 <Text>Made with ❤️ in <Link color block href="https://www.google.com/maps/place/Madang" target="_blank">Beautiful Madang</Link>.</Text>
             </div>
         </FooterWrapper>

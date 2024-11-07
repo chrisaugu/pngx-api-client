@@ -48,6 +48,7 @@ function MyApp({ Component, pageProps }) {
   //   }
   // }, []);
   // themes={[myDarkTheme, myLightTheme, myTheme]} themeType={{type: 'light'}}
+
   return (
     <GeistProvider >
       
@@ -132,9 +133,9 @@ function MyApp({ Component, pageProps }) {
 MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
 
+    // const menuItems = await getPrimaryMenu();
+    // return {menuItems};
+
   return { ...appProps };
-  
-  // const menuItems = await getPrimaryMenu();
-  // return {menuItems};
 };
 export default MyApp;

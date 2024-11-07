@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import Layout from "../components/Layout";
 import StocksList from "../components/StocksList";
 
-import { getFavouritesList, getLoadableStatus } from "../store/selectors";
+import { getFavouritesList, getLoadableStatus } from "@/stores/selectors";
 
 const List = styled.ul`
   list-style: none;

@@ -5,25 +5,24 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pwa: {
-    dest: "public",
-    register: true,
-    skipWaiting: true,
-  },
+  // pwa: {
+  //   dest: "public",
+  //   register: true,
+  //   skipWaiting: true,
+  // },
   // swcMinify: true,
 
-  // distDir: 'build',
+  distDir: 'build',
   
   reactStrictMode: true,
 
   images: {
-    domains: ["randomuser.me"],
+    // remotePatterns: ["randomuser.me"],
   },
 
   pageExtensions: ['jsx', 'js', 'mdx', 'md', 'ts', 'tsx'],
   
-  cssModules: true,
-  
+  // cssModules: true,
   // cssLoaderOptions: {
   //   importLoaders: 1,
   //   localIdentName: '[local]___[hash:base64:5]',

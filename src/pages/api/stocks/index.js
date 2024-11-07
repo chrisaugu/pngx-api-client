@@ -2,13 +2,14 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from "@/lib/mongodb";
 import { stocks } from "@/lib/sample-data";
 import { parse_csv_to_json, prepareStockInfo } from "@/lib/utils";
+import axios from 'axios';
 
 export default async function handler(req, res) {
     let tickers = ['BSP','CCP','CGA','CPL','KAM','KSL','NEM','NGP','NIU','SST','STO'];
 
-    Promise.all(tickers.map(ticker => fetch(`https://www.pngx.com.pg/data/${ticker}.csv`,{mode: 'cors'})))
-        .then(responses => Promise.all(responses.map(res => res.text())))
-        .then(responses => Promise.all(responses.map(res => parse_csv_to_json(res))))
+    Promise.all(tickers.map(ticker => axios.get(`https://www.pngx.com.pg/data/${ticker}.csv`)))
+        // .then(responses => Promise.all(responses.map(res => res.text())))
+        // .then(responses => Promise.all(responses.map(res => parse_csv_to_json(res))))
         // .then(stocks => Promise.all(stocks.map(data => prepareStockInfo(data))))
         .then(data => {
             res.status(200).json(data)

@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
     width: 10px;
     height: 10px;
     &-track {
-      background: GhostWhite, 0.25;
+      background: GhostWhite, 0.25px;
       box-shadow: inset 0 0 6px rgba(black, 0.15);
     }
     &-thumb {

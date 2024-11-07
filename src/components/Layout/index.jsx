@@ -1,43 +1,42 @@
 import React, { useState, useEffect } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { Page, Divider, Link, Breadcrumbs, Spacer, useToasts } from "@geist-ui/core";
+import {Page, Divider, Link, Breadcrumbs, Spacer, useToasts, useClasses} from "@geist-ui/core";
 import { ArrowLeft, Home } from "@geist-ui/icons";
 import styled from 'styled-components';
 
-import useNetwork from "../../hooks/useNetwork";
+import useNetwork from "@/hooks/useNetwork";
 
 import Header from "../Header";
 import Footer from "../Footer";
 import styles from "./Layout.module.css";
 
 const HeaderWrapper = styled(Page.Header)`
-  position: fixed !important;
-  top: 12px;
-  left: 0;
-  right: 0;
-  inset: 12px 0 auto 0;
-  opacity: 1;
-  z-index: 999;
-  padding: 0 22px !important;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    //inset: 12px 0 auto 0;
+    opacity: 1;
+    //padding: 0 22px !important;
 `;
 
 const FooterWrapper = styled(Page.Footer)`
-  display: block!important;
-  position: relative !important;
-  margin-top: 40px !important;
-  //border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
+    display: block!important;
+    position: relative !important;
+    margin-top: 40px !important;
+    //border-top: 1px solid #eaeaea;
+    justify-content: center;
+    align-items: center;
 `;
 
 const BodyWrapper = styled(Page.Content)`
-  padding: 0 !important;
-  /*padding: 1rem 0 120px !important;*/
-  width: auto !important;
-  height: auto !important;
-  display: flex;
-  flex-direction: column;
+    padding: 0 !important;
+    /*padding: 1rem 0 120px !important;*/
+    width: auto !important;
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
 `;
 
 // const ContentWrapper = styled(PageContent)`
@@ -45,15 +44,15 @@ const BodyWrapper = styled(Page.Content)`
 // `;
 
 export default function Layout({title, children}) {
-    const router = useRouter();
+    const {pathname} = useRouter();
     const { toast, setToast } = useToasts();
 
     const [isMounted, setIsMounted] = useState(false);
     useEffect(() => {
-      setIsMounted(true);
+        setIsMounted(true);
     }, []);
-    
-  
+
+
     const networkState = useNetwork();
     // const {
     //     online,
@@ -67,15 +66,15 @@ export default function Layout({title, children}) {
     // } = networkState;
 
     const click = () => {
-      const action = {
-        name: 'Refresh',
-        handler: () => window.location.reload(),
-        passive: true
-      }
+        const action = {
+            name: 'Refresh',
+            handler: () => window.location.reload(),
+            passive: true
+        }
 
-      networkState
-        ? setToast({ text: 'Your internet connection is restored.', delay: 3000, type: 'success', placement: 'bottomLeft' })
-        : setToast({ text: 'You are currently offline.', delay: 0, type: 'error', placement: 'bottomLeft', actions: [action] });
+        networkState
+            ? setToast({ text: 'Your internet connection is restored.', delay: 3000, type: 'success', placement: 'bottomLeft' })
+            : setToast({ text: 'You are currently offline.', delay: 0, type: 'error', placement: 'bottomLeft', actions: [action] });
     }
 
     return (
@@ -86,9 +85,9 @@ export default function Layout({title, children}) {
                     dotBackdrop
                     style={{
                         width: 900,
-                        // display: 'flex',
-                        // flexWrap: 'nowrap',
-                        // flexDirection: 'column'
+                        display: 'flex',
+                        flexWrap: 'nowrap',
+                        flexDirection: 'column'
                     }}
                 >
 
@@ -96,29 +95,24 @@ export default function Layout({title, children}) {
                         <Header />
                     </HeaderWrapper>
 
-                    <Spacer h={4} />
+                    <Spacer h={3} />
 
-                    {router.pathname !== "/" && (
-                        <>
-                            <div className={styles.wrapper}>
-                                <Link as={NextLink} href="/">
-                                    <span className="h"><ArrowLeft/></span>
-                                    <span className="i">&nbsp;Back Home</span>
-                                </Link>
-                            </div>
-
-                        </>
-                    )}
+                    {/* {pathname !== "/" && (
+                        <div className={styles.wrapper}>
+                            <Link href="/" className={styles.link}>
+                                <span className={styles.h}><ArrowLeft/></span>
+                                <span className="i">&nbsp;Back Home</span>
+                            </Link>
+                        </div>
+                    )} */}
 
                     <BodyWrapper>
                         {children}
                     </BodyWrapper>
 
-                    <Divider />
-
                     <FooterWrapper>
                         <Footer/>
-                    </FooterWrapper> 
+                    </FooterWrapper>
                 </Page>
             }
         </>

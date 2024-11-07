@@ -1,62 +1,32 @@
-import { useState, useEffect, useReducer } from "react"
+'use client';
+
+import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from 'react-redux';
-import Head from 'next/head'
-import NextLink from 'next/link'
 import {
-    Button,
-    Input,
     Spacer,
     Text,
-    Link,
-    Image,
-    Display,
-    Grid,
-    Tag,
-    Select,
-    Card,
-    Divider,
-    Toggle,
-    Code,
-    Snippet,
-    Avatar,
-    ButtonGroup,
-    Description,
-    Popover,
-    Tabs,
-    Pagination,
     AutoComplete,
-    Loading,
-    useToasts,
     useTheme,
-    Spinner
+    Spinner, Loading, Toggle
 } from '@geist-ui/core';
-import {AtSign, ArrowUp, Star } from '@geist-ui/icons'
 import _ from 'underscore';
-import { format, startOfDay, endOfDay, subDays, formatDistance, formatRelative } from 'date-fns';
-import useSWR from 'swr';
 
 import Layout from "../components/Layout";
 // import {ButtonExample, Button as MyButton} from "../components/Button";
-import StocksList from "../components/StocksList";
-import FavouritesList from "../components/FavouritesList";
-import Graph from "../components/Charts/Large";
-import Analytics from "../components/Analytics";
+import StocksList from "@components/StocksList";
 
-import store from '../store/configureStore';
-import { fetchStocksFromAPI, /*getStocks*/ } from '../store/stocks/stocks';
-import { fetchStocks, fetchData, getData, setLastUpdated, setDate, setLoadableStatus } from "../store/actions";
-import { getStockList, getFavouritesList, getLastUpdated, getLoadableStatus } from "../store/selectors";
-import StockCard from "../components/Cards/StockCard";
+import { getStockList, getFavouritesList, getLastUpdated, getLoadableStatus } from "@/stores/selectors";
+import { CardWrapper } from "@components/Cards";
+import api from "@/lib/api";
+import {formatDistance, formatRelative} from "date-fns";
+import {useGetStocksQuery} from "../services/stock";
+import {StockTickerCard, StockTickerCard2, StockTickerCard3} from "../components/Cards/StockTickerCard";
 import SweetCard from "../components/Cards/SweetCard";
-import { CardWrapper } from "../components/Cards";
-import { StockTickerCard, StockTickerCard2, StockTickerCard3 } from "@/components/Cards/StockTickerCard";
+import Analytics from "../components/Analytics";
 // import client from "@/lib/mongodb";
 
 // import img1 from "./Assets/images/img1.jpg";
 // import img2 from "./Assets/images/img2.jpg";
-
-{/*YjFiZDM1NDAtMjgwNi00MTIwLThiMDctM2VkOGQ5NzRkZDVk*/}
-
 
 // export const getServerSideProps = async () => {
 //   try {
@@ -75,51 +45,41 @@ import { StockTickerCard, StockTickerCard2, StockTickerCard3 } from "@/component
 const Home = () => {
     const {pallete} = useTheme();
     const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(false);
+    // const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
-    const [stocks, setStocks] = useState([]);
-    const [data, setData] = useState([]);
+    // const [stocks, setStocks] = useState([]);
+    // const [data, setData] = useState([]);
     const [isFirstTime, setIsFirstTime] = useState(false);
-    
-    // const stocksList = stocks;
+
     const stocksList = useSelector(getStockList);
-    // console.log(stocksList)
     const favouritesList = useSelector(getFavouritesList);
-    // console.log(favouritesList);
-
     const lastUpdated = useSelector(getLastUpdated);
-
     const loadable = useSelector(getLoadableStatus);
 
-    const fetcher = (url) => fetch(url).then(res => res.json());
-    // const { data, error } = useSWR('/api/stocks', fetcher);
+    const {data, isFetching, isLoading, error} = useGetStocksQuery();
 
-    // if (error) return "An error has occurred.";
-    // if (!data) return "Loading...";
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         setIsError(false);
+    //         setIsLoading(true);
+    //
+    //         try {
+    //             // const result = await fetcher("https://pngx-api.onrender.com/api/stocks");
+    //             const result = await api.get("http://localhost:5000/api/stocks");
+    //             console.log(result.data)
+    //
+    //             setData(result.data.data);
+    //         } catch (error) {
+    //             setIsError(true);
+    //         }
+    //
+    //         setIsLoading(false);
+    //     };
+    //
+    //     fetchData();
+    // }, []);
 
-    // // let stocks = data.data;
-    // let stock = data.data[0];
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setIsError(false);
-            setIsLoading(true);
-
-            try {
-                const result = await fetcher("https://pngx-api.onrender.com/api/stocks");
-
-                setData(result.data);
-            } catch (error) {
-                setIsError(true);
-            }
-
-            setIsLoading(false);
-        };
-
-        fetchData();
-    }, []);
-
-    // // Format Dates
+    // Format Dates
     // const start = format(subDays(startDate, 0), "yyyy-MM-dd");
     // const end = format(endDate, "yyyy-MM-dd");
 
@@ -157,8 +117,8 @@ const Home = () => {
     //                     console.log(m._id == stock._id)
     //                 });
 
-    //                 // const unsubscribe = store.subscribe(() =>
-    //                 //     console.log('State after dispatch: ', store.getState())
+    //                 // const unsubscribe = stores.subscribe(() =>
+    //                 //     console.log('State after dispatch: ', stores.getState())
     //                 // );
     //                 // unsubscribe();
     //             })
@@ -178,7 +138,7 @@ const Home = () => {
     // // });
 
     const sortData = (data) => {
-      setStocks(_.sortBy(stocks, 'name'));
+        setStocks(_.sortBy(stocks, 'name'));
     }
 
     const showGraph = () => {
@@ -193,7 +153,7 @@ const Home = () => {
         ]
         return <AutoComplete placeholder="Enter here" options={options} />
     }
-    
+
     const stockData = {
         stockName: "Apple Inc.",
         tickerSymbol: "AAPL",
@@ -201,7 +161,7 @@ const Home = () => {
         priceChange: 2.75, // positive for gains, negative for losses
         logoUrl: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg", // Example Apple logo
     };
-    
+
     const stock = {
         symbol: 'AAPL',
         name: 'Apple Inc.',
@@ -215,50 +175,48 @@ const Home = () => {
             {isFirstTime && (<CardWrapper>
                 <Text h1 style={{color: 'white'}}>Welcome to <span style={{color: 'aquamarine'}}><b><i>Nuku</i></b>.</span></Text>
             </CardWrapper>)}
-            
-            {/* <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
-                <StockTickerCard
-                    stockName={stockData.stockName}
-                    tickerSymbol={stockData.tickerSymbol}
-                    price={stockData.price}
-                    priceChange={stockData.priceChange}
-                    logoUrl={stockData.logoUrl}
-                />
-                
-                <StockTickerCard2 stock={stock} />
 
-                <StockTickerCard3
-                    stockName="Cisco Systems, Inc."
-                    tickerSymbol="CSCO"
-                    price={45.80}
-                    priceChange={0.54}
-                    percentageChange={1.19}
-                    graphColor="green"
-                />
+            {/*<div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>*/}
+            {/*    <StockTickerCard*/}
+            {/*        stockName={stockData.stockName}*/}
+            {/*        tickerSymbol={stockData.tickerSymbol}*/}
+            {/*        price={stockData.price}*/}
+            {/*        priceChange={stockData.priceChange}*/}
+            {/*        logoUrl={stockData.logoUrl}*/}
+            {/*    />*/}
+            {/*    */}
+            {/*    <StockTickerCard2 stock={stock} />*/}
 
-                <StockTickerCard3
-                    stockName="Amazon.com, Inc."
-                    tickerSymbol="AMZN"
-                    price={3193.00}
-                    priceChange={-133.13}
-                    percentageChange={-4.00}
-                    graphColor="red"
-                />
-                <StockTickerCard3
-                    stockName="Arista Networks"
-                    tickerSymbol="ANET"
-                    price={308.00}
-                    priceChange={0.31}
-                    percentageChange={0.10}
-                    graphColor="green"
-                />
-            </div> */}
+            {/*    <StockTickerCard3*/}
+            {/*        stockName="Cisco Systems, Inc."*/}
+            {/*        tickerSymbol="CSCO"*/}
+            {/*        price={45.80}*/}
+            {/*        priceChange={0.54}*/}
+            {/*        percentageChange={1.19}*/}
+            {/*        graphColor="green"*/}
+            {/*    />*/}
 
-            {/* <SweetCard/> */}
-            
-            {/*<Analytics />*/}
+            {/*    <StockTickerCard3*/}
+            {/*        stockName="Amazon.com, Inc."*/}
+            {/*        tickerSymbol="AMZN"*/}
+            {/*        price={3193.00}*/}
+            {/*        priceChange={-133.13}*/}
+            {/*        percentageChange={-4.00}*/}
+            {/*        graphColor="red"*/}
+            {/*    />*/}
+            {/*    <StockTickerCard3*/}
+            {/*        stockName="Arista Networks"*/}
+            {/*        tickerSymbol="ANET"*/}
+            {/*        price={308.00}*/}
+            {/*        priceChange={0.31}*/}
+            {/*        percentageChange={0.10}*/}
+            {/*        graphColor="green"*/}
+            {/*    />*/}
+            {/*</div>*/}
 
-            {/*<Text>
+             {/*<SweetCard/>*/}
+
+            {/*<Text>*/}
             {/*    S*/}
             {/*    <Toggle onChange={showGraph} />*/}
             {/*</Text>*/}
@@ -275,27 +233,21 @@ const Home = () => {
             {/*{loadable.state === "hasValue" && <TableReport data={feed} />}*/}
             {/* {loadable.state !== "loading" && <Loading>Loading</Loading>} */}
 
-            {isLoading && <Spinner/>}
+            <StocksList stocks={data?.data}/>
 
-            {loadable.state !== "hasValue" && (
-                <>
-                    <StocksList stocks={data}/>
+            <Spacer h={1} />
 
-                    <Spacer h={1} />
+            <div style={{
+                display: 'flex',
+                flexWrap: 'nowrap',
+                justifyContent: 'center'
+            }}>
+                {/*<Pagination count={stocksList.length} initialPage={0} limit={11} onChange={(e) => console.log(e)} />*/}
+            </div>
 
-                    <div style={{
-                        display: 'flex',
-                        flexWrap: 'nowrap',
-                        justifyContent: 'center'
-                    }}>
-                        {/*<Pagination count={stocksList.length} initialPage={0} limit={11} onChange={(e) => console.log(e)} />*/}
-                    </div>
-                </>
-            )}
-
-            {/* <Spacer h={2} /> */}
-            {/* <Text>Last updated {lastUpdated && formatDistance(new Date(lastUpdated), new Date(), { addSuffix: true })}</Text> */}
-            {/* <Text>Last updated on {lastUpdated && formatRelative(new Date(lastUpdated), new Date())}</Text> */}
+            <Spacer h={2} />
+            {/* <Text>Last updated {lastUpdated && formatDistance(new Date(data.last_updated), new Date(), { addSuffix: true })}</Text> */}
+            {/* <Text>Last updated on {lastUpdated && formatRelative(new Date(data.last_updated), new Date())}</Text> */}
 
         </Layout>
     )

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from "prop-types";
 import _ from 'underscore';
-import {Select, Text, Pagination, Grid, ButtonGroup, Button} from "@geist-ui/core";
+import {Select, Text, Pagination, Grid, ButtonGroup, Button, Spinner} from "@geist-ui/core";
 import { GridIcon, AlignJustify } from "@geist-ui/icons";
 
 import NormalButton from "./Buttons/Normal";
@@ -129,6 +129,8 @@ const StocksList = ({stocks}) => {
                     </Options>
 
                     <div className=''>
+                        {!stocks && <Spinner/>}
+
                         { stocks && stocks.map((quote, i) => {
                             return (
                                 <StockCard key={i} stock={quote}/>

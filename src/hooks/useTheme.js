@@ -26,10 +26,6 @@ function useMyTheme() {
   // };
 
   const [themeType, setThemeType] = useState('light');
-  // const switchThemes = () => {
-  //     setThemeType(last => (last === 'dark' ? 'light' : 'dark'))
-  // }
-
   // const [theme, setTheme] = useState(TOKENS_DARK)
 
   // useEffect(() => {
@@ -37,7 +33,7 @@ function useMyTheme() {
   //         ? TOKENS_DARK
   //         : TOKENS_LIGHT)
   // }, []);
-  // const [themeType, setThemeType] = useState('dark');
+
   // useEffect(() => {
   //   document.documentElement.removeAttribute('style');
   //   document.body.removeAttribute('style');

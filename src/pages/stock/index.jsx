@@ -1,15 +1,14 @@
 import React from "react";
 import { GetStaticProps } from 'next';
 import Link from 'next/link'
-import {Spacer, Button} from "@geist-ui/core";
+import {Spacer, Button, Text} from "@geist-ui/core";
 
 import { sampleUserData } from '@/lib/sample-data';
 import Layout from '@/components/Layout';
 
 const WithStaticProps = ({ items }) => (
     <Layout title="Users List | Next.js + TypeScript Example">
-        <Spacer h={5.3}/>
-        <h1>Users List</h1>
+        <Text h2>Users List</Text>
         <p>
             Example fetching data from inside <code>getStaticProps()</code>.
         </p>
@@ -24,7 +23,7 @@ const WithStaticProps = ({ items }) => (
         <p>
             <Button>
                 <Link href="/">
-                    <a>Go home</a>
+                    Go home
                 </Link>
             </Button>
         </p>

@@ -18,7 +18,7 @@ export function parse_csv_to_json(body) {
         if (l.length == a.length) {
             // run through the header row
             // attaches splited row to the header row
-            // then store it on variable d
+            // then stores it on variable d
             // create array by pushing the stored data to the variable i
             for(var d = {}, u = 0; u < a.length; u++) d[a[u]] = l[u]; i.push(d)
         }

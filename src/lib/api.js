@@ -1,45 +1,47 @@
 import axios from 'axios';
 
-// const API_URL = "http://localhost:5000/api";
-const API_URL = "https://pngx-api.onrender.com/api";
+const API_URL = "http://localhost:5000/api";
+// const API_URL = "https://pngx-api.onrender.com/api";
 
 export default axios.create({
   "baseUrl": API_URL,
   "headers": {
     'Content-Type': 'application/json',
   },
-  "withCredentials": true
+  // "withCredentials": true
 });
 
-// async function fetchAPI(url, options = { method: 'GET' }) {
-//   const headers = { 
-//     'Content-Type': 'application/json'
-//   }
+async function fetchAPI(url, options = { method: 'GET' }) {
+  const headers = {
+    'Content-Type': 'application/json'
+  }
 
-//   if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
-//     headers['Authorization'] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
-//   }
-  
-//   const res = await fetch(API_URL + url, options);
+  if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
+    headers['Authorization'] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
+  }
 
-//   const json = await res.json();
+  const res = await fetch(API_URL + url, options);
 
-//   if (json.errors) {
-//     console.error(json.errors);
-//     throw new Error('Failed to fetch API');
-//   }
-//   return json;
-// }
+  const json = await res.json();
 
-// async function fetch2(query, { variables } = {}) {
-//   fetchAPI("/stocks", {
-//     method: 'POST',
-//     body: JSON.stringify({
-//       query,
-//       variables,
-//     })
-//   })
-// }
+  if (json.errors) {
+    console.error(json.errors);
+    throw new Error('Failed to fetch API');
+  }
+  return json;
+}
+
+async function fetch2(query, { variables } = {}) {
+  await fetchAPI("/stocks", {
+    method: 'POST',
+    body: JSON.stringify({
+      query,
+      variables,
+    })
+  })
+}
+
+export const fetcher = (url) => fetch(url).then(res => res.json());
 
 let todos = [];
 const delay = () => new Promise((res) => setTimeout(() => res(), 800));

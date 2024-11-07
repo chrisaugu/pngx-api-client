@@ -1,4 +1,4 @@
-import { DependencyList, useEffect } from 'react'
+import { DependencyList, useEffect, useRef } from 'react'
 
 export type AsyncEffectCallbackMounted = () => boolean
 
@@ -17,7 +17,8 @@ const useAsync = (
   deps: DependencyList,
   catchHandler?: CatchCallback,
 ) => {
-  let mounted = true
+  const mounted = useRef(true);
+
   const defaultCatchHandler = (error: Error) => {
     console.log(error.message)
     throw error
@@ -25,11 +26,12 @@ const useAsync = (
   const catchFn = catchHandler || defaultCatchHandler
 
   useEffect(() => {
-    Promise.resolve(effect(() => mounted)).catch(catchFn)
+    Promise.resolve(effect(() => mounted.current)).catch(catchFn)
+
     return () => {
-      mounted = false
+      mounted.current = false
     }
-  }, deps)
+  }, [...deps])
 }
 
 export default useAsync

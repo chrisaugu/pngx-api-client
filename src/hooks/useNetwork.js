@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, createContext } from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 
 // function useNetwork() {
 //   const [state, setState] = useState(() => {
@@ -133,6 +133,5 @@ export const OnlineStatusProvider = ({ children }) => {
 };
 
 export const useOnlineStatus = () => {
-  const store = useContext(OnlineStatusContext);
-  return store;
+  return useContext(OnlineStatusContext);
 };

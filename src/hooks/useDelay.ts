@@ -6,27 +6,28 @@ export type DelayReturnType<T extends number> = {
   [K in keyof Record<string, unknown> as `setDelay${T}ms`]: DelayHandler
 }
 
-const useDelay = <T extends number>(delay: T): DelayReturnType<T> => {
-  const delays = []
-  const setDelay: DelayHandler = (fn, time) => {
-    const timer = setTimeout(() => {
-      fn()
-      clearTimeout(timer)
-    }, time || delay)
-    delays.push(timer)
-  }
+const useDelay = <T extends number>(delay: T)/*: DelayReturnType<T> =>*/ => {
+  // const delays: NodeJS.Timeout[] = [];
 
-  useEffect(() => {
-    return () => {
-      delays.forEach(timer => {
-        timer && clearTimeout(timer)
-      })
-    }
-  }, [])
+  // const setDelay: DelayHandler = (fn, time) => {
+  //   const timer = setTimeout(() => {
+  //     fn()
+  //     clearTimeout(timer)
+  //   }, time || delay)
+  //   delays.push(timer)
+  // }
 
-  return {
-    [`setDelay${delay}ms`]: setDelay,
-  }
+  // useEffect(() => {
+  //   return () => {
+  //     delays.forEach(timer => {
+  //       timer && clearTimeout(timer)
+  //     })
+  //   }
+  // }, [delays])
+
+  // return {
+  //   [`setDelay${delay}ms`]: setDelay,
+  // }
 }
 
 export default useDelay
