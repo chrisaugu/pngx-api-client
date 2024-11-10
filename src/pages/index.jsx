@@ -106,7 +106,7 @@ const Home = () => {
             setIsLoading(true);
 
             try {
-                const result = await fetcher("https://pngx-api.onrender.com/api/stocks");
+                const result = await fetcher("https://nuku-457caot7.b4a.run/api/stocks");
 
                 setData(result.data);
             } catch (error) {

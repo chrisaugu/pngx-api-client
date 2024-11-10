@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // const API_URL = "http://localhost:5000/api";
-const API_URL = "https://pngx-api.onrender.com/api";
+// const API_URL = "https://pngx-api.onrender.com/api";
+const API_URL = "https://nuku-457caot7.b4a.run/api";
 
 export default axios.create({
   "baseUrl": API_URL,

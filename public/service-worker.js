@@ -156,7 +156,7 @@ self.addEventListener("fetch", (event) => {
   console.log('Fetching:', request.url);
   // event.respondWith(fetch(request));
 
-  if (url.origin === "https://pngx-api.onrender.com/api") {
+  if (url.origin === "https://nuku-457caot7.b4a.run/api") {
     event.respondWith(networkFirstStrategy(request));
   } else if (request.mode === "navigate") {
     event.respondWith(cacheFirstStrategy(request));
